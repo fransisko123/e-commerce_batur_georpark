@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Toko;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TokoController extends Controller
 {
@@ -23,7 +25,12 @@ class TokoController extends Controller
      */
     public function create()
     {
-        return view('admin.toko.create');
+        $users = User::where('role', 'pemilik_toko')->get();
+        return view('admin.toko.create',
+            [
+                'users' => $users
+            ]
+        );
     }
 
     /**
@@ -31,19 +38,30 @@ class TokoController extends Controller
      */
     public function store(Request $request)
     {
-        $toko = new Toko();
+       // Validasi input menggunakan Validator
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|unique:tb_toko',
+            'deskripsi' => 'nullable',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $toko = new Toko();
+        $toko->user_id = $request->pemilik_toko;
         $toko->nama = $request->nama;
         $toko->deskripsi = $request->deskripsi;
 
         if($request->file('image')){
             $file= $request->file('image');
             $filename= date('YmdHi').$file->getClientOriginalName();
-            $file-> move(storage_path('storage/image_toko'), $filename);
+            $file-> move(storage_path('app/public/image_toko'), $filename);
             $toko->image = $filename;
         }
         $toko->save();
-        return redirect()->route('toko.index')->with('status', 'Berhasil Menambahkan Slider.');
+        return redirect()->route('toko.index')->with('status', 'Berhasil Menambahkan Toko Baru.');
     }
 
     /**
@@ -57,24 +75,67 @@ class TokoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Toko $toko)
+    public function edit($id)
     {
-        //
+        $users = User::where('role', 'pemilik_toko')->get();
+        $toko = Toko::findOrFail($id);
+        return view('admin.toko.edit',
+            [
+                'users' => $users,
+                'toko' => $toko
+            ]
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Toko $toko)
+    public function update(Request $request, $id)
     {
-        //
+        // Validasi input menggunakan Validator
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|unique:tb_toko,nama,' . $id,
+            'deskripsi' => 'nullable',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $toko = Toko::findOrFail($id);
+
+        $toko->user_id = $request->pemilik_toko;
+        $toko->nama = $request->nama;
+        $toko->deskripsi = $request->deskripsi;
+
+        if ($request->file('image')) {
+
+            if ($toko->image && file_exists(storage_path('app/public/image_toko' . $toko->image))) {
+                unlink(storage_path('app/public/image_toko' . $toko->image));
+            }
+
+            $file = $request->file('image');
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(storage_path('app/public/image_toko'), $filename);
+            $toko->image = $filename;
+        }
+
+        $toko->save();
+        return redirect()->route('toko.index')->with('status', 'Berhasil Memperbarui Toko.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Toko $toko)
+    public function destroy($id)
     {
-        //
+        $toko = Toko::findOrFail($id);
+        if (file_exists(storage_path('app/public/image_toko' . $toko->image))) {
+            unlink(storage_path('app/public/image_toko' . $toko->image));
+        }
+        $toko->delete();
+        return redirect()->route('toko.index')->with('status', 'Berhasil Menghapus Toko.');
     }
 }
