@@ -30,6 +30,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('toko', TokoController::class);
     Route::get('produk/{toko}/list_produk', [ProdukController::class, 'index'])->name('produk.index');
+    Route::get('produk/{toko}/create', [ProdukController::class, 'create'])->name('produk.create');
+    Route::post('produk/{toko}/store', [ProdukController::class, 'store'])->name('produk.store');
 });
 
 require __DIR__.'/auth.php';

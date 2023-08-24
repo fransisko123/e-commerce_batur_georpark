@@ -4,9 +4,6 @@
 
 @section('additional_css')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="{{ asset('admin_assets/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}">
-<link rel="stylesheet" href="{{ asset('admin_assets/assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css') }}">
-<link rel="stylesheet" href="{{ asset('admin_assets/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css') }}">
 @endsection
 
 @section('content')
@@ -27,7 +24,7 @@
         <h4 class="fw py-3 mb-4">
           List Produk Pada <b>{{ $toko->nama }}</b>
         </h4>
-      <a href="#" class="btn btn-primary">
+      <a href="{{ route('produk.create', $toko->id) }}" class="btn btn-primary">
         <span class="bx bx-plus-circle"></span>&nbsp; Tambah Produk
       </a>
     </div>
@@ -40,17 +37,21 @@
               <th>Deskripsi Produk</th>
               <th>Harga Produk</th>
               <th>Stok</th>
+              <th>Image</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>test</td>
-              <td>test</td>
-              <td>test</td>
-              <td>test</td>
-              <td>test</td>
-            </tr>
+            @foreach ($toko->produks as $item)
+              <tr>
+                <td>{{ $item->nama }}</td>
+                <td>{{ $item->deskripsi }}</td>
+                <td>Rp.{{ number_format($item->harga, 2, ',', '.') }}</td>
+                <td>{{ $item->stok }}</td>
+                <td><img src="{{ asset('storage/image_produk/' . $item->image) }}" width="100"></td>
+                <td>test</td>
+              </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
@@ -78,11 +79,8 @@
 
 @section('additional_js')
 <script src="{{ asset('admin_assets/assets/js/ui-modals.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="{{ asset('admin_assets/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}"></script>
-<script src="{{ asset('admin_assets/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
-<script src="{{ asset('admin_assets/assets/js/docs.js') }}"></script>
-<script src="{{ asset('admin_assets/assets/js/docs-tables-datatables.js') }}"></script>
 <script>
   function showConfirmationModal(button) {
     var id = $(button).data('id');
