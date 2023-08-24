@@ -26,6 +26,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ $item->nama }}</h5>
               <p class="card-text">{{ $item->deskripsi }}</p>
+              <a href="{{ route('produk.index', $item->id) }}" class="btn btn-outline-info">Produk</a>
               <a href="{{ route('toko.edit', $item->id) }}" class="btn btn-outline-primary">Edit</a>
               {{-- <button class="btn btn-outline-danger" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)"> --}}
               <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)">

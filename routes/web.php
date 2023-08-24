@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TokoController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TokoController;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ Route::middleware('auth', 'verified')->group(function () {
     // Dashboard Admin
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('toko', TokoController::class);
+    Route::get('produk/{toko}/list_produk', [ProdukController::class, 'index'])->name('produk.index');
 });
 
 require __DIR__.'/auth.php';

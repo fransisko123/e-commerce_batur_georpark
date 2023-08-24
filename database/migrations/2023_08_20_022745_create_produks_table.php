@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->decimal('harga', 10, 2);
             $table->integer('stok');
+            $table->string('image');
             $table->timestamps();
 
             $table->foreign('toko_id')->references('id')->on('tb_produk')->onDelete('cascade');

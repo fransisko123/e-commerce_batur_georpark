@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Toko;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,12 @@ class ProdukController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id_toko)
     {
-        //
+        $toko = Toko::findOrFail($id_toko);
+        return view('admin.toko.produk.index',
+            ['toko' => $toko]
+        );
     }
 
     /**
