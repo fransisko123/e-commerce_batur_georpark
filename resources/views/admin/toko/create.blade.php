@@ -35,11 +35,11 @@
           </div>
           <div class="mb-3">
             <label for="nama" class="form-label">Nama Toko</label>
-            <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan Nama Toko" required>
+            <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan Nama Toko" value="{{ old('nama') }}" required>
           </div>
           <div class="mb-3">
             <label for="deskripsi" class="form-label">Deskripsi Toko</label>
-            <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3"></textarea>
+            <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3">{{ old('deskripsi') }}</textarea>
           </div>
           <div class="mb-3">
             <label for="image" class="form-label">Image</label>

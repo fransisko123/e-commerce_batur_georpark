@@ -38,7 +38,7 @@ class ProdukController extends Controller
     {
         // Validasi input menggunakan Validator
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|unique:tb_toko',
+            'nama' => 'required|unique:tb_produk,nama',
             'deskripsi' => 'nullable',
             'harga' => 'required|numeric',
             'stok' => 'required|numeric',
@@ -59,7 +59,7 @@ class ProdukController extends Controller
         if($request->file('image')){
             $file= $request->file('image');
             $filename= date('YmdHi').$file->getClientOriginalName();
-            $file-> move(storage_path('app/public/image_produk'), $filename);
+            $file-> move(storage_path('app/public/image_produk/'), $filename);
             $produk->image = $filename;
         }
         $produk->save();
@@ -77,24 +77,68 @@ class ProdukController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Produk $produk)
+    public function edit($id)
     {
-        //
+        $produk = Produk::findOrFail($id);
+        return view('admin.toko.produk.edit',
+            [
+                'produk' => $produk
+            ]
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Produk $produk)
+    public function update(Request $request, $id_toko, $id_produk)
     {
-        //
+        // Validasi input menggunakan Validator
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|unique:tb_produk,nama,' . $id_produk,
+            'deskripsi' => 'nullable',
+            'harga' => 'required|numeric',
+            'stok' => 'required|numeric',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $produk = Produk::findOrFail($id_produk);
+
+        $produk->nama = $request->nama;
+        $produk->deskripsi = $request->deskripsi;
+        $produk->harga = $request->harga;
+        $produk->stok = $request->stok;
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(storage_path('app/public/image_produk/'), $filename);
+
+            // Hapus file gambar lama jika ada
+            if ($produk->image) {
+                unlink(storage_path('app/public/image_produk/' . $produk->image));
+            }
+
+            $produk->image = $filename;
+        }
+
+        $produk->save();
+        return redirect()->route('produk.index', $id_toko)->with('status', 'Berhasil Mengupdate Produk.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Produk $produk)
+    public function destroy($id)
     {
-        //
+        $produk = Produk::findOrFail($id);
+        if (file_exists(storage_path('app/public/image_produk/' . $produk->image))) {
+            unlink(storage_path('app/public/image_produk/' . $produk->image));
+        }
+        $produk->delete();
+        return redirect()->route('produk.index', $produk->toko_id)->with('status', 'Berhasil Menghapus Produk.');
     }
 }

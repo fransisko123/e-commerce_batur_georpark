@@ -29,9 +29,13 @@ Route::middleware('auth', 'verified')->group(function () {
     // Dashboard Admin
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('toko', TokoController::class);
-    Route::get('produk/{toko}/list_produk', [ProdukController::class, 'index'])->name('produk.index');
+
+    Route::get('{toko}/produk/list_produk', [ProdukController::class, 'index'])->name('produk.index');
     Route::get('produk/{toko}/create', [ProdukController::class, 'create'])->name('produk.create');
     Route::post('produk/{toko}/store', [ProdukController::class, 'store'])->name('produk.store');
+    Route::get('produk/{toko}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
+    Route::put('produk/{toko}/update/{produk}', [ProdukController::class, 'update'])->name('produk.update');
+    Route::delete('produk/{produk}/delete', [ProdukController::class, 'destroy'])->name('produk.destroy');
 });
 
 require __DIR__.'/auth.php';

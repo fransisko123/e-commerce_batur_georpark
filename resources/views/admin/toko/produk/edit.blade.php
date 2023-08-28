@@ -1,11 +1,11 @@
 @extends('admin_layouts/master')
 
-@section('title', 'Tambah Produk')
+@section('title', 'Edit Produk')
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center">
       <h4 class="fw-bold py-3">
-        <span class="text-muted fw-light"><a href="{{ route('toko.index') }}">Toko</a> /</span> Buat Produk
+        <span class="text-muted fw-light"><a href="{{ route('toko.index') }}">Toko</a> /</span> Edit Produk
       </h4>
     </div>
 
@@ -20,29 +20,31 @@
     @endif
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow rounded mb-4">
-      <h5 class="card-header">Form Buat Produk</h5>
+      <h5 class="card-header">Form Edit Produk</h5>
       <div class="card-body">
-        <form action="{{ route('produk.store', $toko->id) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('produk.update', [$produk->toko_id, $produk->id]) }}" method="post" enctype="multipart/form-data">
           @csrf
+          @method('PUT')
           <div class="mb-3">
             <label for="nama" class="form-label">Nama Produk</label>
-            <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan Nama Produk" value="{{ old('nama') }}" required>
+            <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan Nama Produk" value="{{ old('nama', $produk->nama) }}" required>
           </div>
           <div class="mb-3">
             <label for="deskripsi" class="form-label">Deskripsi Produk</label>
-            <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3">{{ old('deskripsi') }}</textarea>
+            <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3">{{ old('nadeskripsima', $produk->deskripsi) }}</textarea>
           </div>
           <div class="mb-3">
             <label for="harga" class="form-label">Harga Produk</label>
-            <input type="number" class="form-control" name="harga" id="harga" value="{{ old('harga') }}" placeholder="Masukan Harga Produk" required>
+            <input type="number" class="form-control" name="harga" id="harga" placeholder="Masukan Harga Produk" value="{{ old('harga', $produk->harga) }}" required>
           </div>
           <div class="mb-3">
             <label for="stok" class="form-label">Stok Produk</label>
-            <input type="number" class="form-control" name="stok" id="stok" value="{{ old('stok') }}" placeholder="Masukan Stok Produk" required>
+            <input type="number" class="form-control" name="stok" id="stok" placeholder="Masukan Stok Produk" value="{{ old('stok', $produk->stok) }}" required>
           </div>
+          <img src="{{ asset('storage/image_produk/' . $produk->image) }}" width="180" class="rounded mb-3">
           <div class="mb-3">
             <label for="image" class="form-label">Image</label>
-            <input class="form-control" type="file" name="image" id="image" required>
+            <input class="form-control" type="file" name="image" id="image">
           </div>
           <button type="submit" class="btn btn-primary mt-4">Simpan</button>
         </form>

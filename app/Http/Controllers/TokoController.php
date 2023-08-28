@@ -57,7 +57,7 @@ class TokoController extends Controller
         if($request->file('image')){
             $file= $request->file('image');
             $filename= date('YmdHi').$file->getClientOriginalName();
-            $file-> move(storage_path('app/public/image_toko'), $filename);
+            $file-> move(storage_path('app/public/image_toko/'), $filename);
             $toko->image = $filename;
         }
         $toko->save();
@@ -111,13 +111,13 @@ class TokoController extends Controller
 
         if ($request->file('image')) {
 
-            if ($toko->image && file_exists(storage_path('app/public/image_toko' . $toko->image))) {
-                unlink(storage_path('app/public/image_toko' . $toko->image));
+            if ($toko->image && file_exists(storage_path('app/public/image_toko/' . $toko->image))) {
+                unlink(storage_path('app/public/image_toko/' . $toko->image));
             }
 
             $file = $request->file('image');
             $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(storage_path('app/public/image_toko'), $filename);
+            $file->move(storage_path('app/public/image_toko/'), $filename);
             $toko->image = $filename;
         }
 
@@ -132,8 +132,8 @@ class TokoController extends Controller
     public function destroy($id)
     {
         $toko = Toko::findOrFail($id);
-        if (file_exists(storage_path('app/public/image_toko' . $toko->image))) {
-            unlink(storage_path('app/public/image_toko' . $toko->image));
+        if (file_exists(storage_path('app/public/image_toko/' . $toko->image))) {
+            unlink(storage_path('app/public/image_toko/' . $toko->image));
         }
         $toko->delete();
         return redirect()->route('toko.index')->with('status', 'Berhasil Menghapus Toko.');

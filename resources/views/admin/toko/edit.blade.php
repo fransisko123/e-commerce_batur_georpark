@@ -35,11 +35,11 @@
           </div>
           <div class="mb-3">
             <label for="nama" class="form-label">Nama Toko</label>
-            <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan Nama Toko" value="{{ $toko->nama }}" required>
+            <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan Nama Toko" value="{{ old('nama', $toko->nama) }}" required>
           </div>
           <div class="mb-3">
             <label for="deskripsi" class="form-label">Deskripsi Toko</label>
-            <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3">{{ $toko->deskripsi }}</textarea>
+            <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3">{{ old('deskripsi', $toko->deskripsi) }}</textarea>
           </div>
           <img src="{{ asset('storage/image_toko/' . $toko->image) }}" width="180" class="rounded mb-3">
           <div class="mb-3">

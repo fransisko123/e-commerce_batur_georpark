@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('image');
             $table->timestamps();
 
-            $table->foreign('toko_id')->references('id')->on('tb_produk')->onDelete('cascade');
+            $table->foreign('toko_id')->references('id')->on('tb_toko')->onDelete('cascade');
         });
     }
 

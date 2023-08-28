@@ -49,7 +49,16 @@
                 <td>Rp.{{ number_format($item->harga, 2, ',', '.') }}</td>
                 <td>{{ $item->stok }}</td>
                 <td><img src="{{ asset('storage/image_produk/' . $item->image) }}" width="100"></td>
-                <td>test</td>
+                <td>
+                  <a href="{{ route('produk.edit', $item->id) }}" class="btn btn-primary">Edit</a>
+                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)">
+                    Hapus
+                  </button>
+                  <form id="delete-form" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                  </form>
+                </td>
               </tr>
             @endforeach
           </tbody>
@@ -61,12 +70,12 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Hapus Toko</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Hapus Produk</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
               </button>
           </div>
           <div class="modal-body">
-            <p>Apakah anda yakin ingin menghapus toko.</p>
+            <p>Apakah anda yakin ingin menghapus produk.</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -85,7 +94,7 @@
   function showConfirmationModal(button) {
     var id = $(button).data('id');
     $('#delete-confirmation-modal').modal('show');
-    $('#delete-form').attr('action', '/toko/' + id);
+    $('#delete-form').attr('action', '/produk/' + id + "/delete");
   }
 
   function deleteData() {
