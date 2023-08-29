@@ -5,6 +5,7 @@ use App\Http\Controllers\TokoController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KategoriProdukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,7 @@ Route::middleware('auth', 'verified')->group(function () {
     // Dashboard Admin
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('toko', TokoController::class);
+    Route::resource('kategori_produk', KategoriProdukController::class);
 
     Route::get('{toko}/produk/list_produk', [ProdukController::class, 'index'])->name('produk.index');
     Route::get('produk/{toko}/create', [ProdukController::class, 'create'])->name('produk.create');

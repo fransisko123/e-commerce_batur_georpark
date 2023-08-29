@@ -28,5 +28,11 @@
         <div data-i18n="Analytics">Toko</div>
       </a>
     </li>
+    <li class="menu-item {{ (request()->is('kategori_produk')) ? 'active' : '' }}">
+      <a href="{{ route('kategori_produk.index') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-store"></i>
+        <div data-i18n="Analytics">Kategori Produk</div>
+      </a>
+    </li>
   </ul>
 </aside>

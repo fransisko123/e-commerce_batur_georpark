@@ -2,17 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Toko;
+use App\Models\KategoriProduk;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Produk extends Model
 {
     use HasFactory;
     protected $table = "tb_produk";
-    protected $fillable = ['toko_id', 'nama', 'deskripsi', 'harga', 'stok', 'image'];
+    protected $fillable = ['toko_id', 'kategori_produk_id', 'nama', 'deskripsi', 'harga', 'stok', 'image'];
 
     public function toko()
     {
         return $this->belongsTo(Toko::class);
+    }
+
+    public function kategori_produk()
+    {
+        return $this->belongsTo(KategoriProduk::class);
     }
 }

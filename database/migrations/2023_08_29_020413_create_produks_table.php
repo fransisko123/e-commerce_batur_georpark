@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tb_produk', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('toko_id');
+            $table->unsignedBigInteger('kategori_produk_id');
             $table->string('nama');
             $table->text('deskripsi');
             $table->decimal('harga', 10, 2);
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('toko_id')->references('id')->on('tb_toko')->onDelete('cascade');
+            $table->foreign('kategori_produk_id')->references('id')->on('tb_kategori_produk')->onDelete('cascade');
         });
     }
 
