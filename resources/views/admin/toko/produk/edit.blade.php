@@ -26,6 +26,14 @@
           @csrf
           @method('PUT')
           <div class="mb-3">
+            <label for="pemilik_toko" class="form-label">Kategori Produk</label>
+            <select class="form-control" name="kategori_produk" id="kategori_produk" required>
+                @foreach ($kategori_produks as $item)
+                  <option value="{{ $item->id }}" {{ $produk->kategori_produk_id == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
+                @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
             <label for="nama" class="form-label">Nama Produk</label>
             <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan Nama Produk" value="{{ old('nama', $produk->nama) }}" required>
           </div>

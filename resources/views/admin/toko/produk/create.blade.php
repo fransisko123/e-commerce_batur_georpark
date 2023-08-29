@@ -25,6 +25,14 @@
         <form action="{{ route('produk.store', $toko->id) }}" method="post" enctype="multipart/form-data">
           @csrf
           <div class="mb-3">
+            <label for="pemilik_toko" class="form-label">Kategori Produk</label>
+            <select class="form-control" name="kategori_produk" id="kategori_produk" required>
+                @foreach ($kategori_produks as $item)
+                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
             <label for="nama" class="form-label">Nama Produk</label>
             <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan Nama Produk" value="{{ old('nama') }}" required>
           </div>

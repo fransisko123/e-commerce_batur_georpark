@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KategoriProduk;
 use Illuminate\Http\Request;
+use App\Models\KategoriProduk;
+use Illuminate\Support\Facades\Validator;
 
 class KategoriProdukController extends Controller
 {
@@ -31,7 +32,19 @@ class KategoriProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|unique:tb_kategori_produk,nama',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $kategori_produk = new KategoriProduk();
+        $kategori_produk->nama = $request->nama;
+
+        $kategori_produk->save();
+        return redirect()->route('kategori_produk.index')->with('status', 'Berhasil Menambahkan Kategori Produk Baru.');
     }
 
     /**
@@ -45,24 +58,41 @@ class KategoriProdukController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(KategoriProduk $kategoriProduk)
+    public function edit($id)
     {
-        //
+        $kategori_produk = KategoriProduk::findOrFail($id);
+        return view('admin.kategori_produk.edit',
+            ['kategori_produk' => $kategori_produk]
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, KategoriProduk $kategoriProduk)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|unique:tb_kategori_produk,nama,' . $id,
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $kategori_produk = KategoriProduk::findOrFail($id);
+        $kategori_produk->nama = $request->nama;
+
+        $kategori_produk->save();
+        return redirect()->route('kategori_produk.index')->with('status', 'Berhasil Mengupdate Kategori Produk.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(KategoriProduk $kategoriProduk)
+    public function destroy($id)
     {
-        //
+        $kategori_produk = KategoriProduk::findOrFail($id);
+        $kategori_produk->delete();
+        return redirect()->route('kategori_produk.index')->with('status', 'Berhasil Menghapus Kategori Produk.');
     }
 }

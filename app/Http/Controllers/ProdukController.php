@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KategoriProduk;
 use App\Models\Toko;
 use App\Models\Produk;
 use Illuminate\Http\Request;
@@ -25,9 +26,13 @@ class ProdukController extends Controller
      */
     public function create($id_toko)
     {
+        $kategori_produks = KategoriProduk::all();
         $toko = Toko::findOrFail($id_toko);
         return view('admin.toko.produk.create',
-            ['toko' => $toko]
+            [
+                'toko' => $toko,
+                'kategori_produks' => $kategori_produks
+            ]
         );
     }
 
@@ -51,6 +56,7 @@ class ProdukController extends Controller
 
         $produk = new Produk();
         $produk->toko_id = $id_toko;
+        $produk->kategori_produk_id = $request->kategori_produk;
         $produk->nama = $request->nama;
         $produk->deskripsi = $request->deskripsi;
         $produk->harga = $request->harga;
@@ -79,10 +85,12 @@ class ProdukController extends Controller
      */
     public function edit($id)
     {
+        $kategori_produks = KategoriProduk::all();
         $produk = Produk::findOrFail($id);
         return view('admin.toko.produk.edit',
             [
-                'produk' => $produk
+                'produk' => $produk,
+                'kategori_produks' => $kategori_produks
             ]
         );
     }
@@ -107,6 +115,7 @@ class ProdukController extends Controller
 
         $produk = Produk::findOrFail($id_produk);
 
+        $produk->kategori_produk_id = $request->kategori_produk;
         $produk->nama = $request->nama;
         $produk->deskripsi = $request->deskripsi;
         $produk->harga = $request->harga;

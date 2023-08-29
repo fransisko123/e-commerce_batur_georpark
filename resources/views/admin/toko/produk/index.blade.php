@@ -34,6 +34,7 @@
           <thead>
             <tr>
               <th>Nama Produk</th>
+              <th>Kategori Produk</th>
               <th>Deskripsi Produk</th>
               <th>Harga Produk</th>
               <th>Stok</th>
@@ -45,6 +46,7 @@
             @foreach ($toko->produks as $item)
               <tr>
                 <td>{{ $item->nama }}</td>
+                <td>{{ $item->kategori_produk->nama }}</td>
                 <td>{{ $item->deskripsi }}</td>
                 <td>Rp.{{ number_format($item->harga, 2, ',', '.') }}</td>
                 <td>{{ $item->stok }}</td>
