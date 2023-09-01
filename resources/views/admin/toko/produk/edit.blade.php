@@ -5,7 +5,7 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center">
       <h4 class="fw-bold py-3">
-        <span class="text-muted fw-light"><a href="{{ route('toko.index') }}">Toko</a> /</span> Edit Produk
+        <span class="text-muted fw-light"><a href="{{ route('toko.index') }}">List Toko</a> / <a href="{{ route('produk.index', $produk->toko_id) }}">List Produk</a> /</span> Edit Produk
       </h4>
     </div>
 

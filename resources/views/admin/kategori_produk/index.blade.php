@@ -28,7 +28,7 @@
       </h4>
     </div>
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow rounded mb-4 card-datatable table-responsive pt-3">
-      <div class="table-responsive datatables-basic table border-top">
+      <div class="table-responsive datatables-basic table">
         <table class="table table-hover" id="test-table">
           <thead>
             <tr>

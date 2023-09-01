@@ -2,6 +2,10 @@
 
 @section('title', 'Tambah Toko')
 
+@section('additional_css')
+  <link rel="stylesheet" href="{{ asset('admin_assets/assets/vendor/libs/select2/select2.css') }}" />
+@endsection
+
 @section('content')
     <div class="d-flex justify-content-between align-items-center">
       <h4 class="fw-bold py-3">
@@ -20,8 +24,10 @@
     @endif
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow rounded mb-4">
-      <h5 class="card-header">Form Buat Toko Baru</h5>
-      <div class="card-body">
+      <div class="card-header d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Basic Layout</h5>
+      </div>
+      <div class="card-body mt-3">
         <form action="{{ route('toko.store') }}" method="post" enctype="multipart/form-data">
           @csrf
           <div class="mb-3">
@@ -49,4 +55,9 @@
         </form>
       </div>
     </div>
+@endsection
+
+@section('additional_js')
+  <script src="{{ asset('admin_assets/assets/vendor/libs/select2/select2.js') }}"></script>
+  <script src="{{ asset('admin_assets/assets/js/form-layouts.js') }}"></script>
 @endsection

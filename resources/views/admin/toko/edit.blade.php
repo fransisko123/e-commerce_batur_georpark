@@ -2,6 +2,10 @@
 
 @section('title', 'Edit Toko')
 
+@section('additional_css')
+  <link rel="stylesheet" href="{{ asset('admin_assets/assets/vendor/libs/select2/select2.css') }}" />
+@endsection
+
 @section('content')
     <div class="d-flex justify-content-between align-items-center">
       <h4 class="fw-bold py-3">
