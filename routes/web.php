@@ -19,7 +19,7 @@ use App\Http\Controllers\KategoriProdukController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend_layouts.master');
 });
 
 Route::middleware('auth', 'verified')->group(function () {

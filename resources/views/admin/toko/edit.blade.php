@@ -24,14 +24,16 @@
     @endif
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow rounded mb-4">
-      <h5 class="card-header">Form Edit Toko</h5>
-      <div class="card-body">
+      <div class="card-header d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Form Edit Toko</h5>
+      </div>
+      <div class="card-body mt-3">
         <form action="{{ route('toko.update', $toko->id) }}" method="post" enctype="multipart/form-data">
           @csrf
           @method('PUT')
           <div class="mb-3">
             <label for="pemilik_toko" class="form-label">Pemilik Toko</label>
-            <select class="form-control" name="pemilik_toko" id="pemilik_toko" required>
+            <select class="form-select" name="pemilik_toko" id="pemilik_toko" required>
                 @foreach ($users as $user)
                     <option value="{{ $user->id }}" {{ $toko->user_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                 @endforeach

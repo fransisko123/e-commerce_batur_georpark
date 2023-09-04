@@ -25,14 +25,14 @@
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow rounded mb-4">
       <div class="card-header d-flex justify-content-between align-items-center mb-3">
-        <h5 class="mb-0">Basic Layout</h5>
+        <h5 class="mb-0">Form Buat Toko</h5>
       </div>
       <div class="card-body mt-3">
         <form action="{{ route('toko.store') }}" method="post" enctype="multipart/form-data">
           @csrf
           <div class="mb-3">
             <label for="pemilik_toko" class="form-label">Pemilik Toko</label>
-            <select class="form-control" name="pemilik_toko" id="pemilik_toko" required>
+            <select class="form-select" name="pemilik_toko" id="pemilik_toko" required>
                 {{-- <option value="" disabled selected>Pilih Pemilik Toko</option> --}}
                 @foreach ($users as $user)
                     <option value="{{ $user->id }}">{{ $user->name }}</option>
