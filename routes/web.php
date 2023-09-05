@@ -6,6 +6,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriProdukController;
+use App\Http\Controllers\frontend\DashboardFrontendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,7 @@ use App\Http\Controllers\KategoriProdukController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend_layouts.master');
-});
+Route::get('/', [DashboardFrontendController::class, 'index'])->name('dashboard_frontend.index');
 
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/admin', function () {
