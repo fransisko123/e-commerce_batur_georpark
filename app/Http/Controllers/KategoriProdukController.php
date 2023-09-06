@@ -34,6 +34,7 @@ class KategoriProdukController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required|unique:tb_kategori_produk,nama',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -42,6 +43,12 @@ class KategoriProdukController extends Controller
 
         $kategori_produk = new KategoriProduk();
         $kategori_produk->nama = $request->nama;
+        if($request->file('image')){
+            $file= $request->file('image');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(storage_path('app/public/image_kategori_produk/'), $filename);
+            $kategori_produk->image = $filename;
+        }
 
         $kategori_produk->save();
         return redirect()->route('kategori_produk.index')->with('status', 'Berhasil Menambahkan Kategori Produk Baru.');
@@ -73,6 +80,7 @@ class KategoriProdukController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required|unique:tb_kategori_produk,nama,' . $id,
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -81,6 +89,12 @@ class KategoriProdukController extends Controller
 
         $kategori_produk = KategoriProduk::findOrFail($id);
         $kategori_produk->nama = $request->nama;
+        if($request->file('image')){
+            $file= $request->file('image');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(storage_path('app/public/image_kategori_produk/'), $filename);
+            $kategori_produk->image = $filename;
+        }
 
         $kategori_produk->save();
         return redirect()->route('kategori_produk.index')->with('status', 'Berhasil Mengupdate Kategori Produk.');
@@ -92,6 +106,9 @@ class KategoriProdukController extends Controller
     public function destroy($id)
     {
         $kategori_produk = KategoriProduk::findOrFail($id);
+        if (file_exists(storage_path('app/public/image_kategori_produk/' . $kategori_produk->image))) {
+            unlink(storage_path('app/public/image_kategori_produk/' . $kategori_produk->image));
+        }
         $kategori_produk->delete();
         return redirect()->route('kategori_produk.index')->with('status', 'Berhasil Menghapus Kategori Produk.');
     }

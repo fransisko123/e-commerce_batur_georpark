@@ -33,6 +33,7 @@
           <thead>
             <tr>
               <th>Nama Kategori</th>
+              <th>Image</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -40,6 +41,7 @@
             @foreach ($kategori_produk as $item)
               <tr>
                 <td>{{ $item->nama }}</td>
+                <td><img src="{{ asset('storage/image_kategori_produk/' . $item->image) }}" width="100"></td>
                 <td>
                   <a href="{{ route('kategori_produk.edit', $item->id) }}" class="btn btn-primary">Edit</a>
                   <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)">

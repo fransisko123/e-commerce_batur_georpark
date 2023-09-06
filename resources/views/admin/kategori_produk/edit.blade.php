@@ -35,6 +35,11 @@
             <label for="nama" class="form-label">Nama</label>
             <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan Nama Kategori Produk" value="{{ old('nama', $kategori_produk->nama) }}" required>
           </div>
+          <img src="{{ asset('storage/image_kategori_produk/' . $kategori_produk->image) }}" width="120" class="rounded mb-3">
+          <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input class="form-control" type="file" name="image" id="image">
+          </div>
           <button type="submit" class="btn btn-primary mt-4">Simpan Perubahan</button>
         </form>
       </div>
