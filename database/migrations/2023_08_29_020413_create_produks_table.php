@@ -16,8 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('toko_id');
             $table->unsignedBigInteger('kategori_produk_id');
             $table->string('nama');
+            $table->string('slug');
             $table->text('deskripsi');
             $table->decimal('harga', 10, 2);
+            $table->decimal('harga_diskon', 10, 2)->nullable();
             $table->integer('stok');
             $table->string('image');
             $table->timestamps();

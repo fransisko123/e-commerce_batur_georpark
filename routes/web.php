@@ -6,6 +6,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriProdukController;
+use App\Http\Controllers\frontend\KategoriFrontendController;
 use App\Http\Controllers\frontend\DashboardFrontendController;
 
 /*
@@ -20,6 +21,7 @@ use App\Http\Controllers\frontend\DashboardFrontendController;
 */
 
 Route::get('/', [DashboardFrontendController::class, 'index'])->name('dashboard_frontend.index');
+Route::get('/{kategori_slug}/shop', [KategoriFrontendController::class, 'shop'])->name('kategori.shop');
 
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/admin', function () {

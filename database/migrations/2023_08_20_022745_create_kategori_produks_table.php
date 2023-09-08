@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tb_kategori_produk', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('slug');
             $table->string('image');
             $table->timestamps();
         });

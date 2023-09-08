@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Toko;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -52,6 +53,7 @@ class TokoController extends Controller
         $toko = new Toko();
         $toko->user_id = $request->pemilik_toko;
         $toko->nama = $request->nama;
+        $toko->slug = Str::slug($request->nama, '-');
         $toko->deskripsi = $request->deskripsi;
 
         if($request->file('image')){

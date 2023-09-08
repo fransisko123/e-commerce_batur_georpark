@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\KategoriProduk;
 use Illuminate\Support\Facades\Validator;
@@ -43,6 +44,7 @@ class KategoriProdukController extends Controller
 
         $kategori_produk = new KategoriProduk();
         $kategori_produk->nama = $request->nama;
+        $kategori_produk->slug = Str::slug($request->nama, '-');
         if($request->file('image')){
             $file= $request->file('image');
             $filename= date('YmdHi').$file->getClientOriginalName();
@@ -89,6 +91,7 @@ class KategoriProdukController extends Controller
 
         $kategori_produk = KategoriProduk::findOrFail($id);
         $kategori_produk->nama = $request->nama;
+        $kategori_produk->slug = Str::slug($request->nama, '-');
         if($request->file('image')){
             $file= $request->file('image');
             $filename= date('YmdHi').$file->getClientOriginalName();

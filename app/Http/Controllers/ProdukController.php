@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KategoriProduk;
 use App\Models\Toko;
 use App\Models\Produk;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\KategoriProduk;
 use Illuminate\Support\Facades\Validator;
 
 class ProdukController extends Controller
@@ -58,6 +59,7 @@ class ProdukController extends Controller
         $produk->toko_id = $id_toko;
         $produk->kategori_produk_id = $request->kategori_produk;
         $produk->nama = $request->nama;
+        $produk->slug = Str::slug($request->nama, '-');
         $produk->deskripsi = $request->deskripsi;
         $produk->harga = $request->harga;
         $produk->stok = $request->stok;
@@ -117,6 +119,7 @@ class ProdukController extends Controller
 
         $produk->kategori_produk_id = $request->kategori_produk;
         $produk->nama = $request->nama;
+        $produk->slug = Str::slug($request->nama, '-');
         $produk->deskripsi = $request->deskripsi;
         $produk->harga = $request->harga;
         $produk->stok = $request->stok;
