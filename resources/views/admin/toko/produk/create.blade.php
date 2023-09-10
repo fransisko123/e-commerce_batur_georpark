@@ -51,6 +51,10 @@
             <input type="number" class="form-control" name="harga" id="harga" value="{{ old('harga') }}" placeholder="Masukan Harga Produk" required>
           </div>
           <div class="mb-3">
+            <label for="harga_diskon" class="form-label">Harga Produk Diskon (Opsional)</label>
+            <input type="number" class="form-control" name="harga_diskon" id="harga_diskon" value="{{ old('harga_diskon') }}" placeholder="Masukan Harga Produk Diskon">
+          </div>
+          <div class="mb-3">
             <label for="stok" class="form-label">Stok Produk</label>
             <input type="number" class="form-control" name="stok" id="stok" value="{{ old('stok') }}" placeholder="Masukan Stok Produk" required>
           </div>

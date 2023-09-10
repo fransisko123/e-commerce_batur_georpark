@@ -44,7 +44,7 @@
                 <div class="col-md-3 mb-4">
                     <div class="category_product_carousel">
                             <div class="category_product_thumb">
-                                <a href="shop.html"><img src="{{ asset('storage/image_kategori_produk/' . $item->image) }}" alt=""></a>
+                                <a href="{{ route('kategori.shop', $item->slug) }}"><img src="{{ asset('storage/image_kategori_produk/' . $item->image) }}" alt=""></a>
                             </div>
                             <div class="category_product_name">
                                 <h2><a href="{{ route('kategori.shop', $item->slug) }}">{{ $item->nama }}</a></h2>

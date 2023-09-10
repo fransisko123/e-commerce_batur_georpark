@@ -37,6 +37,7 @@
               <th>Kategori Produk</th>
               <th>Deskripsi Produk</th>
               <th>Harga Produk</th>
+              <th>Harga Produk Diskon</th>
               <th>Stok</th>
               <th>Image</th>
               <th>Actions</th>
@@ -49,6 +50,7 @@
                 <td>{{ $item->kategori_produk->nama }}</td>
                 <td>{{ $item->deskripsi }}</td>
                 <td>Rp.{{ number_format($item->harga, 2, ',', '.') }}</td>
+                <td>Rp.{{ number_format($item->harga_diskon, 2, ',', '.') }}</td>
                 <td>{{ $item->stok }}</td>
                 <td><img src="{{ asset('storage/image_produk/' . $item->image) }}" width="100"></td>
                 <td>

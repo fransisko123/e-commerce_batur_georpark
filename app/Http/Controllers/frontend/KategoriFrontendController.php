@@ -11,9 +11,11 @@ class KategoriFrontendController extends Controller
     public function shop($kategori_slug)
     {
         $kategori = KategoriProduk::where('slug', $kategori_slug)->first();
+        $produks = $kategori->produks()->paginate(12);
         return view('frontend.kategori.kategori_shop',
             [
-                'kategori' => $kategori
+                'kategori' => $kategori,
+                'produks' => $produks
             ]
         );
     }

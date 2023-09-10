@@ -38,34 +38,6 @@
                            <p>Welcome to <span>Ecommerce Batur Ggeopark</span> </p>
                        </div>
                     </div>
-                    <div class="col-lg-8">
-                        <div class="top_right text-right">
-                            <ul>
-                                <li class="currency"><a href="#"><i class="fa fa-dollar"></i> US Dollar <i class="zmdi zmdi-caret-down"></i></a>
-                                    <ul class="dropdown_currency">
-                                        <li><a href="#">EUR – Euro</a></li>
-                                        <li><a href="#">GBP – British Pound</a></li>
-                                        <li><a href="#">INR – India Rupee</a></li>
-                                    </ul>
-                                </li>
-                               <li class="language"><a href="#"><i class="zmdi zmdi-dribbble"></i> English1 <i class="zmdi zmdi-caret-down"></i></a>
-                                    <ul class="dropdown_language">
-                                        <li><a href="#">English</a></li>
-                                        <li><a href="#">Germany</a></li>
-                                    </ul>
-                                </li>
-                                <li class="top_links"><a href="#"><i class="zmdi zmdi-account"></i> My account <i class="zmdi zmdi-caret-down"></i></a>
-                                    <ul class="dropdown_links">
-                                        <li><a href="checkout.html">Checkout </a></li>
-                                        <li><a href="my-account.html">My Account </a></li>
-                                        <li><a href="cart.html">Shopping Cart</a></li>
-                                        <li><a href="wishlist.html">Wishlist</a></li>
-                                    </ul>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
 
                 </div>
             </div>
@@ -213,7 +185,7 @@
                             <nav>
                                 <ul>
 
-                                    <li class="active"><a  href="index-2.html"><i class="zmdi zmdi-home"></i> home </i></a></li>
+                                    <li class="active"><a  href="{{ route('dashboard_frontend.index') }}"><i class="zmdi zmdi-home"></i> home </i></a></li>
                                     <li class="mega_items"><a href="shop.html"><i class="zmdi zmdi-shopping-basket"></i> shop <i class="zmdi zmdi-caret-down"></i></a>
                                         <div class="mega_menu">
                                             <ul class="mega_menu_inner">

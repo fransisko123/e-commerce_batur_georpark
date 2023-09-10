@@ -47,6 +47,7 @@ class ProdukController extends Controller
             'nama' => 'required|unique:tb_produk,nama',
             'deskripsi' => 'nullable',
             'harga' => 'required|numeric',
+            'harga_diskon' => 'nullable|numeric',
             'stok' => 'required|numeric',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -62,6 +63,7 @@ class ProdukController extends Controller
         $produk->slug = Str::slug($request->nama, '-');
         $produk->deskripsi = $request->deskripsi;
         $produk->harga = $request->harga;
+        $produk->harga_diskon = $request->harga_diskon;
         $produk->stok = $request->stok;
 
         if($request->file('image')){
@@ -107,6 +109,7 @@ class ProdukController extends Controller
             'nama' => 'required|unique:tb_produk,nama,' . $id_produk,
             'deskripsi' => 'nullable',
             'harga' => 'required|numeric',
+            'harga_diskon' => 'nullable|numeric',
             'stok' => 'required|numeric',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -122,6 +125,7 @@ class ProdukController extends Controller
         $produk->slug = Str::slug($request->nama, '-');
         $produk->deskripsi = $request->deskripsi;
         $produk->harga = $request->harga;
+        $produk->harga_diskon = $request->harga_diskon;
         $produk->stok = $request->stok;
 
         if ($request->hasFile('image')) {
