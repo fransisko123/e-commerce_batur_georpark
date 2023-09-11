@@ -1,6 +1,6 @@
 @extends('frontend_layouts/master')
 
-@section('title', 'Shop - {{ $kategori->nama }}')
+@section('title', 'Shop - {{ $toko->nama }}')
 
 @section('additional_css')
 <style>
@@ -69,7 +69,7 @@
               <div class="breadcrumb_content">
                   <ul>
                       <li><a href="{{ route('dashboard_frontend.index') }}">home</a></li>
-                      <li>Produk {{ $kategori->nama }}</li>
+                      <li>Produk {{ $toko->nama }}</li>
                   </ul>
               </div>
           </div>
@@ -86,7 +86,7 @@
               <!--shop wrapper start-->
               <!--shop toolbar start-->
               <div class="shop_title">
-                  <h1>Produk {{ $kategori->nama }}</h1>
+                  <h1>Produk {{ $toko->nama }}</h1>
               </div>
               <div class="shop_toolbar_wrapper">
                   <div class="shop_toolbar_btn">

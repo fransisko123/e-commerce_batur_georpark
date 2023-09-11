@@ -6,6 +6,8 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriProdukController;
+use App\Http\Controllers\frontend\TokoFrontendController;
+use App\Http\Controllers\frontend\ProdukFrontendController;
 use App\Http\Controllers\frontend\KategoriFrontendController;
 use App\Http\Controllers\frontend\DashboardFrontendController;
 
@@ -21,7 +23,10 @@ use App\Http\Controllers\frontend\DashboardFrontendController;
 */
 
 Route::get('/', [DashboardFrontendController::class, 'index'])->name('dashboard_frontend.index');
-Route::get('/{kategori_slug}/shop', [KategoriFrontendController::class, 'shop'])->name('kategori.shop');
+Route::get('/{kategori_slug}/kategori_list_produk', [KategoriFrontendController::class, 'shop'])->name('kategori.shop');
+Route::get('/{toko_slug}/toko_list_produk', [TokoFrontendController::class, 'shop'])->name('toko.shop');
+
+Route::get('/{produk_slug}/detail_produk', [ProdukFrontendController::class, 'detail'])->name('produk.detail');
 
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/admin', function () {

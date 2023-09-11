@@ -70,10 +70,10 @@
                 <div class="col-md-3 mb-4">
                     <div class="category_product_carousel">
                             <div class="category_product_thumb">
-                                <a href="shop.html"><img src="{{ asset('storage/image_toko/' . $item->image) }}" alt=""></a>
+                                <a href="{{ route('toko.shop', $item->slug) }}"><img src="{{ asset('storage/image_toko/' . $item->image) }}" alt=""></a>
                             </div>
                             <div class="category_product_name">
-                                <h2><a href="shop.html">{{ $item->nama }}</a></h2>
+                                <h2><a href="{{ route('toko.shop', $item->slug) }}">{{ $item->nama }}</a></h2>
                             </div>
                     </div>
                 </div>
