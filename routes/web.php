@@ -6,6 +6,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriProdukController;
+use App\Http\Controllers\frontend\CartFrontendController;
 use App\Http\Controllers\frontend\TokoFrontendController;
 use App\Http\Controllers\frontend\ProdukFrontendController;
 use App\Http\Controllers\frontend\KategoriFrontendController;
@@ -25,6 +26,8 @@ use App\Http\Controllers\frontend\DashboardFrontendController;
 Route::get('/', [DashboardFrontendController::class, 'index'])->name('dashboard_frontend.index');
 Route::get('/{kategori_slug}/kategori_list_produk', [KategoriFrontendController::class, 'shop'])->name('kategori.shop');
 Route::get('/{toko_slug}/toko_list_produk', [TokoFrontendController::class, 'shop'])->name('toko.shop');
+
+Route::post('/cart/add/{produk}', [CartFrontendController::class, 'addToCart'])->name('cart.addToCart');
 
 Route::get('/{produk_slug}/detail_produk', [ProdukFrontendController::class, 'detail'])->name('produk.detail');
 
