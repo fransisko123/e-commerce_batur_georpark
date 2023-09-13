@@ -27,6 +27,7 @@ Route::get('/', [DashboardFrontendController::class, 'index'])->name('dashboard_
 Route::get('/{kategori_slug}/kategori_list_produk', [KategoriFrontendController::class, 'shop'])->name('kategori.shop');
 Route::get('/{toko_slug}/toko_list_produk', [TokoFrontendController::class, 'shop'])->name('toko.shop');
 
+Route::get('shopping_cart', [CartFrontendController::class, 'shopping_cart'])->name('cart.shopping_cart');
 Route::post('/cart/add/{produk}', [CartFrontendController::class, 'addToCart'])->name('cart.addToCart');
 
 Route::get('/{produk_slug}/detail_produk', [ProdukFrontendController::class, 'detail'])->name('produk.detail');

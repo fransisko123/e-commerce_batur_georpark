@@ -235,6 +235,7 @@
                                     <li><a href="about.html"><i class="zmdi zmdi-comments"></i> about Us</a></li>
                                     <li><a href="contact.html"><i class="zmdi zmdi-account-box-mail"></i>  Contact Us</a></li>
                                     <li>
+                                        {{-- <a href="/login"><i class="zmdi zmdi-account"></i>  LOGIN</a> --}}
                                         <div class="mini_cart_wrapper">
                                             <a href="javascript:void(0)"><i class="zmdi zmdi-shopping-basket"></i> <span style="color: white;">2items - $213.00</span> </a>
                                             <!--mini cart-->
@@ -276,7 +277,7 @@
 
                                                 <div class="mini_cart_footer">
                                                    <div class="cart_button">
-                                                        <a href="cart.html">View cart</a>
+                                                        <a href="{{ route('cart.shopping_cart') }}">View cart</a>
                                                         <a href="checkout.html">Checkout</a>
                                                     </div>
                                                 </div>
@@ -501,6 +502,9 @@
                                 </li>
                                 <li class="menu-item-has-children">
                                     <a href="contact.html"> Contact Us</a>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a href="/login"> LOGIN</a>
                                 </li>
                             </ul>
                         </div>

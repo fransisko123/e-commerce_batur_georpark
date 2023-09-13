@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class CartFrontendController extends Controller
 {
+
+    public function shopping_cart()
+    {
+        return view('frontend.cart');
+    }
+
     public function addToCart(Produk $produk)
     {
         $cart = session()->get('cart', []);

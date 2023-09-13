@@ -54,10 +54,10 @@
                 <td>{{ $item->stok }}</td>
                 <td><img src="{{ asset('storage/image_produk/' . $item->image) }}" width="100"></td>
                 <td>
-                  <a href="{{ route('produk.edit', $item->id) }}" class="btn btn-primary">Edit</a>
-                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)">
-                    Hapus
-                  </button>
+                  <a href="{{ route('produk.edit', $item->id) }}" class="btn btn-sm btn-icon item-edit"><i class="bx bxs-edit" onMouseOver="this.style.color='blue'" onMouseOut="this.style.color='grey'"></i></a>
+                  <span style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)">
+                    <i class="bx bxs-trash" onMouseOver="this.style.color='red'" onMouseOut="this.style.color='grey'"></i>
+                  </span>
                   <form id="delete-form" method="POST" style="display: none;">
                     @csrf
                     @method('DELETE')
