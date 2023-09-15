@@ -53,6 +53,7 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $middlewareAliases = [
+        'customer.guest' => \App\Http\Middleware\RedirectIfAuthenticatedCustomer::class,
         'customer.auth' => \App\Http\Middleware\CustomerAuthenticate::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

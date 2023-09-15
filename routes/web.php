@@ -25,11 +25,16 @@ use App\Http\Controllers\frontend\DashboardFrontendController;
 |
 */
 
-Route::get('/customer_login', [CustomerAuthController::class, 'showLoginForm'])->name('customer.login');
-Route::post('/customer_login', [CustomerAuthController::class, 'login'])->name('customer.post_login');
-Route::post('/customer_logout', [CustomerAuthController::class, 'logout'])->name('customer.logout');
-Route::get('/customer_register', [CustomerAuthController::class, 'showRegistrationForm'])->name('customer.register');
-Route::post('/customer_register', [CustomerAuthController::class, 'register'])->name('customer.post_register');
+Route::middleware(['customer.guest'])->group(function () {
+    Route::get('/customer_login', [CustomerAuthController::class, 'showLoginForm'])->name('customer.login');
+    Route::post('/customer_login', [CustomerAuthController::class, 'login'])->name('customer.post_login');
+    Route::get('/customer_register', [CustomerAuthController::class, 'showRegistrationForm'])->name('customer.register');
+    Route::post('/customer_register', [CustomerAuthController::class, 'register'])->name('customer.post_register');
+});
+
+Route::middleware(['auth:customer'])->group(function () {
+    Route::post('/customer_logout', [CustomerAuthController::class, 'logout'])->name('customer.logout');
+});
 
 Route::get('/', [DashboardFrontendController::class, 'index'])->name('dashboard_frontend.index');
 Route::get('/{kategori_slug}/kategori_list_produk', [KategoriFrontendController::class, 'shop'])->name('kategori.shop');

@@ -501,7 +501,7 @@
                                 </li>
                                 <li class="menu-item-has-children">
                                     @if(!auth()->guard('customer')->check())
-                                        <a href="{{ route('customer.login') }}"> LOGIN</a>
+                                        <a href="{{ route('customer.login') }}"> Login</a>
                                     @endif
                                 </li>
                             </ul>
