@@ -35,7 +35,11 @@
                 <div class="row align-items-center">
                     <div class="col-lg-4">
                        <div class="welcome_text">
-                           <p>Welcome to <span>Ecommerce Batur Ggeopark</span> </p>
+                            @auth('customer')
+                                <p>Welcome {{ auth('customer')->user()->nama }} to <span>Ecommerce Batur Geopark</span></p>
+                            @else
+                                <p>Welcome to <span>Ecommerce Batur Geopark</span></p>
+                            @endauth
                        </div>
                     </div>
 
@@ -219,72 +223,65 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li><a href="#"><i class="zmdi zmdi-star"></i> pages <i class="zmdi zmdi-caret-down"></i></a>
-                                        <ul class="sub_menu pages">
-                                            <li><a href="about.html">About Us</a></li>
-                                            <li><a href="services.html">services</a></li>
-                                            <li><a href="portfolio.html">portfolio</a></li>
-                                            <li><a href="faq.html">Frequently Questions</a></li>
-                                            <li><a href="contact.html">contact</a></li>
-                                            <li><a href="login.html">login</a></li>
-                                            <li><a href="wishlist.html">Wishlist</a></li>
-                                            <li><a href="404.html">Error 404</a></li>
-                                        </ul>
-                                    </li>
 
                                     <li><a href="about.html"><i class="zmdi zmdi-comments"></i> about Us</a></li>
-                                    <li><a href="contact.html"><i class="zmdi zmdi-account-box-mail"></i>  Contact Us</a></li>
+                                    @if(auth()->guard('customer')->check())
+                                        <li><a href="{{ route('customer.myAccount') }}"><i class="zmdi zmdi-account"></i>  My Account</a></li>
+                                    @endif
                                     <li>
-                                        {{-- <a href="/login"><i class="zmdi zmdi-account"></i>  LOGIN</a> --}}
-                                        <div class="mini_cart_wrapper">
-                                            <a href="javascript:void(0)"><i class="zmdi zmdi-shopping-basket"></i> <span style="color: white;">2items - $213.00</span> </a>
-                                            <!--mini cart-->
-                                             <div class="mini_cart">
-                                                <div class="cart_item">
-                                                   <div class="cart_img">
-                                                       <a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a>
-                                                   </div>
-                                                    <div class="cart_info">
-                                                        <a href="#">Condimentum Watches</a>
+                                        @if(auth()->guard('customer')->check())
+                                            <div class="mini_cart_wrapper">
+                                                <a href="javascript:void(0)"><i class="zmdi zmdi-shopping-basket"></i> <span style="color: white;">2items - $213.00</span> </a>
+                                                <!--mini cart-->
+                                                <div class="mini_cart">
+                                                    <div class="cart_item">
+                                                    <div class="cart_img">
+                                                        <a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a>
+                                                    </div>
+                                                        <div class="cart_info">
+                                                            <a href="#">Condimentum Watches</a>
 
-                                                        <span class="quantity">Qty: 1</span>
-                                                        <span class="price_cart">$60.00</span>
+                                                            <span class="quantity">Qty: 1</span>
+                                                            <span class="price_cart">$60.00</span>
 
+                                                        </div>
+                                                        <div class="cart_remove">
+                                                            <a href="#"><i class="ion-android-close"></i></a>
+                                                        </div>
                                                     </div>
-                                                    <div class="cart_remove">
-                                                        <a href="#"><i class="ion-android-close"></i></a>
+                                                    <div class="cart_item">
+                                                    <div class="cart_img">
+                                                        <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>
                                                     </div>
-                                                </div>
-                                                <div class="cart_item">
-                                                   <div class="cart_img">
-                                                       <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>
-                                                   </div>
-                                                    <div class="cart_info">
-                                                        <a href="#">Officiis debitis</a>
-                                                        <span class="quantity">Qty: 1</span>
-                                                        <span class="price_cart">$69.00</span>
+                                                        <div class="cart_info">
+                                                            <a href="#">Officiis debitis</a>
+                                                            <span class="quantity">Qty: 1</span>
+                                                            <span class="price_cart">$69.00</span>
+                                                        </div>
+                                                        <div class="cart_remove">
+                                                            <a href="#"><i class="ion-android-close"></i></a>
+                                                        </div>
                                                     </div>
-                                                    <div class="cart_remove">
-                                                        <a href="#"><i class="ion-android-close"></i></a>
+                                                    <div class="mini_cart_table">
+                                                        <div class="cart_total">
+                                                            <span>Subtotal:</span>
+                                                            <span class="price">$138.00</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="mini_cart_table">
-                                                    <div class="cart_total">
-                                                        <span>Subtotal:</span>
-                                                        <span class="price">$138.00</span>
-                                                    </div>
-                                                </div>
 
-                                                <div class="mini_cart_footer">
-                                                   <div class="cart_button">
-                                                        <a href="{{ route('cart.shopping_cart') }}">View cart</a>
-                                                        <a href="checkout.html">Checkout</a>
+                                                    <div class="mini_cart_footer">
+                                                    <div class="cart_button">
+                                                            <a href="{{ route('cart.shopping_cart') }}">View cart</a>
+                                                            <a href="checkout.html">Checkout</a>
+                                                        </div>
                                                     </div>
-                                                </div>
 
+                                                </div>
+                                                <!--mini cart end-->
                                             </div>
-                                            <!--mini cart end-->
-                                        </div>
+                                        @else
+                                            <a href="{{ route('customer.login') }}"><i class="zmdi zmdi-account"></i>  LOGIN</a>
+                                        @endif
                                     </li>
                                 </ul>
                             </nav>
@@ -373,55 +370,57 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="mini_cart_wrapper">
-                            <a href="javascript:void(0)"><i class="zmdi zmdi-shopping-basket"></i> <span>2items - $213.00</span> </a>
-                            <!--mini cart-->
-                             <div class="mini_cart">
-                                <div class="cart_item">
-                                   <div class="cart_img">
-                                       <a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a>
-                                   </div>
-                                    <div class="cart_info">
-                                        <a href="#">Condimentum Watches</a>
+                        @if(auth()->guard('customer')->check())
+                            <div class="mini_cart_wrapper">
+                                <a href="javascript:void(0)"><i class="zmdi zmdi-shopping-basket"></i> <span>2items - $213.00</span> </a>
+                                <!--mini cart-->
+                                <div class="mini_cart">
+                                    <div class="cart_item">
+                                    <div class="cart_img">
+                                        <a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a>
+                                    </div>
+                                        <div class="cart_info">
+                                            <a href="#">Condimentum Watches</a>
 
-                                        <span class="quantity">Qty: 1</span>
-                                        <span class="price_cart">$60.00</span>
+                                            <span class="quantity">Qty: 1</span>
+                                            <span class="price_cart">$60.00</span>
 
+                                        </div>
+                                        <div class="cart_remove">
+                                            <a href="#"><i class="ion-android-close"></i></a>
+                                        </div>
                                     </div>
-                                    <div class="cart_remove">
-                                        <a href="#"><i class="ion-android-close"></i></a>
+                                    <div class="cart_item">
+                                    <div class="cart_img">
+                                        <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>
                                     </div>
-                                </div>
-                                <div class="cart_item">
-                                   <div class="cart_img">
-                                       <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>
-                                   </div>
-                                    <div class="cart_info">
-                                        <a href="#">Officiis debitis</a>
-                                        <span class="quantity">Qty: 1</span>
-                                        <span class="price_cart">$69.00</span>
+                                        <div class="cart_info">
+                                            <a href="#">Officiis debitis</a>
+                                            <span class="quantity">Qty: 1</span>
+                                            <span class="price_cart">$69.00</span>
+                                        </div>
+                                        <div class="cart_remove">
+                                            <a href="#"><i class="ion-android-close"></i></a>
+                                        </div>
                                     </div>
-                                    <div class="cart_remove">
-                                        <a href="#"><i class="ion-android-close"></i></a>
+                                    <div class="mini_cart_table">
+                                        <div class="cart_total">
+                                            <span>Subtotal:</span>
+                                            <span class="price">$138.00</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="mini_cart_table">
-                                    <div class="cart_total">
-                                        <span>Subtotal:</span>
-                                        <span class="price">$138.00</span>
-                                    </div>
-                                </div>
 
-                                <div class="mini_cart_footer">
-                                   <div class="cart_button">
-                                        <a href="cart.html">View cart</a>
-                                        <a href="checkout.html">Checkout</a>
+                                    <div class="mini_cart_footer">
+                                    <div class="cart_button">
+                                            <a href="cart.html">View cart</a>
+                                            <a href="checkout.html">Checkout</a>
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
+                                <!--mini cart end-->
                             </div>
-                            <!--mini cart end-->
-                        </div>
+                        @endif
                         <div id="menu" class="text-left ">
                              <ul class="offcanvas_main_menu">
                                 <li class="menu-item-has-children active">
@@ -495,16 +494,17 @@
                                     </ul>
                                 </li>
                                 <li class="menu-item-has-children">
-                                    <a href="my-account.html">my account</a>
-                                </li>
-                                <li class="menu-item-has-children">
                                     <a href="about.html">about Us</a>
                                 </li>
                                 <li class="menu-item-has-children">
-                                    <a href="contact.html"> Contact Us</a>
+
                                 </li>
                                 <li class="menu-item-has-children">
-                                    <a href="/login"> LOGIN</a>
+                                    @if(auth()->guard('customer')->check())
+                                        <a href="{{ route('customer.myAccount') }}"> My Account</a>
+                                    @else
+                                        <a href="{{ route('customer.login') }}"> LOGIN</a>
+                                    @endif
                                 </li>
                             </ul>
                         </div>
