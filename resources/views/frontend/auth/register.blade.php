@@ -37,42 +37,42 @@
                   @csrf
                     <p>
                       <label>Nama Depan <span>*</span></label>
-                      <input type="text" name="nama_depan" value="{{ old('nama_depan') }}">
+                      <input type="text" name="nama_depan" value="{{ old('nama_depan') }}" required>
                       @error('nama_depan')
                           <span class="text-danger">{{ $message }}</span>
                       @enderror
                     </p>
                     <p>
                       <label>Nama Belakang <span>*</span></label>
-                      <input type="text" name="nama_belakang" value="{{ old('nama_belakang') }}">
+                      <input type="text" name="nama_belakang" value="{{ old('nama_belakang') }}" required>
                       @error('nama_belakang')
                           <span class="text-danger">{{ $message }}</span>
                       @enderror
                     </p>
                     <p>
                       <label>Tanggal Lahir<span>*</span></label>
-                      <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}">
+                      <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
                       @error('tanggal_lahir')
                           <span class="text-danger">{{ $message }}</span>
                       @enderror
                     </p>
                     <p>
                         <label>Email address  <span>*</span></label>
-                        <input type="email" name="email" value="{{ old('email') }}">
+                        <input type="email" name="email" value="{{ old('email') }}" required>
                         @error('email')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </p>
                     <p>
                         <label>Passwords <span>*</span></label>
-                        <input type="password" name="password">
+                        <input type="password" name="password" required>
                         @error('password')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </p>
                     <p>
                       <label>Confirm Password <span>*</span></label>
-                      <input type="password" name="password_confirmation">
+                      <input type="password" name="password_confirmation" required>
                       @error('password_confirmation')
                             <span class="text-danger">{{ $message }}</span>
                       @enderror

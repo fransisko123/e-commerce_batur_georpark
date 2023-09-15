@@ -149,7 +149,14 @@
                                 <div class="action_links">
                                     <ul>
                                         <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="false"></i></a></li>
-                                        <li class="add_to_cart"><a href="cart.html" title="add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</a></li>
+                                        <li class="add_to_cart">
+                                            <a title="add to cart" class="add-to-cart-link"
+                                               data-product-id="{{ $item->id }}"
+                                               data-product-quantity="1"
+                                            >
+                                                <i class="zmdi zmdi-shopping-cart-plus"></i> add to cart
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -308,5 +315,32 @@
 @endsection
 
 @section('additional_js')
+<script>
+    $(document).ready(function () {
+        $('.add-to-cart-link').click(function (e) {
+            e.preventDefault(); // Prevent the default link behavior
 
+            var productId = $(this).data('product-id');
+            var quantity = $(this).data('product-quantity');
+
+            $.ajax({
+                type: 'POST',
+                url: `{{ route('cart.addToCart') }}`, // Replace with the actual route for adding to cart
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    productId: productId,
+                    quantity: quantity
+                },
+                success: function (data) {
+                    alert(data.message);
+                    location.reload();
+                },
+                error: function (error) {
+                    // Handle any errors here, e.g., display an error message
+                    console.error('Error adding product to cart:', error);
+                }
+            });
+        });
+    });
+</script>
 @endsection

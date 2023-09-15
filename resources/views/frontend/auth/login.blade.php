@@ -42,14 +42,14 @@
                     @csrf
                       <p>
                           <label>Email <span>*</span></label>
-                          <input type="text" name="email" placeholder="Email">
+                          <input type="text" name="email" placeholder="Email" required>
                           @error('email')
                             <span class="text-danger">{{ $message }}</span>
                           @enderror
                        </p>
                        <p>
                           <label>Passwords <span>*</span></label>
-                          <input type="password" name="password" placeholder="Password">
+                          <input type="password" name="password" placeholder="Password" required>
                        </p>
                       <div class="login_submit">
                          <a href="#">Lost your password?</a>

@@ -690,7 +690,7 @@
                <div class="row">
                     <div class="col-lg-6 col-md-7">
                         <div class="copyright_area">
-                            <p>Copyright &copy; 2023 <a href="#"> pallas </a>  All Right Reserved.</p>
+                            <p>Copyright &copy; 2023 All Right Reserved.</p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-5">
@@ -830,8 +830,8 @@
 <!-- Main JS -->
 <script src="{{ asset('frontend_assets/assets/js/main.js') }}"></script>
 
-
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@yield('additional_js')
 </body>
 
 

@@ -24,7 +24,8 @@
 <!--shopping cart area start -->
 <div class="shopping_cart_area mt-60">
   <div class="container">
-      <form action="#">
+      <form action="{{ route('cart.updateCart') }}" method="POST">
+        @csrf
           <div class="row">
               <div class="col-12">
                   <div class="table_desc">
@@ -32,47 +33,35 @@
                           <table>
                       <thead>
                           <tr>
-                              <th class="product_remove">Delete</th>
-                              <th class="product_thumb">Image</th>
-                              <th class="product_name">Product</th>
-                              <th class="product-price">Price</th>
-                              <th class="product_quantity">Quantity</th>
+                              <th class="product_remove">Hapus</th>
+                              <th class="product_thumb">Gambar</th>
+                              <th class="product_name">Produk</th>
+                              <th class="product-price">Harga</th>
+                              <th class="product_quantity">Jumlah</th>
                               <th class="product_total">Total</th>
                           </tr>
                       </thead>
                       <tbody>
-                          <tr>
-                             <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                              <td class="product_thumb"><a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a></td>
-                              <td class="product_name"><a href="#">Handbag fringilla</a></td>
-                              <td class="product-price">£65.00</td>
-                              <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="1" type="number"></td>
-                              <td class="product_total">£130.00</td>
-
-
-                          </tr>
-
-                          <tr>
-                             <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                              <td class="product_thumb"><a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a></td>
-                              <td class="product_name"><a href="#">Handbags justo</a></td>
-                              <td class="product-price">£90.00</td>
-                              <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="1" type="number"></td>
-                              <td class="product_total">£180.00</td>
-
-
-                          </tr>
-                          <tr>
-                             <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                              <td class="product_thumb"><a href="#"><img src="assets/img/s-product/product9.jpg" alt=""></a></td>
-                              <td class="product_name"><a href="#">Handbag elit</a></td>
-                              <td class="product-price">£80.00</td>
-                              <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="1" type="number"></td>
-                              <td class="product_total">£160.00</td>
-
-
-                          </tr>
-
+                        @if ($cartItems->isEmpty())
+                        <tr>
+                            <td colspan="6">Keranjang kamu kosong.</td>
+                        </tr>
+                        @else
+                            @foreach ($cartItems as $item)
+                                <tr>
+                                    <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                    <td class="product_thumb"><a href="#"><img src="{{ asset('storage/image_produk/' . $item->produk->image) }}" width="100"></a></td>
+                                    <td class="product_name"><a href="#">{{ $item->produk->nama }}</a></td>
+                                        @php
+                                            $hargaFinal = $item->produk->harga_diskon ? $item->produk->harga_diskon : $item->produk->harga;
+                                            $total = $hargaFinal * $item->quantity
+                                        @endphp
+                                    <td class="product-price">Rp {{ number_format($hargaFinal, 2) }}</td>
+                                    <td class="product_quantity"><label>Jumlah</label> <input min="1" max="100" type="number" value="{{ $item->quantity }}"></td>
+                                    <td class="product_total">Rp {{ number_format($total, 2) }}</td>
+                                </tr>
+                            @endforeach
+                        @endif
                       </tbody>
                   </table>
                       </div>

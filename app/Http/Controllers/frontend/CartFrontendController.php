@@ -2,32 +2,62 @@
 
 namespace App\Http\Controllers\frontend;
 
-use App\Http\Controllers\Controller;
+use App\Models\Cart;
+use App\Models\Produk;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class CartFrontendController extends Controller
 {
 
     public function shopping_cart()
     {
-        return view('frontend.cart');
+        // Get the currently authenticated customer
+        $customer = Auth::guard('customer')->user();
+
+        // Retrieve all cart items for the authenticated customer
+        $cartItems = Cart::where('customer_id', $customer->id)->get();
+
+        return view('frontend.cart', ['cartItems' => $cartItems]);
     }
 
-    public function addToCart(Produk $produk)
+    public function addToCart(Request $request)
     {
-        $cart = session()->get('cart', []);
+        $productId = $request->input('productId');
+        $quantity = $request->input('quantity');
+        // Get the authenticated customer
+        $customer = auth()->guard('customer')->user();
 
-        // Tambahkan produk ke dalam keranjang
-        $cart[] = [
-            'product_id' => $produk->id,
-            'name' => $produk->nama,
-            'price' => $produk->harga,
-            // tambahkan informasi lain yang diperlukan
-        ];
+        // Find the product by its ID
+        $product = Produk::find($productId);
 
-        // Simpan keranjang belanja kembali ke dalam sesi
-        session()->put('cart', $cart);
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
 
-        return redirect()->route('cart.show')->with('success', 'Produk telah ditambahkan ke keranjang belanja.');
+        // Check if the product is already in the cart for this customer
+        $existingCartItem = Cart::where('customer_id', $customer->id)
+            ->where('produk_id', $product->id)
+            ->first();
+
+        if ($existingCartItem) {
+            // If the product is already in the cart, update the quantity
+            $existingCartItem->update(['quantity' => $existingCartItem->quantity + $quantity]);
+        } else {
+            // If not, create a new cart item
+            Cart::create([
+                'customer_id' => $customer->id,
+                'produk_id' => $product->id,
+                'quantity' => $quantity,
+            ]);
+        }
+
+        return response()->json(['message' => 'Product added to cart'], 200);
+    }
+
+    public function updateCart()
+    {
+        dd('hello');
     }
 }
