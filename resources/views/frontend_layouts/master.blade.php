@@ -42,7 +42,22 @@
                             @endauth
                        </div>
                     </div>
-
+                    @if(auth()->guard('customer')->check())
+                        <div class="col-lg-8">
+                            <div class="top_right text-right">
+                                <ul>
+                                    <li class="top_links"><a href="#"><i class="zmdi zmdi-account"></i> My account <i class="zmdi zmdi-caret-down"></i></a>
+                                        <ul class="dropdown_links">
+                                            <li><a href="checkout.html">Checkout </a></li>
+                                            <li><a href="{{ route('customer.myAccount') }}">My Account </a></li>
+                                            <li><a href="cart.html">Shopping Cart</a></li>
+                                            <li><a href="wishlist.html">Wishlist</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -225,9 +240,6 @@
                                     </li>
 
                                     <li><a href="about.html"><i class="zmdi zmdi-comments"></i> about Us</a></li>
-                                    @if(auth()->guard('customer')->check())
-                                        <li><a href="{{ route('customer.myAccount') }}"><i class="zmdi zmdi-account"></i>  My Account</a></li>
-                                    @endif
                                     <li>
                                         @if(auth()->guard('customer')->check())
                                             <div class="mini_cart_wrapper">
@@ -318,28 +330,16 @@
 
                         <div class="top_right">
                             <ul>
-                                <li class="currency"><a href="#"><i class="fa fa-dollar"></i> US Dollar <i class="zmdi zmdi-caret-down"></i></a>
-                                    <ul class="dropdown_currency">
-                                        <li><a href="#">EUR – Euro</a></li>
-                                        <li><a href="#">GBP – British Pound</a></li>
-                                        <li><a href="#">INR – India Rupee</a></li>
-                                    </ul>
-                                </li>
-                               <li class="language"><a href="#"><i class="zmdi zmdi-dribbble"></i> English1 <i class="zmdi zmdi-caret-down"></i></a>
-                                    <ul class="dropdown_language">
-                                        <li><a href="#">English</a></li>
-                                        <li><a href="#">Germany</a></li>
-                                    </ul>
-                                </li>
-                                <li class="top_links"><a href="#"><i class="zmdi zmdi-account"></i> My account <i class="zmdi zmdi-caret-down"></i></a>
-                                    <ul class="dropdown_links">
-                                        <li><a href="checkout.html">Checkout </a></li>
-                                        <li><a href="my-account.html">My Account </a></li>
-                                        <li><a href="cart.html">Shopping Cart</a></li>
-                                        <li><a href="wishlist.html">Wishlist</a></li>
-                                    </ul>
-                                </li>
-
+                                @if(auth()->guard('customer')->check())
+                                    <li class="top_links"><a href="#"><i class="zmdi zmdi-account"></i> My account <i class="zmdi zmdi-caret-down"></i></a>
+                                        <ul class="dropdown_links">
+                                            <li><a href="checkout.html">Checkout </a></li>
+                                            <li><a href="{{ route('customer.myAccount') }}">My Account </a></li>
+                                            <li><a href="cart.html">Shopping Cart</a></li>
+                                            <li><a href="wishlist.html">Wishlist</a></li>
+                                        </ul>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                         <div class="search-container">
@@ -500,9 +500,7 @@
 
                                 </li>
                                 <li class="menu-item-has-children">
-                                    @if(auth()->guard('customer')->check())
-                                        <a href="{{ route('customer.myAccount') }}"> My Account</a>
-                                    @else
+                                    @if(!auth()->guard('customer')->check())
                                         <a href="{{ route('customer.login') }}"> LOGIN</a>
                                     @endif
                                 </li>

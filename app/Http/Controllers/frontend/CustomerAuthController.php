@@ -45,13 +45,17 @@ class CustomerAuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
+            'nama_depan' => 'required',
+            'nama_belakang' => 'required',
+            'tanggal_lahir' => 'required|date',
             'email' => 'required|email|unique:customers',
             'password' => 'required|min:8|confirmed', // 'password_confirmation' field must match 'password'
         ]);
 
             $customer = new Customer();
-            $customer->nama = $request->nama;
+            $customer->nama_depan = $request->nama_depan;
+            $customer->nama_belakang = $request->nama_belakang;
+            $customer->tanggal_lahir = $request->tanggal_lahir;
             $customer->email = $request->email;
             $customer->password = Hash::make($request->password);
             // Add other customer fields here

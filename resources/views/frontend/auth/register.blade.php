@@ -35,16 +35,30 @@
                 <h2>Register</h2>
                 <form action="{{ route('customer.post_register') }}" method="POST">
                   @csrf
-                  <p>
-                    <label>Nama  <span>*</span></label>
-                    <input type="text" name="nama">
-                    @error('nama')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                  </p>
+                    <p>
+                      <label>Nama Depan <span>*</span></label>
+                      <input type="text" name="nama_depan" value="{{ old('nama_depan') }}">
+                      @error('nama_depan')
+                          <span class="text-danger">{{ $message }}</span>
+                      @enderror
+                    </p>
+                    <p>
+                      <label>Nama Belakang <span>*</span></label>
+                      <input type="text" name="nama_belakang" value="{{ old('nama_belakang') }}">
+                      @error('nama_belakang')
+                          <span class="text-danger">{{ $message }}</span>
+                      @enderror
+                    </p>
+                    <p>
+                      <label>Tanggal Lahir<span>*</span></label>
+                      <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}">
+                      @error('tanggal_lahir')
+                          <span class="text-danger">{{ $message }}</span>
+                      @enderror
+                    </p>
                     <p>
                         <label>Email address  <span>*</span></label>
-                        <input type="email" name="email">
+                        <input type="email" name="email" value="{{ old('email') }}">
                         @error('email')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
