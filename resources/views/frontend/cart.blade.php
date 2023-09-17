@@ -24,6 +24,11 @@
 <!--shopping cart area start -->
 <div class="shopping_cart_area mt-60">
   <div class="container">
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
       <form action="{{ route('cart.updateCart') }}" method="POST">
         @csrf
           <div class="row">
@@ -49,15 +54,21 @@
                         @else
                             @foreach ($cartItems as $item)
                                 <tr>
-                                    <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                    <td class="product_thumb"><a href="#"><img src="{{ asset('storage/image_produk/' . $item->produk->image) }}" width="100"></a></td>
-                                    <td class="product_name"><a href="#">{{ $item->produk->nama }}</a></td>
+                                    <td class="product_remove">
+                                        <button class="remove-item-btn-on-cart btn btn-danger" data-item-id="{{ $item->id }}" data-url="{{ route('cart.removeFromCart', ['cartItem' => $item->id]) }}">
+                                            <i class="fa fa-trash-o"></i>
+                                        </button>
+                                    </td>
+                                    <td class="product_thumb"><a href="{{ route('produk.detail', $item->produk->slug) }}"><img src="{{ asset('storage/image_produk/' . $item->produk->image) }}" width="100"></a></td>
+                                    <td class="product_name"><a href="{{ route('produk.detail', $item->produk->slug) }}">{{ $item->produk->nama }}</a></td>
                                         @php
                                             $hargaFinal = $item->produk->harga_diskon ? $item->produk->harga_diskon : $item->produk->harga;
                                             $total = $hargaFinal * $item->quantity
                                         @endphp
                                     <td class="product-price">Rp {{ number_format($hargaFinal, 2) }}</td>
-                                    <td class="product_quantity"><label>Jumlah</label> <input min="1" max="100" type="number" value="{{ $item->quantity }}"></td>
+                                    <td class="product_quantity"><label>Jumlah</label>
+                                        <input min="1" max="100" type="number" name="quantity[{{ $item->id }}]" value="{{ $item->quantity }}">
+                                    </td>
                                     <td class="product_total">Rp {{ number_format($total, 2) }}</td>
                                 </tr>
                             @endforeach
@@ -65,9 +76,11 @@
                       </tbody>
                   </table>
                       </div>
-                      <div class="cart_submit">
-                          <button type="submit">update cart</button>
-                      </div>
+                      @if ($cartItems->count() > 0)
+                        <div class="cart_submit">
+                            <button type="submit">update cart</button>
+                        </div>
+                      @endif
                   </div>
                </div>
            </div>
@@ -90,7 +103,7 @@
                           <div class="coupon_inner">
                              <div class="cart_subtotal">
                                  <p>Subtotal</p>
-                                 <p class="cart_amount">£215.00</p>
+                                 <p class="cart_amount">Rp {{ number_format($hargaTotal, 2) }}</p>
                              </div>
                              <div class="cart_subtotal ">
                                  <p>Shipping</p>
@@ -119,5 +132,41 @@
 @endsection
 
 @section('additional_js')
+<script>
+    $(document).ready(function () {
+        $('.remove-item-btn-on-cart').click(function (e) {
+            e.preventDefault(); // Prevent the default button behavior
 
+            var url = $(this).data('url');
+
+            // Send an AJAX request to delete the item without confirmation
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                dataType: 'json',
+                data: {
+                    _token: '{{ csrf_token() }}', // Add the CSRF token here
+                },
+                success: function (response) {
+                    // Handle success, e.g., remove the item from the DOM
+                    Swal.fire({
+                        title: 'Berhasil',
+                        text: response.message,
+                        icon: 'success',
+                    }).then(() => {
+                        location.reload();
+                    });
+                },
+                error: function (xhr, status, error) {
+                    // Handle errors, e.g., show an error message
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'An error occurred: ' + xhr.responseText,
+                        icon: 'error',
+                    });
+                }
+            });
+        });
+    });
+</script>
 @endsection

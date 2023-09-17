@@ -21,6 +21,8 @@
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('frontend_assets/assets/css/style.css') }}">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+
     @yield('additional_css')
 
 </head>
@@ -50,7 +52,7 @@
                                         <ul class="dropdown_links">
                                             <li><a href="checkout.html">Checkout </a></li>
                                             <li><a href="{{ route('customer.myAccount') }}">My Account </a></li>
-                                            <li><a href="cart.html">Shopping Cart</a></li>
+                                            <li><a href="{{ route('cart.shopping_cart') }}">Shopping Cart</a></li>
                                             <li><a href="wishlist.html">Wishlist</a></li>
                                         </ul>
                                     </li>
@@ -219,7 +221,7 @@
                                                 </li>
                                                 <li><a href="#">other Pages</a>
                                                     <ul>
-                                                        <li><a href="cart.html">cart</a></li>
+                                                        <li><a href="{{ route('cart.shopping_cart') }}">cart</a></li>
                                                         <li><a href="wishlist.html">Wishlist</a></li>
                                                         <li><a href="checkout.html">Checkout</a></li>
                                                         <li><a href="my-account.html">my account</a></li>
@@ -242,42 +244,45 @@
                                     <li><a href="about.html"><i class="zmdi zmdi-comments"></i> about Us</a></li>
                                     <li>
                                         @if(auth()->guard('customer')->check())
+                                            @php
+                                                $customer = auth()->guard('customer')->user();
+                                                $itemsInCart = App\Models\Cart::where('customer_id', $customer->id)->get();
+                                                $hargaTotal = 0;
+                                                foreach ($itemsInCart as $item) {
+                                                    $hargaFinal = $item->produk->harga_diskon ? $item->produk->harga_diskon : $item->produk->harga;
+                                                    $hargaTotal += $hargaFinal * $item->quantity;
+                                                }
+                                            @endphp
                                             <div class="mini_cart_wrapper">
-                                                <a href="javascript:void(0)"><i class="zmdi zmdi-shopping-basket"></i> <span style="color: white;">2items - $213.00</span> </a>
+                                                <a href="javascript:void(0)"><i class="zmdi zmdi-shopping-basket"></i> <span style="color: white;">{{ $itemsInCart->count() }} items - Rp {{ number_format($hargaTotal, 2) }}</span> </a>
                                                 <!--mini cart-->
                                                 <div class="mini_cart">
-                                                    <div class="cart_item">
-                                                    <div class="cart_img">
-                                                        <a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a>
-                                                    </div>
-                                                        <div class="cart_info">
-                                                            <a href="#">Condimentum Watches</a>
+                                                    @foreach ($itemsInCart as $item)
+                                                        <div class="cart_item">
+                                                            <div class="cart_img">
+                                                                <a href="{{ route('produk.detail', $item->produk->slug) }}"><img src="{{ asset('storage/image_produk/' . $item->produk->image) }}" width="100"></a>
+                                                            </div>
+                                                            <div class="cart_info">
+                                                                <a href="{{ route('produk.detail', $item->produk->slug) }}">{{ $item->produk->nama }}</a>
+                                                                <span class="quantity">Qty: {{ $item->quantity }}</span>
+                                                                @php
+                                                                    $hargaFinal = $item->produk->harga_diskon ? $item->produk->harga_diskon : $item->produk->harga;
+                                                                    $total = $hargaFinal * $item->quantity
+                                                                @endphp
+                                                                <span class="price_cart">Rp {{ number_format($total, 2) }}</span>
 
-                                                            <span class="quantity">Qty: 1</span>
-                                                            <span class="price_cart">$60.00</span>
-
+                                                            </div>
+                                                            <div class="cart_remove">
+                                                                <span class="remove-item-btn" data-item-id="{{ $item->id }}" data-url="{{ route('cart.removeFromCart', ['cartItem' => $item->id]) }}">
+                                                                    <i class="ion-android-close"></i>
+                                                                </span>
+                                                            </div>
                                                         </div>
-                                                        <div class="cart_remove">
-                                                            <a href="#"><i class="ion-android-close"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="cart_item">
-                                                    <div class="cart_img">
-                                                        <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>
-                                                    </div>
-                                                        <div class="cart_info">
-                                                            <a href="#">Officiis debitis</a>
-                                                            <span class="quantity">Qty: 1</span>
-                                                            <span class="price_cart">$69.00</span>
-                                                        </div>
-                                                        <div class="cart_remove">
-                                                            <a href="#"><i class="ion-android-close"></i></a>
-                                                        </div>
-                                                    </div>
+                                                    @endforeach
                                                     <div class="mini_cart_table">
                                                         <div class="cart_total">
                                                             <span>Subtotal:</span>
-                                                            <span class="price">$138.00</span>
+                                                            <span class="price">Rp {{ number_format($hargaTotal, 2) }}</span>
                                                         </div>
                                                     </div>
 
@@ -335,7 +340,7 @@
                                         <ul class="dropdown_links">
                                             <li><a href="checkout.html">Checkout </a></li>
                                             <li><a href="{{ route('customer.myAccount') }}">My Account </a></li>
-                                            <li><a href="cart.html">Shopping Cart</a></li>
+                                            <li><a href="{{ route('cart.shopping_cart') }}">Shopping Cart</a></li>
                                             <li><a href="wishlist.html">Wishlist</a></li>
                                         </ul>
                                     </li>
@@ -371,48 +376,51 @@
                             </form>
                         </div>
                         @if(auth()->guard('customer')->check())
+                            @php
+                                $customer = auth()->guard('customer')->user();
+                                $itemsInCart = App\Models\Cart::where('customer_id', $customer->id)->get();
+                                $hargaTotal = 0;
+                                foreach ($itemsInCart as $item) {
+                                    $hargaFinal = $item->produk->harga_diskon ? $item->produk->harga_diskon : $item->produk->harga;
+                                    $hargaTotal += $hargaFinal * $item->quantity;
+                                }
+                            @endphp
                             <div class="mini_cart_wrapper">
-                                <a href="javascript:void(0)"><i class="zmdi zmdi-shopping-basket"></i> <span>2items - $213.00</span> </a>
+                                <a href="javascript:void(0)"><i class="zmdi zmdi-shopping-basket"></i> <span>{{ $itemsInCart->count() }} items - Rp {{ number_format($hargaTotal, 2) }}</span> </a>
                                 <!--mini cart-->
                                 <div class="mini_cart">
-                                    <div class="cart_item">
-                                    <div class="cart_img">
-                                        <a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a>
-                                    </div>
-                                        <div class="cart_info">
-                                            <a href="#">Condimentum Watches</a>
+                                    @foreach ($itemsInCart as $item)
+                                        <div class="cart_item">
+                                            <div class="cart_img">
+                                                <a href="{{ route('produk.detail', $item->produk->slug) }}"><img src="{{ asset('storage/image_produk/' . $item->produk->image) }}" width="100"></a>
+                                            </div>
+                                            <div class="cart_info">
+                                                <a href="{{ route('produk.detail', $item->produk->slug) }}">{{ $item->produk->nama }}</a>
+                                                <span class="quantity">Qty: {{ $item->quantity }}</span>
+                                                @php
+                                                    $hargaFinal = $item->produk->harga_diskon ? $item->produk->harga_diskon : $item->produk->harga;
+                                                    $total = $hargaFinal * $item->quantity
+                                                @endphp
+                                                <span class="price_cart">Rp {{ number_format($total, 2) }}</span>
 
-                                            <span class="quantity">Qty: 1</span>
-                                            <span class="price_cart">$60.00</span>
-
+                                            </div>
+                                            <div class="cart_remove">
+                                                <span class="remove-item-btn" data-item-id="{{ $item->id }}" data-url="{{ route('cart.removeFromCart', ['cartItem' => $item->id]) }}">
+                                                    <i class="ion-android-close"></i>
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div class="cart_remove">
-                                            <a href="#"><i class="ion-android-close"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="cart_item">
-                                    <div class="cart_img">
-                                        <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>
-                                    </div>
-                                        <div class="cart_info">
-                                            <a href="#">Officiis debitis</a>
-                                            <span class="quantity">Qty: 1</span>
-                                            <span class="price_cart">$69.00</span>
-                                        </div>
-                                        <div class="cart_remove">
-                                            <a href="#"><i class="ion-android-close"></i></a>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                     <div class="mini_cart_table">
                                         <div class="cart_total">
                                             <span>Subtotal:</span>
-                                            <span class="price">$138.00</span>
+                                            <span class="price">Rp {{ number_format($hargaTotal, 2) }}</span>
                                         </div>
                                     </div>
 
                                     <div class="mini_cart_footer">
                                     <div class="cart_button">
-                                            <a href="cart.html">View cart</a>
+                                            <a href="{{ route('cart.shopping_cart') }}">View cart</a>
                                             <a href="checkout.html">Checkout</a>
                                         </div>
                                     </div>
@@ -452,7 +460,7 @@
                                         <li class="menu-item-has-children">
                                             <a href="#">other Pages</a>
                                             <ul class="sub-menu">
-                                                <li><a href="cart.html">cart</a></li>
+                                                <li><a href="{{ route('cart.shopping_cart') }}">cart</a></li>
                                                 <li><a href="wishlist.html">Wishlist</a></li>
                                                 <li><a href="checkout.html">Checkout</a></li>
                                                 <li><a href="my-account.html">my account</a></li>
@@ -831,6 +839,48 @@
 <script src="{{ asset('frontend_assets/assets/js/main.js') }}"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+{{-- REMOVE ITEM FROM CART --}}
+<script>
+    $(document).ready(function () {
+        $('.remove-item-btn').click(function (e) {
+            e.preventDefault(); // Prevent the default button behavior
+
+            var url = $(this).data('url');
+
+            // Send an AJAX request to delete the item without confirmation
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                dataType: 'json',
+                data: {
+                    _token: '{{ csrf_token() }}', // Add the CSRF token here
+                },
+                success: function (response) {
+                    // Handle success, e.g., remove the item from the DOM
+                    Swal.fire({
+                        title: 'Berhasil',
+                        text: response.message,
+                        icon: 'success',
+                    }).then(() => {
+                        location.reload();
+                    });
+                },
+                error: function (xhr, status, error) {
+                    // Handle errors, e.g., show an error message
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'An error occurred: ' + xhr.responseText,
+                        icon: 'error',
+                    });
+                }
+            });
+        });
+    });
+</script>
+
 @yield('additional_js')
 </body>
 

@@ -19,7 +19,18 @@ class CartFrontendController extends Controller
         // Retrieve all cart items for the authenticated customer
         $cartItems = Cart::where('customer_id', $customer->id)->get();
 
-        return view('frontend.cart', ['cartItems' => $cartItems]);
+        $hargaTotal = 0;
+        foreach ($cartItems as $item) {
+            $hargaFinal = $item->produk->harga_diskon ? $item->produk->harga_diskon : $item->produk->harga;
+            $hargaTotal += $hargaFinal * $item->quantity;
+        }
+
+        return view('frontend.cart',
+            [
+                'cartItems' => $cartItems,
+                'hargaTotal' => $hargaTotal
+            ]
+        );
     }
 
     public function addToCart(Request $request)
@@ -53,11 +64,38 @@ class CartFrontendController extends Controller
             ]);
         }
 
-        return response()->json(['message' => 'Product added to cart'], 200);
+        return response()->json(['message' => 'Item berhasil masuk keranjang'], 200);
     }
 
-    public function updateCart()
+    public function updateCart(Request $request)
     {
-        dd('hello');
+        $cartData = $request->input('quantity');
+
+        foreach ($cartData as $itemId => $quantity) {
+            // Ensure that $quantity is a positive integer or handle validation as needed
+            $quantity = max(1, intval($quantity));
+
+            // Update the cart item quantity based on $itemId
+            $cartItem = Cart::find($itemId);
+            if ($cartItem) {
+                $cartItem->quantity = $quantity;
+                $cartItem->save();
+            }
+        }
+
+        // Redirect back to the cart page or wherever you want after updating quantities
+        return redirect()->route('cart.shopping_cart')->with('success', 'Keranjang Berhasil di Update!');
+    }
+
+    public function removeFromCart($cartItem)
+    {
+        // Find the Cart item by ID and delete it
+        $cartItem = Cart::find($cartItem);
+        if ($cartItem) {
+            $cartItem->delete();
+            return response()->json(['message' => 'Item Berhasil di hapus dari keranjang'], 200);
+        } else {
+            return response()->json(['message' => 'Item not found'], 404);
+        }
     }
 }

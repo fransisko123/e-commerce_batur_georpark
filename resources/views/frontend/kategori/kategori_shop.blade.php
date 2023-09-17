@@ -1,6 +1,6 @@
 @extends('frontend_layouts/master')
 
-@section('title', 'Shop - {{ $kategori->nama }}')
+@section('title', 'Shop - ' . $kategori->nama)
 
 @section('additional_css')
 <style>
@@ -323,23 +323,40 @@
             var productId = $(this).data('product-id');
             var quantity = $(this).data('product-quantity');
 
-            $.ajax({
-                type: 'POST',
-                url: `{{ route('cart.addToCart') }}`, // Replace with the actual route for adding to cart
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    productId: productId,
-                    quantity: quantity
-                },
-                success: function (data) {
-                    alert(data.message);
-                    location.reload();
-                },
-                error: function (error) {
-                    // Handle any errors here, e.g., display an error message
-                    console.error('Error adding product to cart:', error);
-                }
-            });
+            // Check if the customer is authenticated
+            @if(auth()->guard('customer')->check())
+                // If authenticated, proceed with the AJAX request
+                $.ajax({
+                    type: 'POST',
+                    url: `{{ route('cart.addToCart') }}`,
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        productId: productId,
+                        quantity: quantity
+                    },
+                    success: function (data) {
+                        // Replace the default alert with SweetAlert2
+                        Swal.fire({
+                            title: 'Success',
+                            text: data.message,
+                            icon: 'success',
+                        }).then(() => {
+                            location.reload();
+                        });
+                    },
+                    error: function (error) {
+                        // Handle errors, e.g., show an error message with SweetAlert2
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Error adding product to cart: ' + error.statusText,
+                            icon: 'error',
+                        });
+                    }
+                });
+            @else
+                // If not authenticated, redirect to the customer login page
+                window.location.href = `{{ route('customer.login') }}`;
+            @endif
         });
     });
 </script>
