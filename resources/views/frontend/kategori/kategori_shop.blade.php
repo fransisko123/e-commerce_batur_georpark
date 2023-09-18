@@ -254,9 +254,12 @@
                                                            </select>
                                                         </div> --}}
                                                         <div class="modal_add_to_cart">
-                                                            <form action="#">
-                                                                <input min="1" max="{{ $item->stok }}" value="1" type="number">
+                                                            <form action="{{ route('cart.addToFormCart') }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="product_id" value="{{ $item->id }}">
+                                                                <input min="1" max="{{ $item->stok }}" name="quantity" value="1" type="number">
                                                                 <button type="submit">add to cart</button>
+                                                                <input type="hidden" id="successMessage" name="successMessage" value="">
                                                             </form>
                                                         </div>
                                                     </div>

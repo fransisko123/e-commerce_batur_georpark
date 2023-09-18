@@ -118,7 +118,11 @@
                   </div>
               </div>
               <!--shop toolbar end-->
-
+              @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <div class="row no-gutters shop_wrapper">
                     @foreach ($produks as $item)
                     <div class="col-lg-3 col-md-4 col-12 ">
@@ -254,9 +258,9 @@
                                                            </select>
                                                         </div> --}}
                                                         <div class="modal_add_to_cart">
-                                                            <form action="{{ route('cart.addToCart') }}" method="POST">
+                                                            <form action="{{ route('cart.addToFormCart') }}" method="POST">
                                                                 @csrf
-                                                                <input type="hidden" name="productId" value="{{ $item->id }}">
+                                                                <input type="hidden" name="product_id" value="{{ $item->id }}">
                                                                 <input min="1" max="{{ $item->stok }}" name="quantity" value="1" type="number">
                                                                 <button type="submit">add to cart</button>
                                                                 <input type="hidden" id="successMessage" name="successMessage" value="">

@@ -45,6 +45,7 @@ Route::get('/{produk_slug}/detail_produk', [ProdukFrontendController::class, 'de
 Route::middleware(['customer.auth'])->group(function () {
     Route::get('shopping_cart', [CartFrontendController::class, 'shopping_cart'])->name('cart.shopping_cart');
     Route::post('/cart/add', [CartFrontendController::class, 'addToCart'])->name('cart.addToCart');
+    Route::post('/cart/add_from_form', [CartFrontendController::class, 'addToFormCart'])->name('cart.addToFormCart');
     Route::post('/cart/update', [CartFrontendController::class, 'updateCart'])->name('cart.updateCart');
     Route::delete('/cart/remove/{cartItem}', [CartFrontendController::class, 'removeFromCart'])->name('cart.removeFromCart');
     Route::get('/my_account', [CustomerFrontendController::class, 'myAccount'])->name('customer.myAccount');

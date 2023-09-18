@@ -44,7 +44,7 @@ class CartFrontendController extends Controller
         $product = Produk::find($productId);
 
         if (!$product) {
-            return response()->json(['error' => 'Product not found'], 404);
+            return response()->json(['error' => 'Produk tidak di temukan'], 404);
         }
 
         // Check if the product is already in the cart for this customer
@@ -65,6 +65,43 @@ class CartFrontendController extends Controller
         }
 
         return response()->json(['message' => 'Item berhasil masuk keranjang'], 200);
+    }
+
+    public function addToFormCart(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $quantity = $request->input('quantity');
+
+        // Get the authenticated customer
+        $customer = auth()->guard('customer')->user();
+
+        // Find the product by its ID
+        $product = Produk::find($productId);
+
+        if (!$product) {
+            return redirect()->back()
+                ->with('error', 'Produk tidak di temukan')
+                ->withInput(); // Jika Anda ingin mengembalikan input yang telah dimasukkan oleh pengguna
+        }
+
+        // Check if the product is already in the cart for this customer
+        $existingCartItem = Cart::where('customer_id', $customer->id)
+            ->where('produk_id', $product->id)
+            ->first();
+
+        if ($existingCartItem) {
+            // If the product is already in the cart, update the quantity
+            $existingCartItem->update(['quantity' => $existingCartItem->quantity + $quantity]);
+        } else {
+            // If not, create a new cart item
+            Cart::create([
+                'customer_id' => $customer->id,
+                'produk_id' => $product->id,
+                'quantity' => $quantity,
+            ]);
+        }
+
+        return redirect()->route('cart.shopping_cart')->with('success', 'Berhasil menambah item ke keranjang.');
     }
 
     public function updateCart(Request $request)
