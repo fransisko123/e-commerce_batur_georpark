@@ -71,7 +71,7 @@ class CartFrontendController extends Controller
     {
         $productId = $request->input('product_id');
         $quantity = $request->input('quantity');
-
+        dd($quantity);
         // Get the authenticated customer
         $customer = auth()->guard('customer')->user();
 
