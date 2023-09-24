@@ -83,6 +83,7 @@
                               </ul>
                           </div> --}}
                           <form action="{{ route('cart.addToFormCart') }}" method="POST">
+                            @csrf
                             <input type="hidden" name="product_id" value="{{ $produk->id }}">
                             <div class="product_variant quantity">
                                 <label>quantity</label>
@@ -91,7 +92,7 @@
                             <div class="action_links">
                                 <ul>
                                     <li class="add_to_cart">
-                                        <button type="submit" class="btn btn-danger"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</button>
+                                        <button type="submit" class="btn btn-dark"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</button>
                                     </li>
                                     {{-- <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li> --}}
                                     {{-- <li class="compare"><a href="#" title="compare"><i class="zmdi zmdi-swap"></i></a></li> --}}

@@ -50,7 +50,7 @@
                                 <ul>
                                     <li class="top_links"><a href="#"><i class="zmdi zmdi-account"></i> My account <i class="zmdi zmdi-caret-down"></i></a>
                                         <ul class="dropdown_links">
-                                            <li><a href="checkout.html">Checkout </a></li>
+                                            <li><a href="{{ route('checkout.cartToCheckout') }}">Checkout </a></li>
                                             <li><a href="{{ route('customer.myAccount') }}">My Account </a></li>
                                             <li><a href="{{ route('cart.shopping_cart') }}">Shopping Cart</a></li>
                                             <li><a href="wishlist.html">Wishlist</a></li>
@@ -289,7 +289,7 @@
                                                     <div class="mini_cart_footer">
                                                     <div class="cart_button">
                                                             <a href="{{ route('cart.shopping_cart') }}">View cart</a>
-                                                            <a href="checkout.html">Checkout</a>
+                                                            <a href="{{ route('checkout.cartToCheckout') }}">Checkout</a>
                                                         </div>
                                                     </div>
 
@@ -338,7 +338,7 @@
                                 @if(auth()->guard('customer')->check())
                                     <li class="top_links"><a href="#"><i class="zmdi zmdi-account"></i> My account <i class="zmdi zmdi-caret-down"></i></a>
                                         <ul class="dropdown_links">
-                                            <li><a href="checkout.html">Checkout </a></li>
+                                            <li><a href="{{ route('checkout.cartToCheckout') }}">Checkout </a></li>
                                             <li><a href="{{ route('customer.myAccount') }}">My Account </a></li>
                                             <li><a href="{{ route('cart.shopping_cart') }}">Shopping Cart</a></li>
                                             <li><a href="wishlist.html">Wishlist</a></li>
@@ -421,7 +421,7 @@
                                     <div class="mini_cart_footer">
                                     <div class="cart_button">
                                             <a href="{{ route('cart.shopping_cart') }}">View cart</a>
-                                            <a href="checkout.html">Checkout</a>
+                                            <a href="{{ route('checkout.cartToCheckout') }}">Checkout</a>
                                         </div>
                                     </div>
 

@@ -24,7 +24,8 @@ class CartFrontendController extends Controller
             $hargaFinal = $item->produk->harga_diskon ? $item->produk->harga_diskon : $item->produk->harga;
             $hargaTotal += $hargaFinal * $item->quantity;
         }
-
+        session()->put('cartItems', $cartItems);
+        session()->put('hargaTotal', $hargaTotal);
         return view('frontend.cart',
             [
                 'cartItems' => $cartItems,
@@ -71,7 +72,7 @@ class CartFrontendController extends Controller
     {
         $productId = $request->input('product_id');
         $quantity = $request->input('quantity');
-        dd($quantity);
+
         // Get the authenticated customer
         $customer = auth()->guard('customer')->user();
 

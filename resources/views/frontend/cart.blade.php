@@ -115,9 +115,11 @@
                                  <p>Total</p>
                                  <p class="cart_amount">£215.00</p>
                              </div>
-                             <div class="checkout_btn">
-                                 <a href="#">Proceed to Checkout</a>
-                             </div>
+                             @if ($cartItems->count() != 0)
+                                <div class="checkout_btn">
+                                    <a href="{{ route('checkout.cartToCheckout') }}">Proceed to Checkout</a>
+                                </div>
+                             @endif
                           </div>
                       </div>
                   </div>

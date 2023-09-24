@@ -10,6 +10,7 @@ use App\Http\Controllers\frontend\CartFrontendController;
 use App\Http\Controllers\frontend\CustomerAuthController;
 use App\Http\Controllers\frontend\TokoFrontendController;
 use App\Http\Controllers\frontend\ProdukFrontendController;
+use App\Http\Controllers\frontend\CheckoutFrontendController;
 use App\Http\Controllers\frontend\CustomerFrontendController;
 use App\Http\Controllers\frontend\KategoriFrontendController;
 use App\Http\Controllers\frontend\DashboardFrontendController;
@@ -48,6 +49,7 @@ Route::middleware(['customer.auth'])->group(function () {
     Route::post('/cart/add_from_form', [CartFrontendController::class, 'addToFormCart'])->name('cart.addToFormCart');
     Route::post('/cart/update', [CartFrontendController::class, 'updateCart'])->name('cart.updateCart');
     Route::delete('/cart/remove/{cartItem}', [CartFrontendController::class, 'removeFromCart'])->name('cart.removeFromCart');
+    Route::get('checkout', [CheckoutFrontendController::class, 'cartToCheckout'])->name('checkout.cartToCheckout');
     Route::get('/my_account', [CustomerFrontendController::class, 'myAccount'])->name('customer.myAccount');
 });
 
