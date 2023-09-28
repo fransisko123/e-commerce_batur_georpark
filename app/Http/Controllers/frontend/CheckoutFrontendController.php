@@ -11,6 +11,9 @@ class CheckoutFrontendController extends Controller
     {
         $cartItems = session('cartItems');
         $hargaTotal = session('hargaTotal');
+        if ($cartItems === null || empty($cartItems)) {
+            return redirect()->back();
+        }
         return view('frontend.checkout', [
             'cartItems' => $cartItems,
             'hargaTotal' => $hargaTotal,

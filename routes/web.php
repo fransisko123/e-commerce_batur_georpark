@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TokoController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriProdukController;
 use App\Http\Controllers\frontend\CartFrontendController;
@@ -73,6 +74,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('produk/{toko}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
     Route::put('produk/{toko}/update/{produk}', [ProdukController::class, 'update'])->name('produk.update');
     Route::delete('produk/{produk}/delete', [ProdukController::class, 'destroy'])->name('produk.destroy');
+
+    Route::resource('customer', CustomerController::class);
 });
 
 require __DIR__.'/auth.php';
