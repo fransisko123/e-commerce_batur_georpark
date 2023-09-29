@@ -39,10 +39,11 @@
             </tr>
           </thead>
           <tbody>
-            {{-- @foreach ($kategori_produk as $item) --}}
+            @foreach ($customers as $item)
               <tr>
-                <td>nama</td>
-                <td>email</td>
+                <td>{{ $item->nama_depan }} {{ $item->nama_belakang }}</td>
+                <td>{{ $item->email }}</td>
+                <td>{{ Illuminate\Support\Carbon::parse($item->tanggal_lahir)->locale('id_ID')->isoFormat('D MMMM YYYY') }}</td>
                 <td>
                   <a href="#" class="btn btn-primary">Edit</a>
                   <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="1" onclick="showConfirmationModal(this)">
@@ -54,7 +55,7 @@
                   </form>
                 </td>
               </tr>
-            {{-- @endforeach --}}
+            @endforeach
           </tbody>
         </table>
       </div>

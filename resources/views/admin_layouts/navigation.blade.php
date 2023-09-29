@@ -34,5 +34,11 @@
         <div data-i18n="Analytics">Kategori Produk</div>
       </a>
     </li>
+    <li class="menu-item {{ (request()->is('customer')) ? 'active' : '' }}">
+      <a href="{{ route('customer.index') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-store"></i>
+        <div data-i18n="Analytics">Customer</div>
+      </a>
+    </li>
   </ul>
 </aside>
