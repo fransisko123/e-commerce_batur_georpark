@@ -6,6 +6,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AlamatCustomerController;
 use App\Http\Controllers\KategoriProdukController;
 use App\Http\Controllers\frontend\CartFrontendController;
 use App\Http\Controllers\frontend\CustomerAuthController;
@@ -76,6 +77,9 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::delete('produk/{produk}/delete', [ProdukController::class, 'destroy'])->name('produk.destroy');
 
     Route::resource('customer', CustomerController::class);
+    Route::get('{customer}/alamat', [AlamatCustomerController::class, 'index'])->name('alamat_customer.index');
+    Route::get('{customer}/tambah_alamat', [AlamatCustomerController::class, 'create'])->name('alamat_customer.create');
+    Route::post('{customer}/tambah_alamat_proses', [AlamatCustomerController::class, 'store'])->name('alamat_customer.store');
 });
 
 require __DIR__.'/auth.php';

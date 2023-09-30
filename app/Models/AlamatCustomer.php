@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class AlamatCustomer extends Model
 {
@@ -11,8 +12,8 @@ class AlamatCustomer extends Model
     protected $table = "tb_alamat_customer";
     protected $fillable = ['alamat'];
 
-    public function kategori_produk()
+    public function customer()
     {
-        return $this->belongsTo(KategoriProduk::class);
+        return $this->belongsTo(Customer::class);
     }
 }

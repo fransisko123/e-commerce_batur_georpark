@@ -105,16 +105,16 @@
                                  <p>Subtotal</p>
                                  <p class="cart_amount">Rp {{ number_format($hargaTotal, 2) }}</p>
                              </div>
-                             <div class="cart_subtotal ">
+                             {{-- <div class="cart_subtotal ">
                                  <p>Shipping</p>
                                  <p class="cart_amount"><span>Flat Rate:</span> £255.00</p>
                              </div>
-                             <a href="#">Calculate shipping</a>
+                             <a href="#">Calculate shipping</a> --}}
 
-                             <div class="cart_subtotal">
+                             {{-- <div class="cart_subtotal">
                                  <p>Total</p>
                                  <p class="cart_amount">£215.00</p>
-                             </div>
+                             </div> --}}
                              @if ($cartItems->count() != 0)
                                 <div class="checkout_btn">
                                     <a href="{{ route('checkout.cartToCheckout') }}">Proceed to Checkout</a>

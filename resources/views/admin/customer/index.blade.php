@@ -18,7 +18,7 @@
       <h4 class="fw py-3 mb-4">
         Customer</b>
       </h4>
-    <a href="#" class="btn btn-primary">
+    <a href="{{ route('customer.create') }}" class="btn btn-primary">
       <span class="bx bx-plus-circle"></span>&nbsp; Tambah Customer
     </a>
   </div>
@@ -45,7 +45,8 @@
                 <td>{{ $item->email }}</td>
                 <td>{{ Illuminate\Support\Carbon::parse($item->tanggal_lahir)->locale('id_ID')->isoFormat('D MMMM YYYY') }}</td>
                 <td>
-                  <a href="#" class="btn btn-primary">Edit</a>
+                  <a href="{{ route('customer.edit', $item->id) }}" class="btn btn-primary">Edit</a>
+                  <a href="{{ route('alamat_customer.index', $item->id) }}" class="btn btn-secondary">Alamat</a>
                   <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="1" onclick="showConfirmationModal(this)">
                     Hapus
                   </button>
