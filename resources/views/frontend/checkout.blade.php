@@ -27,9 +27,9 @@
                     <div class="row">
                         <div class="footer_contact">
                             <ul>
-                                <li><i class="zmdi zmdi-home"></i><span>Addresss:</span> {{ $user->alamats[0]->alamat }}</li>
-                                <li><i class="zmdi zmdi-phone-setting"></i><span>Phone:</span><a href="tel:(+1) 866-540-3229">(+1) 866-540-3229</a> </li>
-                                <li><i class="zmdi zmdi-email"></i><span>Email:</span>  info@plazathemes.com</li>
+                                <li><i class="zmdi zmdi-home"></i><span>Addresss:</span>{{ $user->alamats[0]->alamat }}</li>
+                                <li><i class="zmdi zmdi-phone-setting"></i><span>Phone:</span>{{ $user->no_telp }}</li>
+                                <li><i class="zmdi zmdi-email"></i><span>Email:</span> {{ $user->email }}</li>
                             </ul>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                         </table>
                     </div>
                     <div class="payment_method">
-                      <div class="panel-default">
+                      {{-- <div class="panel-default">
                             <input id="payment" name="check_method" type="radio" data-bs-target="createp_account" />
                             <label for="payment" data-bs-toggle="collapse" data-bs-target="#method" aria-controls="method">Create an account?</label>
 
@@ -85,18 +85,18 @@
                                 </div>
                             </div>
                         </div>
-                      <div class="panel-default">
+                        <div class="panel-default">
                             <input id="payment_defult" name="check_method" type="radio" data-bs-target="createp_account" />
                             <label for="payment_defult" data-bs-toggle="collapse" data-bs-target="#collapsedefult" aria-controls="collapsedefult">PayPal <img src="assets/img/icon/papyel.png" alt=""></label>
 
                             <div id="collapsedefult" class="collapse one" data-parent="#accordion">
                                 <div class="card-body1">
-                                  <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+                                <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="order_button">
-                            <button  type="submit">Proceed to PayPal</button>
+                            <button  type="submit">Bayar</button>
                         </div>
                     </div>
                 </form>

@@ -10,17 +10,22 @@ class CheckoutFrontendController extends Controller
 {
     public function cartToCheckout()
     {
-        $cartItems = session('cartItems');
-        $hargaTotal = session('hargaTotal');
-        if ($cartItems === null || empty($cartItems)) {
-            return redirect()->back();
-        }
+        // $cartItems = session('cartItems');
+        // $hargaTotal = session('hargaTotal');
+
+        // if ($cartItems === null || $cartItems->count() < 1) {
+        //     return redirect()->back();
+        // }
+
+        // if ($hargaTotal === null || $hargaTotal < 1) {
+        //     return redirect()->back();
+        // }
 
         $user = auth()->guard('customer')->user();
 
         return view('frontend.checkout', [
-            'cartItems' => $cartItems,
-            'hargaTotal' => $hargaTotal,
+            // 'cartItems' => $cartItems,
+            // 'hargaTotal' => $hargaTotal,
             'user' => $user
         ]);
     }

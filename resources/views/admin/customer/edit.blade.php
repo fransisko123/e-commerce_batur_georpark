@@ -28,8 +28,9 @@
         <h5 class="mb-0">Form Edit Customer</h5>
       </div>
       <div class="card-body mt-3">
-        <form action="{{ route('customer.store') }}" method="post">
+        <form action="{{ route('customer.update', $data_customer->id) }}" method="post">
           @csrf
+          @method('PUT')
           <div class="mb-3">
             <label for="nama_depan" class="form-label">Nama Depan</label>
             <input type="text" class="form-control" name="nama_depan" id="nama_depan" placeholder="Masukan Nama Depan" value="{{ $data_customer->nama_depan }}" required>
@@ -50,20 +51,16 @@
             <label for="no_telp" class="form-label">Nomor Telepon</label>
             <input type="number" class="form-control" name="no_telp" id="no_telp" placeholder="Masukan Nomor Telepon" value="{{ $data_customer->no_telp }}" required>
           </div>
-          <hr>
+          {{-- <hr>
           <h4>Password</h4>
           <div class="mb-3">
-            <label for="old_password" class="form-label">Old Password</label>
-            <input type="password" class="form-control" name="old_password" id="old_password" placeholder="Masukan Password Lama" required>
+            <label for="password" class="form-label">Password Baru (Kosongkan jika tidak ingin mengubah)</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Masukkan Password">
           </div>
           <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Masukan Password" required>
-          </div>
-          <div class="mb-3">
-            <label for="password_confirmation" class="form-label">Password Confirmation</label>
-            <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Masukan Password" required>
-          </div>
+              <label for="password_confirmation" class="form-label">Konfirmasi Password Baru</label>
+              <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Masukkan Password">
+          </div> --}}
           <button type="submit" class="btn btn-primary mt-4">Simpan</button>
         </form>
       </div>
