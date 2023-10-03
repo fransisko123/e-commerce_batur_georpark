@@ -52,6 +52,7 @@ Route::middleware(['customer.auth'])->group(function () {
     Route::post('/cart/update', [CartFrontendController::class, 'updateCart'])->name('cart.updateCart');
     Route::delete('/cart/remove/{cartItem}', [CartFrontendController::class, 'removeFromCart'])->name('cart.removeFromCart');
     Route::get('checkout', [CheckoutFrontendController::class, 'cartToCheckout'])->name('checkout.cartToCheckout');
+    Route::post('checkout_pay', [CheckoutFrontendController::class, 'checkout_pay'])->name('checkout.checkout_pay');
     Route::get('/my_account', [CustomerFrontendController::class, 'myAccount'])->name('customer.myAccount');
 });
 
