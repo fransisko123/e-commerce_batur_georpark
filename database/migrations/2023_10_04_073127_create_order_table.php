@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb_transaksi', function (Blueprint $table) {
+        Schema::create('tb_order', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('customer_id');
+            $table->text('alamat');
+            $table->text('total_harga');
             $table->text('catatan');
             $table->timestamps();
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tb_transaksi');
+        Schema::dropIfExists('tb_order');
     }
 };

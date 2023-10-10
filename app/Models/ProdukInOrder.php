@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
-use App\Models\Transaksi;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProdukInTransaksi extends Model
 {
     use HasFactory;
+    protected $table = "tb_produk_in_order";
+    protected $fillable = ['order_id', 'produk_id'];
 
     public function transaksi()
     {
-        return $this->belongsTo(Transaksi::class);
+        return $this->belongsTo(Order::class);
     }
 }

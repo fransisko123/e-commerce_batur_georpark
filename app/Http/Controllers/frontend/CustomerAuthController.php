@@ -49,6 +49,7 @@ class CustomerAuthController extends Controller
             'nama_belakang' => 'required',
             'tanggal_lahir' => 'required|date',
             'email' => 'required|email|unique:customers',
+            'no_telp' => 'required',
             'password' => 'required|min:8|confirmed', // 'password_confirmation' field must match 'password'
         ]);
 
@@ -57,6 +58,7 @@ class CustomerAuthController extends Controller
             $customer->nama_belakang = $request->nama_belakang;
             $customer->tanggal_lahir = $request->tanggal_lahir;
             $customer->email = $request->email;
+            $customer->no_telp = $request->no_telp;
             $customer->password = Hash::make($request->password);
             // Add other customer fields here
             $customer->save();

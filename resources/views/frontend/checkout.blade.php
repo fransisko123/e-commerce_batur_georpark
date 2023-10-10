@@ -31,7 +31,15 @@
                             <ul>
                                 <li><i class="zmdi zmdi-phone-setting"></i><span>Phone:</span>{{ $user->no_telp }}</li>
                                 <li><i class="zmdi zmdi-email"></i><span>Email:</span> {{ $user->email }}</li>
-                                <li><i class="zmdi zmdi-home"></i><span>Addresss:</span>{{ $user->alamats[0]->alamat }}</li>
+                                @if (isset($user->alamats[0]->alamat))
+                                    <li><i class="zmdi zmdi-home"></i><span>Addresss:</span>{{ $user->alamats[0]->alamat }}</li>
+                                    <input type="hidden" name="alamat" value="{{ $user->alamats[0]->alamat }}">
+                                @else
+                                    <div class="mb-3">
+                                        <label for="alamat" class="form-label">Alamat *</label>
+                                        <textarea class="form-control" id="alamat" name="alamat" placeholder="Masukan Alamat" rows="3" required></textarea>
+                                    </div>
+                                @endif
                             </ul>
                             <br>
                             <div class="mb-3">
@@ -74,7 +82,8 @@
                                 </tr> --}}
                                 <tr class="order_total">
                                     <th>Order Total</th>
-                                    <input type="hidden" name="hargaTotal" value="{{ $hargaTotal }}">
+                                    <input type="hidden" name="harga_total" value="{{ $hargaTotal }}">
+                                    <input type="hidden" name="cartItems" value="{{ json_encode($cartItems) }}">
                                     <td><strong>Rp {{ number_format($hargaTotal, 2) }}</strong></td>
                                 </tr>
                             </tfoot>

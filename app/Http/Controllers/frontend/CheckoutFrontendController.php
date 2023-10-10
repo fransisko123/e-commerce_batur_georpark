@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,9 @@ class CheckoutFrontendController extends Controller
 
     public function checkout_pay(Request $request)
     {
-        dd($request->user);
+        // dd($request->alamat);
+        $cartItems = json_decode($request->input('cartItems'));
+        dd($cartItems);
+        $order = new Order();
     }
 }

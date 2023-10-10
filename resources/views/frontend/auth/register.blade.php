@@ -57,6 +57,13 @@
                       @enderror
                     </p>
                     <p>
+                        <label>Nomor Telepon <span>*</span></label>
+                        <input type="number" name="no_telp" value="{{ old('no_telp') }}" required>
+                        @error('no_telp')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                      </p>
+                    <p>
                         <label>Email address  <span>*</span></label>
                         <input type="email" name="email" value="{{ old('email') }}" required>
                         @error('email')
