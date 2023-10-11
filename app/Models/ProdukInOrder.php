@@ -6,7 +6,7 @@ use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class ProdukInTransaksi extends Model
+class ProdukInOrder extends Model
 {
     use HasFactory;
     protected $table = "tb_produk_in_order";

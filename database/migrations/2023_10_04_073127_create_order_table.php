@@ -16,7 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->text('alamat');
             $table->text('total_harga');
-            $table->text('catatan');
+            $table->text('catatan')->nullable();
+            $table->text('status');
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');

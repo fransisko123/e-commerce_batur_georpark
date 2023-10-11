@@ -20,7 +20,7 @@
   <div class="Checkout_section mt-60">
     <div class="container">
       <div class="checkout_form">
-        <form action="{{ route('checkout.checkout_pay') }}" method="post">
+        <form id="checkoutForm" action="{{ route('checkout.checkout_pay') }}" method="post">
             @csrf
             <div class="row">
                 <div class="col-lg-6 col-md-6">
@@ -88,7 +88,7 @@
                                 </tr> --}}
                                 <tr class="order_total">
                                     <th>Order Total</th>
-                                    <input type="hidden" name="harga_total" value="{{ $hargaTotal }}">
+                                    <input type="hidden" name="total_harga" value="{{ $hargaTotal }}">
                                     <input type="hidden" name="cartItems" value="{{ json_encode($cartItems) }}">
                                     <td><strong>Rp {{ number_format($hargaTotal, 2) }}</strong></td>
                                 </tr>
@@ -97,7 +97,7 @@
                     </div>
                     <div class="payment_method">
                         <div class="order_button">
-                            <button  type="submit">Bayar</button>
+                            <button  type="submit" id="bayarButton">Bayar</button>
                         </div>
                     </div>
                 </div>
