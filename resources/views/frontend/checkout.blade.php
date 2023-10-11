@@ -32,8 +32,14 @@
                                 <li><i class="zmdi zmdi-phone-setting"></i><span>Phone:</span>{{ $user->no_telp }}</li>
                                 <li><i class="zmdi zmdi-email"></i><span>Email:</span> {{ $user->email }}</li>
                                 @if (isset($user->alamats[0]->alamat))
-                                    <li><i class="zmdi zmdi-home"></i><span>Addresss:</span>{{ $user->alamats[0]->alamat }}</li>
-                                    <input type="hidden" name="alamat" value="{{ $user->alamats[0]->alamat }}">
+                                    <div class="mb-3">
+                                        <label for="alamat" class="form-label">Alamat *</label>
+                                        <select class="form-select" id="alamat" name="alamat">
+                                            @foreach ($user->alamats as $alamat)
+                                                <option value="{{ $alamat->alamat }}">{{ $alamat->alamat }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 @else
                                     <div class="mb-3">
                                         <label for="alamat" class="form-label">Alamat *</label>

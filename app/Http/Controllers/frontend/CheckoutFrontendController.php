@@ -35,9 +35,9 @@ class CheckoutFrontendController extends Controller
 
     public function checkout_pay(Request $request)
     {
-        // dd($request->alamat);
+        dd($request->alamat);
         $cartItems = json_decode($request->input('cartItems'));
-        dd($cartItems);
         $order = new Order();
+        $order->customer_id = $request->user;
     }
 }
