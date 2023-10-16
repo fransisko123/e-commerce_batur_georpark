@@ -19,4 +19,22 @@ class CustomerFrontendController extends Controller
             ]
         );
     }
+
+    public function detail_order($customer_id, $order_id)
+    {
+        $customer = Auth::guard('customer')->user();
+        if ($customer->id != $customer_id) {
+            abort(404);
+        }
+        $order = Order::findOrFail($order_id);
+        $produk_in_order = $order->produkInOrder->map(function ($item) {
+            return $item->produk; // Assuming the relationship is named "produk"
+        });
+        return view('frontend.myaccount.detail_order',
+            [
+                'order' => $order,
+                'produk_in_order' => $produk_in_order
+            ]
+        );
+    }
 }

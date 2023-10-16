@@ -36,7 +36,21 @@ class CheckoutFrontendController extends Controller
 
     public function checkout_pay(Request $request)
     {
+        $latestOrder = Order::latest()->first();
         $order = new Order();
+        if ($latestOrder) {
+            $latestOrderNumber = $latestOrder->no_order;
+            // Ambil angka dari nomor order terbaru
+            $latestOrderNumber = (int)substr($latestOrderNumber, 6);
+            // Tingkatkan angka tersebut
+            $latestOrderNumber++;
+            // Format nomor order baru
+            $newOrderNumber = "ORDER-" . str_pad($latestOrderNumber, 5, "0", STR_PAD_LEFT);
+        } else {
+            // Jika ini adalah order pertama, gunakan nomor awal
+            $newOrderNumber = "ORDER-00001";
+        }
+        $order->no_order = $newOrderNumber;
         $order->customer_id = $request->user;
         $order->alamat = $request->alamat;
         $order->total_harga = $request->total_harga;

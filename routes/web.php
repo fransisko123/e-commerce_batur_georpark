@@ -54,6 +54,7 @@ Route::middleware(['customer.auth'])->group(function () {
     Route::get('checkout', [CheckoutFrontendController::class, 'cartToCheckout'])->name('checkout.cartToCheckout');
     Route::post('checkout_pay', [CheckoutFrontendController::class, 'checkout_pay'])->name('checkout.checkout_pay');
     Route::get('/my_account', [CustomerFrontendController::class, 'myAccount'])->name('customer.myAccount');
+    Route::get('/my_account/{customer_id}/{no_order}', [CustomerFrontendController::class, 'detail_order'])->name('customer.detail_order');
 });
 
 Route::middleware('auth', 'verified')->group(function () {

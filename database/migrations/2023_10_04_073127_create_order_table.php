@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tb_order', function (Blueprint $table) {
             $table->id();
+            $table->string('no_order');
             $table->unsignedBigInteger('customer_id');
             $table->text('alamat');
             $table->text('total_harga');

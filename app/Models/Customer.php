@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Order;
 use App\Models\AlamatCustomer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -17,5 +18,10 @@ class Customer extends Model implements Authenticatable
     public function alamats()
     {
         return $this->hasMany(AlamatCustomer::class);
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class);
     }
 }

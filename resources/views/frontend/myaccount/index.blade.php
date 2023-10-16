@@ -1,6 +1,6 @@
 @extends('frontend_layouts/master')
 
-@section('title', 'Login')
+@section('title', 'My Account')
 
 @section('additional_css')
 
@@ -60,7 +60,7 @@
                                   <table class="table">
                                       <thead>
                                           <tr>
-                                              <th>Order</th>
+                                              <th>No Order</th>
                                               <th>Date</th>
                                               <th>Status</th>
                                               <th>Total</th>
@@ -70,11 +70,11 @@
                                       <tbody>
                                         @foreach ($order as $item)
                                             <tr>
-                                                <td>1</td>
-                                                <td>May 10, 2018</td>
-                                                <td><span class="success">Completed</span></td>
-                                                <td>$25.00 for 1 item </td>
-                                                <td><a href="cart.html" class="view">view</a></td>
+                                                <td>{{ $item->no_order }}</td>
+                                                <td>{{ Illuminate\Support\Carbon::parse($item->created_at)->locale('id_ID')->isoFormat('D MMMM YYYY') }}</td>
+                                                <td><span class="success">{{ $item->status }}</span></td>
+                                                <td>Rp {{ number_format($item->total_harga, 2) }}</td>
+                                                <td><a href="{{ route('customer.detail_order', [$item->customer_id, $item->id]) }}" class="view">Detail</a></td>
                                             </tr>
                                         @endforeach
                                       </tbody>

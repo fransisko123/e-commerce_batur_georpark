@@ -22,4 +22,9 @@ class Produk extends Model
     {
         return $this->belongsTo(KategoriProduk::class);
     }
+
+    public function produk_in_order()
+    {
+        return $this->hasMany(ProdukInOrder::class);
+    }
 }
