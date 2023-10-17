@@ -28,6 +28,8 @@
   <!-- my account start  -->
   <section class="main_content_area">
       <div class="container">
+        <hr>
+        <h3>Informasi Order</h3>
         <table class="table">
           <tr>
               <th>Nomor Order</th>
@@ -59,17 +61,38 @@
         <br>
         <hr>
         <h2>Barang</h2>
+        @php
+            $totalQuantity = 0;
+        @endphp
         <table class="table">
           <tr>
             <th>Image</th>
             <th>Nama Produk</th>
+            <th>Jumlah</th>
           </tr>
           @foreach ($produk_in_order as $item)
             <tr>
-              <td><img src="{{ asset('storage/image_produk/' . $item->image) }}" width="100"></td>
-              <td>{{ $item->nama }}</td>
+              <td><img src="{{ asset('storage/image_produk/' . $item->produk->image) }}" width="100"></td>
+              <td>{{ $item->produk->nama }}</td>
+              <td>{{ $item->quantity }}</td>
             </tr>
+            @php
+                $totalQuantity += $item->quantity;
+            @endphp
           @endforeach
+        </table>
+        <br>
+        <hr>
+        <h3>Total</h3>
+        <table class="table">
+          <tr>
+              <th>Jumlah Barang</th>
+              <td><b>{{ $totalQuantity}} Item</b></td>
+          </tr>
+          <tr>
+              <th>Total Harga</th>
+              <td><b>Rp {{ number_format($order->total_harga, 2) }}</b></td>
+          </tr>
         </table>
       </div>
   </section>

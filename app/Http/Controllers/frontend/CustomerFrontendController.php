@@ -27,9 +27,7 @@ class CustomerFrontendController extends Controller
             abort(404);
         }
         $order = Order::findOrFail($order_id);
-        $produk_in_order = $order->produkInOrder->map(function ($item) {
-            return $item->produk; // Assuming the relationship is named "produk"
-        });
+        $produk_in_order = $order->produkInOrder;
         return view('frontend.myaccount.detail_order',
             [
                 'order' => $order,
