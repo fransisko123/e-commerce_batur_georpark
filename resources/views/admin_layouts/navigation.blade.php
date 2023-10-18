@@ -40,5 +40,11 @@
         <div data-i18n="Analytics">Customer</div>
       </a>
     </li>
+    <li class="menu-item {{ (request()->is('order')) ? 'active' : '' }}">
+      <a href="{{ route('order.index') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-store"></i>
+        <div data-i18n="Analytics">Order</div>
+      </a>
+    </li>
   </ul>
 </aside>

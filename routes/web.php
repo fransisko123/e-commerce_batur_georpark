@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TokoController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
@@ -57,6 +58,11 @@ Route::middleware(['customer.auth'])->group(function () {
     Route::get('/my_account/{customer_id}/{no_order}', [CustomerFrontendController::class, 'detail_order'])->name('customer.detail_order');
 });
 
+
+
+
+// ======================= ADMIN ========================= //
+
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/admin', function () {
         return redirect()->route('login');
@@ -82,6 +88,10 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('{customer}/alamat', [AlamatCustomerController::class, 'index'])->name('alamat_customer.index');
     Route::get('{customer}/tambah_alamat', [AlamatCustomerController::class, 'create'])->name('alamat_customer.create');
     Route::post('{customer}/tambah_alamat_proses', [AlamatCustomerController::class, 'store'])->name('alamat_customer.store');
+
+    Route::get('order', [OrderController::class, 'index'])->name('order.index');
+    Route::get('order/create', [OrderController::class, 'create'])->name('order.create');
+    Route::post('order/store', [OrderController::class, 'store'])->name('order.store');
 });
 
 require __DIR__.'/auth.php';
