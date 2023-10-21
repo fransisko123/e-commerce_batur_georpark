@@ -37,7 +37,9 @@
           </tr>
           <tr>
               <th>Status</th>
-              <td><b>{{ $order->status }}</b></td>
+              <td>
+                <b>{{ $order->status }}</b>
+            </td>
           </tr>
           <tr>
               <th>Nama Pembeli</th>
@@ -58,6 +60,13 @@
               </tr>
           @endif
         </table>
+        @if ($order->status == "Pemesanan")
+            <a href="#" class="btn btn-danger m-1" onclick="event.preventDefault(); document.getElementById('form-order-dikirim-{{$order->id}}').submit();">Batalkan Pesanan</a>
+            <form id="form-order-dikirim-{{$order->id}}" action="{{ route('order.dikirim', $order->id) }}" method="POST" style="display: none;">
+                @csrf
+                @method('PUT')
+            </form>
+        @endif
         <br>
         <hr>
         <h2>Barang</h2>

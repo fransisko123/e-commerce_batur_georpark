@@ -18,9 +18,9 @@
       <h4 class="fw py-3 mb-4">
         Order</b>
       </h4>
-    <a href="{{ route('order.create') }}" class="btn btn-primary">
+    {{-- <a href="{{ route('order.create') }}" class="btn btn-primary">
       <span class="bx bx-plus-circle"></span>&nbsp; Tambah Order
-    </a>
+    </a> --}}
   </div>
     <div class="d-flex justify-content-between align-items-center mb-2">
       <h4 class="fw-bold py-3 mb-4">
@@ -49,8 +49,21 @@
                 <td>Rp {{ number_format($item->total_harga, 2) }}</td>
                 <td>{{ $item->status }}</td>
                 <td>
-                  <a href="{{ route('customer.edit', $item->id) }}" class="btn btn-primary">Edit</a>
-                  <a href="{{ route('alamat_customer.index', $item->id) }}" class="btn btn-secondary">Alamat</a>
+                  <a href="{{ route('order.detail', $item->id) }}" class="btn btn-info">Detail</a>
+                  @if ($item->status == "Pemesanan")
+                    <a href="#" class="btn btn-secondary m-1" onclick="event.preventDefault(); document.getElementById('form-order-dikirim-{{$item->id}}').submit();">Kirim</a>
+                    <form id="form-order-dikirim-{{$item->id}}" action="{{ route('order.dikirim', $item->id) }}" method="POST" style="display: none;">
+                        @csrf
+                        @method('PUT')
+                    </form>
+                  @endif
+                  @if ($item->status == "Sedang Di Kirim")
+                    <a href="#" class="btn btn-success m-1" onclick="event.preventDefault(); document.getElementById('form-order-dikirim-{{$item->id}}').submit();">Selesai</a>
+                    <form id="form-order-dikirim-{{$item->id}}" action="{{ route('order.selesai', $item->id) }}" method="POST" style="display: none;">
+                        @csrf
+                        @method('PUT')
+                    </form>
+                  @endif
                   <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="1" onclick="showConfirmationModal(this)">
                     Hapus
                   </button>

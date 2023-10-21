@@ -90,8 +90,11 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('{customer}/tambah_alamat_proses', [AlamatCustomerController::class, 'store'])->name('alamat_customer.store');
 
     Route::get('order', [OrderController::class, 'index'])->name('order.index');
-    Route::get('order/create', [OrderController::class, 'create'])->name('order.create');
-    Route::post('order/store', [OrderController::class, 'store'])->name('order.store');
+    // Route::get('order/create', [OrderController::class, 'create'])->name('order.create');
+    // Route::post('order/store', [OrderController::class, 'store'])->name('order.store');
+    Route::get('order/{id}/detail', [OrderController::class, 'detail'])->name('order.detail');
+    Route::put('order/{id}/dikirim', [OrderController::class, 'dikirim'])->name('order.dikirim');
+    Route::put('order/{id}/selesai', [OrderController::class, 'selesai'])->name('order.selesai');
 });
 
 require __DIR__.'/auth.php';

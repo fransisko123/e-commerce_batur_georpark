@@ -1,6 +1,6 @@
 @extends('admin_layouts/master')
 
-@section('title', 'Tambah Kategori Produk')
+@section('title', 'Edit Kategori Produk')
 
 @section('additional_css')
   <link rel="stylesheet" href="{{ asset('admin_assets/assets/vendor/libs/select2/select2.css') }}" />
