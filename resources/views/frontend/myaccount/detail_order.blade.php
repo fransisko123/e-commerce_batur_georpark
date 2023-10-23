@@ -62,7 +62,7 @@
         </table>
         @if ($order->status == "Pemesanan")
             <a href="#" class="btn btn-danger m-1" onclick="event.preventDefault(); document.getElementById('form-order-dikirim-{{$order->id}}').submit();">Batalkan Pesanan</a>
-            <form id="form-order-dikirim-{{$order->id}}" action="{{ route('order.dikirim', $order->id) }}" method="POST" style="display: none;">
+            <form id="form-order-dikirim-{{$order->id}}" action="{{ route('customer.detail_order.dibatalkan', $order->id) }}" method="POST" style="display: none;">
                 @csrf
                 @method('PUT')
             </form>

@@ -56,6 +56,7 @@ Route::middleware(['customer.auth'])->group(function () {
     Route::post('checkout_pay', [CheckoutFrontendController::class, 'checkout_pay'])->name('checkout.checkout_pay');
     Route::get('/my_account', [CustomerFrontendController::class, 'myAccount'])->name('customer.myAccount');
     Route::get('/my_account/{customer_id}/{no_order}', [CustomerFrontendController::class, 'detail_order'])->name('customer.detail_order');
+    Route::put('/my_account/order/{id}/dibatalkan', [CustomerFrontendController::class, 'dibatalkan'])->name('customer.detail_order.dibatalkan');
 });
 
 
@@ -93,6 +94,7 @@ Route::middleware('auth', 'verified')->group(function () {
     // Route::get('order/create', [OrderController::class, 'create'])->name('order.create');
     // Route::post('order/store', [OrderController::class, 'store'])->name('order.store');
     Route::get('order/{id}/detail', [OrderController::class, 'detail'])->name('order.detail');
+    Route::put('order/{id}/dibatalkan', [OrderController::class, 'dibatalkan'])->name('order.dibatalkan');
     Route::put('order/{id}/dikirim', [OrderController::class, 'dikirim'])->name('order.dikirim');
     Route::put('order/{id}/selesai', [OrderController::class, 'selesai'])->name('order.selesai');
 });

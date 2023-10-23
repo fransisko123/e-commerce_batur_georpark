@@ -35,4 +35,12 @@ class CustomerFrontendController extends Controller
             ]
         );
     }
+
+    public function dibatalkan($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->status = "Dibatalkan";
+        $order->save();
+        return redirect()->route('customer.detail_order', [$order->customer_id, $order->id])->with('status', 'Order telah selesai.');
+    }
 }
