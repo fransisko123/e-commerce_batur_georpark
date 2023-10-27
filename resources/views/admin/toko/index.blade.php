@@ -14,9 +14,11 @@
       <h4 class="fw-bold py-3 mb-4">
         Toko
       </h4>
-      <a href="{{ route('toko.create') }}" class="btn btn-primary">
-        <span class="bx bx-plus-circle"></span>&nbsp; Buat Toko
-      </a>
+      @if (auth()->user()->role == 'admin')
+        <a href="{{ route('toko.create') }}" class="btn btn-primary">
+          <span class="bx bx-plus-circle"></span>&nbsp; Buat Toko
+        </a>
+      @endif
     </div>
     <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
       @foreach ($toko as $item)

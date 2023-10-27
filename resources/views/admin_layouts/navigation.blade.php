@@ -28,18 +28,22 @@
         <div data-i18n="Analytics">Toko</div>
       </a>
     </li>
-    <li class="menu-item {{ (request()->is('kategori_produk')) ? 'active' : '' }}">
-      <a href="{{ route('kategori_produk.index') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-store"></i>
-        <div data-i18n="Analytics">Kategori Produk</div>
-      </a>
-    </li>
-    <li class="menu-item {{ (request()->is('customer')) ? 'active' : '' }}">
-      <a href="{{ route('customer.index') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-store"></i>
-        <div data-i18n="Analytics">Customer</div>
-      </a>
-    </li>
+    @if(auth()->user()->role == 'admin')
+      <li class="menu-item {{ (request()->is('kategori_produk')) ? 'active' : '' }}">
+        <a href="{{ route('kategori_produk.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-store"></i>
+          <div data-i18n="Analytics">Kategori Produk</div>
+        </a>
+      </li>
+    @endif
+    @if(auth()->user()->role == 'admin')
+      <li class="menu-item {{ (request()->is('customer')) ? 'active' : '' }}">
+        <a href="{{ route('customer.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-store"></i>
+          <div data-i18n="Analytics">Customer</div>
+        </a>
+      </li>
+    @endif
     <li class="menu-item {{ (request()->is('order')) ? 'active' : '' }}">
       <a href="{{ route('order.index') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-store"></i>

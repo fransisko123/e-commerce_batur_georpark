@@ -15,7 +15,12 @@ class TokoController extends Controller
      */
     public function index()
     {
-        $toko = Toko::all();
+        if (auth()->user()->role == 'admin') {
+            $toko = Toko::all();
+        }
+        if (auth()->user()->role == 'pemilik_toko') {
+            $toko = Toko::where('user_id', auth()->user()->id)->get();
+        }
         return view('admin.toko.index',
             ['toko' => $toko]
         );
