@@ -4,6 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 use App\Models\ProdukInOrder;
 use App\Http\Controllers\Controller;
@@ -66,6 +67,10 @@ class CheckoutFrontendController extends Controller
             $produk_in_order->produk_id = $item->produk_id;
             $produk_in_order->quantity = $item->quantity;
             $produk_in_order->save();
+
+            $produk = Produk::find($item->produk_id);
+            $produk->stok = $produk->stok - $item->quantity;
+            $produk->save();
         }
 
         foreach ($cartItems as $item) {

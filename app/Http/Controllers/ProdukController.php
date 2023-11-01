@@ -87,7 +87,7 @@ class ProdukController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit($id_toko, $id)
     {
         $kategori_produks = KategoriProduk::all();
         $produk = Produk::findOrFail($id);

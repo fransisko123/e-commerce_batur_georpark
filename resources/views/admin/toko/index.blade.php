@@ -31,13 +31,15 @@
               <a href="{{ route('produk.index', $item->id) }}" class="btn btn-outline-info">Produk</a>
               <a href="{{ route('toko.edit', $item->id) }}" class="btn btn-outline-primary">Edit</a>
               {{-- <button class="btn btn-outline-danger" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)"> --}}
-              <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)">
-                Hapus
-              </button>
-              <form id="delete-form" method="POST" style="display: none;">
-                @csrf
-                @method('DELETE')
-              </form>
+              @if (auth()->user()->role == 'admin')
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)">
+                  Hapus
+                </button>
+                <form id="delete-form" method="POST" style="display: none;">
+                  @csrf
+                  @method('DELETE')
+                </form>
+              @endif
             </div>
           </div>
         </div>

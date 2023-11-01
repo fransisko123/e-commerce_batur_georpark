@@ -44,11 +44,24 @@
         </a>
       </li>
     @endif
-    <li class="menu-item {{ (request()->is('order')) ? 'active' : '' }}">
-      <a href="{{ route('order.index') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-store"></i>
-        <div data-i18n="Analytics">Order</div>
-      </a>
-    </li>
+    @if(auth()->user()->role == 'admin')
+      <li class="menu-item {{ (request()->is('order')) ? 'active' : '' }}">
+        <a href="{{ route('order.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-store"></i>
+          <div data-i18n="Analytics">Order</div>
+        </a>
+      </li>
+    @endif
+    @if(auth()->user()->role == 'pemilik_toko')
+    @php
+        $toko = App\Models\Toko::where('user_id', auth()->user()->id)->first();
+    @endphp
+      <li class="menu-item {{ (request()->is('produk_on_order')) ? 'active' : '' }}">
+        <a href="{{ route('produk_on_order.index', $toko->id) }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-store"></i>
+          <div data-i18n="Analytics">Laporan Penjualan</div>
+        </a>
+      </li>
+    @endif
   </ul>
 </aside>

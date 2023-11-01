@@ -17,6 +17,7 @@ use App\Http\Controllers\frontend\CheckoutFrontendController;
 use App\Http\Controllers\frontend\CustomerFrontendController;
 use App\Http\Controllers\frontend\KategoriFrontendController;
 use App\Http\Controllers\frontend\DashboardFrontendController;
+use App\Http\Controllers\ProdukOnOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,15 +76,28 @@ Route::middleware('auth', 'verified')->group(function () {
 
     // Dashboard Admin
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-    Route::resource('toko', TokoController::class);
+
+    // TOKO
+    Route::get('toko', [TokoController::class, 'index'])->name('toko.index');
+    Route::get('toko/create', [TokoController::class, 'create'])->name('toko.create')->middleware('admin');
+    Route::post('toko', [TokoController::class, 'store'])->name('toko.store')->middleware('admin');
+    Route::get('toko/{toko}', [TokoController::class, 'show'])->name('toko.show');
+    Route::get('toko/{toko}/edit', [TokoController::class, 'edit'])->name('toko.edit')->middleware('check.toko.ownership');
+    Route::put('toko/{toko}', [TokoController::class, 'update'])->name('toko.update')->middleware('check.toko.ownership');
+    Route::delete('toko/{toko}', [TokoController::class, 'destroy'])->name('toko.destroy')->middleware('admin');
+
     Route::resource('kategori_produk', KategoriProdukController::class);
 
-    Route::get('{toko}/produk/list_produk', [ProdukController::class, 'index'])->name('produk.index');
-    Route::get('produk/{toko}/create', [ProdukController::class, 'create'])->name('produk.create');
-    Route::post('produk/{toko}/store', [ProdukController::class, 'store'])->name('produk.store');
-    Route::get('produk/{toko}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
-    Route::put('produk/{toko}/update/{produk}', [ProdukController::class, 'update'])->name('produk.update');
-    Route::delete('produk/{produk}/delete', [ProdukController::class, 'destroy'])->name('produk.destroy');
+    // Produk
+    Route::get('{toko}/produk/list_produk', [ProdukController::class, 'index'])->name('produk.index')->middleware('check.toko.ownership');
+    Route::get('produk/{toko}/create', [ProdukController::class, 'create'])->name('produk.create')->middleware('check.toko.ownership');
+    Route::post('produk/{toko}/store', [ProdukController::class, 'store'])->name('produk.store')->middleware('check.toko.ownership');
+    Route::get('produk/{toko}/edit/{produk}', [ProdukController::class, 'edit'])->name('produk.edit')->middleware('check.toko.ownership');
+    Route::put('produk/{toko}/update/{produk}', [ProdukController::class, 'update'])->name('produk.update')->middleware('check.toko.ownership');
+    Route::delete('produk/{toko}/delete/{produk}', [ProdukController::class, 'destroy'])->name('produk.destroy')->middleware('check.toko.ownership');
+
+    // Laporan produk pada toko
+    Route::get('produk_on_order/{toko}', [ProdukOnOrderController::class, 'index'])->name('produk_on_order.index')->middleware('check.toko.ownership');
 
     Route::resource('customer', CustomerController::class);
     Route::get('{customer}/alamat', [AlamatCustomerController::class, 'index'])->name('alamat_customer.index');

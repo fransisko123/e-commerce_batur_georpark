@@ -16,7 +16,7 @@
     @endif
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h4 class="fw py-3 mb-4">
-        Order</b>
+        Order
       </h4>
     {{-- <a href="{{ route('order.create') }}" class="btn btn-primary">
       <span class="bx bx-plus-circle"></span>&nbsp; Tambah Order
