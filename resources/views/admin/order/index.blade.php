@@ -64,7 +64,7 @@
                         @method('PUT')
                     </form>
                   @endif
-                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="1" onclick="showConfirmationModal(this)">
+                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)">
                     Hapus
                   </button>
                   <form id="delete-form" method="POST" style="display: none;">
@@ -83,12 +83,12 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Hapus Kategori Produk</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Hapus Order</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
               </button>
           </div>
           <div class="modal-body">
-            <p>Apakah anda yakin ingin menghapus kategori produk.</p>
+            <p>Apakah anda yakin ingin menghapus Order.</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -107,7 +107,7 @@
   function showConfirmationModal(button) {
     var id = $(button).data('id');
     $('#delete-confirmation-modal').modal('show');
-    $('#delete-form').attr('action', '/kategori_produk/' + id);
+    $('#delete-form').attr('action', '/order/' + id + '/delete');
   }
 
   function deleteData() {

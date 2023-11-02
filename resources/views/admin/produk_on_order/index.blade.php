@@ -29,11 +29,57 @@
     </div>
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow rounded mb-4 card-datatable table-responsive pt-3">
       <div class="table-responsive datatables-basic table">
-        <h1>Hello</h1>
+        <table class="table table-hover" id="test-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Nomor Order</th>
+              <th>Nama Pembeli</th>
+              <th>Nama Barang</th>
+              <th>Quantity</th>
+              <th>Total Harga</th>
+            </tr>
+          </thead>
+          <tbody>
+            @php
+                $totalHargaSemuaProduk = 0; // Inisialisasi total harga
+            @endphp
+            @foreach ($produkInOrder as $item)
+              <tr>
+                <td><img src="{{ asset('storage/image_produk/' . $item->produk->image) }}" width="100"></td>
+                <td>{{ $item->order_id }}</td>
+                <td>{{ $item->order->customer->nama_depan }} {{ $item->order->customer->nama_belakang }}</td>
+                <td>{{ $item->produk->nama }}</td>
+                <td>x{{ $item->quantity }}</td>
+                @php
+                    $harga_produk = $item->produk->harga_diskon ? $item->produk->harga_diskon : $item->produk->harga;
+                    $hargaTotalProduk = $harga_produk * $item->quantity;
+                    $totalHargaSemuaProduk += $hargaTotalProduk;
+                @endphp
+                <td>Rp {{ number_format($hargaTotalProduk, 2) }}</td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+        <br>
+        <hr>
+        <h3>Total Pendapatan : <b>Rp {{ number_format($totalHargaSemuaProduk, 2) }}</b></h3>
       </div>
     </div>
 @endsection
 
 @section('additional_js')
-
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function() {
+      $('#test-table').DataTable({
+          "paging": true, // Enable pagination
+          "searching": true, // Enable searching
+          "ordering": false, // Enable sorting
+          "info": true, // Show table information
+          "lengthChange": true, // Show entries per page change option
+          "autoWidth": true, // Auto-adjust table width
+      });
+  });
+</script>
 @endsection

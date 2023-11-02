@@ -111,6 +111,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::put('order/{id}/dibatalkan', [OrderController::class, 'dibatalkan'])->name('order.dibatalkan');
     Route::put('order/{id}/dikirim', [OrderController::class, 'dikirim'])->name('order.dikirim');
     Route::put('order/{id}/selesai', [OrderController::class, 'selesai'])->name('order.selesai');
+    Route::delete('order/{id}/delete', [OrderController::class, 'destroy'])->name('order.destroy');
 });
 
 require __DIR__.'/auth.php';

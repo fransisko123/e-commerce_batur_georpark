@@ -42,4 +42,11 @@ class OrderController extends Controller
         $order->save();
         return redirect()->route('order.index')->with('status', 'Order telah selesai.');
     }
+
+    public function destroy($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->delete();
+        return redirect()->route('order.index')->with('status', 'Berhasil Menghapus Order.');
+    }
 }
