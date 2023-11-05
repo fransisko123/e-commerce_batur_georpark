@@ -16,7 +16,7 @@
     @endif
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h4 class="fw py-3 mb-4">
-        Order
+        Laporan Penjualan Barang
       </h4>
     {{-- <a href="{{ route('order.create') }}" class="btn btn-primary">
       <span class="bx bx-plus-circle"></span>&nbsp; Tambah Order
@@ -24,9 +24,20 @@
   </div>
     <div class="d-flex justify-content-between align-items-center mb-2">
       <h4 class="fw-bold py-3 mb-4">
-        Table Order
+        Table Laporan Penjualan Barang
       </h4>
     </div>
+    <form method="GET" action="{{ route('produk_on_order.index', $toko->id) }}">
+      <div class="form-group mb-3">
+        <label for="start_date">Tanggal Awal:</label>
+        <input type="date" name="start_date" id="start_date" class="form-control">
+      </div>
+      <div class="form-group mb-3">
+        <label for="end_date">Tanggal Akhir:</label>
+        <input type="date" name="end_date" id="end_date" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary mb-3">Cari</button>
+    </form>
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow rounded mb-4 card-datatable table-responsive pt-3">
       <div class="table-responsive datatables-basic table">
         <table class="table table-hover" id="test-table">
@@ -34,6 +45,7 @@
             <tr>
               <th>Image</th>
               <th>Nomor Order</th>
+              <th>Tanggal Order</th>
               <th>Nama Pembeli</th>
               <th>Nama Barang</th>
               <th>Quantity</th>
@@ -48,6 +60,7 @@
               <tr>
                 <td><img src="{{ asset('storage/image_produk/' . $item->produk->image) }}" width="100"></td>
                 <td>{{ $item->order_id }}</td>
+                <td>{{ Illuminate\Support\Carbon::parse($item->order->created_at)->locale('id_ID')->isoFormat('D MMMM YYYY') }}</td>
                 <td>{{ $item->order->customer->nama_depan }} {{ $item->order->customer->nama_belakang }}</td>
                 <td>{{ $item->produk->nama }}</td>
                 <td>x{{ $item->quantity }}</td>

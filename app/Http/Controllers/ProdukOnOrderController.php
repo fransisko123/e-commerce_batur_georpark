@@ -9,15 +9,26 @@ use App\Models\ProdukInOrder;
 
 class ProdukOnOrderController extends Controller
 {
-    public function index($id)
+    public function index($id, Request $request)
     {
         $toko = Toko::findOrFail($id);
+
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
         $produkInOrder = ProdukInOrder::whereHas('produk', function ($query) use ($toko) {
             $query->where('toko_id', $toko->id);
-        })->get();
+        });
+
+        if ($start_date && $end_date) {
+            $produkInOrder->whereBetween('created_at', [$start_date, $end_date]);
+        }
+
+        $produkInOrder = $produkInOrder->get();
 
         return view('admin.produk_on_order.index', [
             'produkInOrder' => $produkInOrder,
+            'toko' => $toko
         ]);
     }
 }
