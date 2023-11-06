@@ -21,7 +21,7 @@ class ProdukOnOrderController extends Controller
         });
 
         if ($start_date && $end_date) {
-            $produkInOrder->whereBetween('created_at', [$start_date, $end_date]);
+            $produkInOrder->whereBetween('created_at', [$start_date, date('Y-m-d', strtotime($end_date. ' + 1 day'))]);
         }
 
         $produkInOrder = $produkInOrder->get();

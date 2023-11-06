@@ -7,12 +7,19 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::orderBy('no_order', 'desc')->get();
-        return view('admin.order.index',
-            ['orders' => $orders]
-        );
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
+        $orders = Order::orderBy('no_order', 'desc');
+
+        if ($start_date && $end_date) {
+            $orders->whereBetween('created_at', [$start_date, date('Y-m-d', strtotime($end_date. ' + 1 day'))]);
+        }
+
+        $orders = $orders->get();
+        return view('admin.order.index', ['orders' => $orders]);
     }
 
     public function detail($id)
