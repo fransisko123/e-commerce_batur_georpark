@@ -21,7 +21,6 @@ class PaymentController extends Controller
             'payer_email' => $request->payer_email,
             'description' => $request->description,
             'amount' => $request->amount,
-            'success_redirect_url' => '127.0.0.1:8000'
         ];
 
         // $createInvoice = \Xendit\Invoice::create($params);

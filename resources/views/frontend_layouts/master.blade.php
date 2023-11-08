@@ -69,10 +69,10 @@
         <div class="header_bottom">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-3">
+                    {{-- <div class="col-lg-3">
                        <div class="categories_menu categori_three">
                             <div class="categories_title">
-                                <h2 class="categori_toggle">Categories</h2>
+                                <h2 class="categori_toggle">Categorie</h2>
                             </div>
                             <div class="categories_menu_toggle">
                                 <ul>
@@ -200,7 +200,7 @@
                                 </ul>
                             </div>
                         </div>
-                   </div>
+                   </div> --}}
                     <div class="col-lg-9">
                         <div class="main_menu menu_three header_position">
                             <nav>
@@ -210,31 +210,22 @@
                                     <li class="mega_items"><a href="shop.html"><i class="zmdi zmdi-shopping-basket"></i> shop <i class="zmdi zmdi-caret-down"></i></a>
                                         <div class="mega_menu">
                                             <ul class="mega_menu_inner">
-                                                <li><a href="#">Shop Layouts</a>
+                                                <li style="margin-right: 90px;"><a href="#">Toko</a>
+                                                    @php
+                                                            $toko = App\Models\Toko::all();
+                                                            $kategori = App\Models\KategoriProduk::all();
+                                                    @endphp
                                                     <ul>
-                                                        <li><a href="shop-fullwidth.html">Full Width</a></li>
-                                                        <li><a href="shop-fullwidth-list.html">Full Width list</a></li>
-                                                        <li><a href="shop-right-sidebar.html">Right Sidebar </a></li>
-                                                        <li><a href="shop-right-sidebar-list.html"> Right Sidebar list</a></li>
-                                                        <li><a href="shop-list.html">List View</a></li>
+                                                        @foreach ($toko  as $item)
+                                                            <li><a href="{{ route('toko.shop', $item->slug) }}">{{ $item->nama }}</a></li>
+                                                        @endforeach
                                                     </ul>
                                                 </li>
-                                                <li><a href="#">other Pages</a>
+                                                <li style="margin-left: 90px;"><a href="#">Kategori</a>
                                                     <ul>
-                                                        <li><a href="{{ route('cart.shopping_cart') }}">cart</a></li>
-                                                        <li><a href="wishlist.html">Wishlist</a></li>
-                                                        <li><a href="checkout.html">Checkout</a></li>
-                                                        <li><a href="my-account.html">my account</a></li>
-                                                        <li><a href="404.html">Error 404</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Product Types</a>
-                                                    <ul>
-                                                        <li><a href="product-details.html">product details</a></li>
-                                                        <li><a href="product-sidebar.html">product sidebar</a></li>
-                                                        <li><a href="product-grouped.html">product grouped</a></li>
-                                                        <li><a href="variable-product.html">product variable</a></li>
-
+                                                        @foreach ($kategori as $item)
+                                                            <li><a href="{{ route('kategori.shop', $item->slug) }}">{{ $item->nama }}</a></li>
+                                                        @endforeach
                                                     </ul>
                                                 </li>
                                             </ul>
@@ -448,26 +439,22 @@
                                     <a href="#">Shop</a>
                                     <ul class="sub-menu">
                                         <li class="menu-item-has-children">
-                                            <a href="#">Shop Layouts</a>
+                                            <a href="#">Toko</a>
                                             <ul class="sub-menu">
-                                                <li><a href="shop-fullwidth.html">Full Width</a></li>
-                                                <li><a href="shop-fullwidth-list.html">Full Width list</a></li>
-                                                <li><a href="shop-right-sidebar.html">Right Sidebar </a></li>
-                                                <li><a href="shop-right-sidebar-list.html"> Right Sidebar list</a></li>
-                                                <li><a href="shop-list.html">List View</a></li>
+                                                @foreach ($toko  as $item)
+                                                    <li><a href="{{ route('toko.shop', $item->slug) }}">{{ $item->nama }}</a></li>
+                                                @endforeach
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children">
-                                            <a href="#">other Pages</a>
+                                            <a href="#">Kategori</a>
                                             <ul class="sub-menu">
-                                                <li><a href="{{ route('cart.shopping_cart') }}">cart</a></li>
-                                                <li><a href="wishlist.html">Wishlist</a></li>
-                                                <li><a href="checkout.html">Checkout</a></li>
-                                                <li><a href="my-account.html">my account</a></li>
-                                                <li><a href="404.html">Error 404</a></li>
+                                                @foreach ($kategori as $item)
+                                                    <li><a href="{{ route('kategori.shop', $item->slug) }}">{{ $item->nama }}</a></li>
+                                                @endforeach
                                             </ul>
                                         </li>
-                                        <li class="menu-item-has-children">
+                                        {{-- <li class="menu-item-has-children">
                                             <a href="#">Product Types</a>
                                             <ul class="sub-menu">
                                                 <li><a href="product-details.html">product details</a></li>
@@ -475,10 +462,10 @@
                                                 <li><a href="product-grouped.html">product grouped</a></li>
                                                 <li><a href="variable-product.html">product variable</a></li>
                                             </ul>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </li>
-                                <li class="menu-item-has-children">
+                                {{-- <li class="menu-item-has-children">
                                     <a href="#">blog</a>
                                     <ul class="sub-menu">
                                         <li><a href="blog.html">blog</a></li>
@@ -487,8 +474,8 @@
                                         <li><a href="blog-sidebar.html">blog sidebar</a></li>
                                     </ul>
 
-                                </li>
-                                <li class="menu-item-has-children">
+                                </li> --}}
+                                {{-- <li class="menu-item-has-children">
                                     <a href="#">pages </a>
                                     <ul class="sub-menu">
                                         <li><a href="about.html">About Us</a></li>
@@ -500,7 +487,7 @@
                                         <li><a href="wishlist.html">Wishlist</a></li>
                                         <li><a href="404.html">Error 404</a></li>
                                     </ul>
-                                </li>
+                                </li> --}}
                                 <li class="menu-item-has-children">
                                     <a href="about.html">about Us</a>
                                 </li>
@@ -585,83 +572,35 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <div class="widgets_container widget_menu">
-                                    <h3>CUSTOMER SERVICE</h3>
+                                    <h3>Toko</h3>
                                     <div class="footer_menu">
                                         <ul>
-                                            <li><a href="#">Shipping & Returns</a></li>
-                                            <li><a href="#"> Secure Shopping</a></li>
-                                            <li><a href="#">International Shipping</a></li>
-                                            <li><a href="#"> Affiliates</a></li>
-                                            <li><a href="contact.html"> Contact</a></li>
-                                            <li><a href="#"> Travel</a></li>
-                                            <li><a href="#">ecommerce</a></li>
-                                            <li><a href="#"> Creative</a></li>
+                                            @foreach ($toko  as $item)
+                                                <li><a href="{{ route('toko.shop', $item->slug) }}">{{ $item->nama }}</a></li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="widgets_container widget_menu">
-                                    <h3>Information</h3>
+                                    <h3>Kategori</h3>
                                     <div class="footer_menu">
                                         <ul>
-                                            <li><a href="about.html">About Us</a></li>
-                                            <li><a href="#">Delivery infomation</a></li>
-                                            <li><a href="#">Privacy Policy</a></li>
-                                            <li><a href="#"> Travel</a></li>
-                                            <li><a href="blog.html">Blog</a></li>
-                                            <li><a href="#">Portfolio</a></li>
-                                            <li><a href="#">Conditions</a></li>
-                                            <li><a href="#"> Frequently Questions</a></li>
-
+                                            @foreach ($kategori as $item)
+                                                <li><a href="{{ route('kategori.shop', $item->slug) }}">{{ $item->nama }}</a></li>
+                                            @endforeach
                                         </ul>
                                     </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-lg-3 col-md-12">
-                        <div class="widgets_container">
-                            <h3>Latest Posts</h3>
-                            <div class="Latest_Posts_wrapper">
-                                <div class="single_Latest_Posts">
-                                    <div class="Latest_Posts_thumb">
-                                        <a href="blog-details.html"><img src="assets/img/category/post1.jpg" alt=""></a>
-                                    </div>
-                                    <div class="Latest_Posts_content">
-                                        <h3><a href="blog-details.html">Blog image post</a></h3>
-                                        <span><i class="zmdi zmdi-card-sd"></i> 10 August, 2021</span>
-                                    </div>
-                                </div>
-                                <div class="single_Latest_Posts">
-                                    <div class="Latest_Posts_thumb">
-                                        <a href="blog-details.html"><img src="assets/img/category/post2.jpg" alt=""></a>
-                                    </div>
-                                    <div class="Latest_Posts_content">
-                                        <h3><a href="blog-details.html">Post with Gallery</a></h3>
-                                        <span><i class="zmdi zmdi-card-sd"></i> 10 August, 2021</span>
-                                    </div>
-                                </div>
-                                <div class="single_Latest_Posts">
-                                    <div class="Latest_Posts_thumb">
-                                        <a href="blog-details.html"><img src="assets/img/category/post3.jpg" alt=""></a>
-                                    </div>
-                                    <div class="Latest_Posts_content">
-                                        <h3><a href="blog-details.html">Post with Audio</a></h3>
-                                        <span><i class="zmdi zmdi-card-sd"></i> 10 August, 2021</span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
 
-        <div class="footer_tag">
+        {{-- <div class="footer_tag">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -692,7 +631,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
          <div class="footer_bottom">
             <div class="container">
                <div class="row">

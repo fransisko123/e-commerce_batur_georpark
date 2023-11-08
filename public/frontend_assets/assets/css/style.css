@@ -1574,12 +1574,12 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   z-index: 99;
   top: 100%;
   text-align: left;
-  width: 600px;
+  width: 400px;
 }
 
 .mega_menu_inner {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .mega_menu_inner > li > a {
   font-size: 14px;
