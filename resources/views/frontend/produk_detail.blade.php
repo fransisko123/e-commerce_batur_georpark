@@ -82,23 +82,27 @@
                                   <li class="color4"><a href="#"></a></li>
                               </ul>
                           </div> --}}
-                          <form action="{{ route('cart.addToFormCart') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="product_id" value="{{ $produk->id }}">
-                            <div class="product_variant quantity">
-                                <label>quantity</label>
-                                <input min="1" max="{{ $produk->stok }}" name="quantity" value="1" type="number">
-                            </div>
-                            <div class="action_links">
-                                <ul>
-                                    <li class="add_to_cart">
-                                        <button type="submit" class="btn btn-dark"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</button>
-                                    </li>
-                                    {{-- <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li> --}}
-                                    {{-- <li class="compare"><a href="#" title="compare"><i class="zmdi zmdi-swap"></i></a></li> --}}
-                                </ul>
-                            </div>
-                          </form>
+                            @if ($produk->stok > 0)
+                                <form action="{{ route('cart.addToFormCart') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $produk->id }}">
+                                    <div class="product_variant quantity">
+                                        <label>quantity</label>
+                                        <input min="1" max="{{ $produk->stok }}" name="quantity" value="1" type="number">
+                                    </div>
+                                    <div class="action_links">
+                                        <ul>
+                                            <li class="add_to_cart">
+                                                <button type="submit" class="btn btn-dark"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</button>
+                                            </li>
+                                            {{-- <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li> --}}
+                                            {{-- <li class="compare"><a href="#" title="compare"><i class="zmdi zmdi-swap"></i></a></li> --}}
+                                        </ul>
+                                    </div>
+                                </form>
+                            @else
+                                <h3>Stok Habis</h3>
+                            @endif
                           <div class="product_meta">
                               <span>Kategori: <a href="{{ route('kategori.shop', $produk->kategori_produk->slug) }}">{{ $produk->kategori_produk->nama }}</a></span>
                           </div>

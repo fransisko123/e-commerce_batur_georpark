@@ -67,7 +67,7 @@
                                         @endphp
                                     <td class="product-price">Rp {{ number_format($hargaFinal, 2) }}</td>
                                     <td class="product_quantity"><label>Jumlah</label>
-                                        <input min="1" max="100" type="number" name="quantity[{{ $item->id }}]" value="{{ $item->quantity }}">
+                                        <input min="1" max="{{ $item->produk->stok }}" type="number" name="quantity[{{ $item->id }}]" value="{{ $item->quantity }}">
                                     </td>
                                     <td class="product_total">Rp {{ number_format($total, 2) }}</td>
                                 </tr>

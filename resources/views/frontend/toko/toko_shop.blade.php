@@ -128,7 +128,13 @@
                     <div class="col-lg-3 col-md-4 col-12 ">
                         <div class="single_product">
                             <div class="product_thumb">
-                                <a href="{{ route('produk.detail', $item->slug) }}"><img src="{{ asset('storage/image_produk/' . $item->image) }}"></a>
+                                <a href="{{ route('produk.detail', $item->slug) }}">
+                                    @if ($item->stok < 1)
+                                        <img src="{{ asset('storage/image_produk/' . $item->image) }}" style="filter: grayscale(100%);">
+                                    @else
+                                        <img src="{{ asset('storage/image_produk/' . $item->image) }}">
+                                    @endif
+                                </a>
                                 @if ($item->harga_diskon != NULL)
                                     <div class="label_product">
                                         <span class="label_sale">sale</span>
@@ -154,12 +160,16 @@
                                     <ul>
                                         <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="false"></i></a></li>
                                         <li class="add_to_cart">
-                                            <a title="add to cart" class="add-to-cart-link"
-                                               data-product-id="{{ $item->id }}"
-                                               data-product-quantity="1"
-                                            >
-                                                <i class="zmdi zmdi-shopping-cart-plus"></i> add to cart
-                                            </a>
+                                            @if ($item->stok < 1)
+                                                <h4>Stok Habis</h4>
+                                            @else
+                                                <a title="add to cart" class="add-to-cart-link"
+                                                   data-product-id="{{ $item->id }}"
+                                                   data-product-quantity="1"
+                                                >
+                                                    <i class="zmdi zmdi-shopping-cart-plus"></i> add to cart
+                                                </a>
+                                            @endif
                                         </li>
                                     </ul>
                                 </div>
@@ -258,13 +268,15 @@
                                                            </select>
                                                         </div> --}}
                                                         <div class="modal_add_to_cart">
-                                                            <form action="{{ route('cart.addToFormCart') }}" method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="product_id" value="{{ $item->id }}">
-                                                                <input min="1" max="{{ $item->stok }}" name="quantity" value="1" type="number">
-                                                                <button type="submit">add to cart</button>
-                                                                <input type="hidden" id="successMessage" name="successMessage" value="">
-                                                            </form>
+                                                            @if ($item->stok > 0)
+                                                                <form action="{{ route('cart.addToFormCart') }}" method="POST">
+                                                                    @csrf
+                                                                    <input type="hidden" name="product_id" value="{{ $item->id }}">
+                                                                    <input min="1" max="{{ $item->stok }}" name="quantity" value="1" type="number">
+                                                                    <button type="submit">add to cart</button>
+                                                                    <input type="hidden" id="successMessage" name="successMessage" value="">
+                                                                </form>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="modal_social">
