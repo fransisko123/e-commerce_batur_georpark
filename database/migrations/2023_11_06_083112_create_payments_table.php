@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('order_id');
             $table->string('checkout_link');
             $table->string('external_id');
             $table->string('status');
+            $table->string('payment_xendit_id');
             $table->timestamps();
+
+            $table->foreign('order_id')->references('id')->on('tb_order')->onDelete('cascade');
         });
     }
 

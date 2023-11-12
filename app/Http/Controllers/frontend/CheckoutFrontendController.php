@@ -5,8 +5,13 @@ namespace App\Http\Controllers\frontend;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Produk;
+use App\Models\Payment;
+use App\Models\Customer;
+use Xendit\Configuration;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ProdukInOrder;
+use Xendit\Invoice\InvoiceApi;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -54,7 +59,7 @@ class CheckoutFrontendController extends Controller
         $order->no_order = $newOrderNumber;
         $order->customer_id = $request->user;
         $order->alamat = $request->alamat;
-        $order->total_harga = $request->total_harga;
+        $order->total_harga = (float)$request->total_harga;
         $order->catatan = $request->catatan;
         $order->status = 'Pemesanan';
         $order->save();
@@ -77,10 +82,42 @@ class CheckoutFrontendController extends Controller
             $itemCart = Cart::find($item->id);
             $itemCart->delete();
         }
+
+        // ================================== PAYMENT XENDIT ============================
+        Configuration::setXenditKey(env("XENDIT_API_KEY"));
+        $params = [
+            'external_id' => $order->no_order . '-' . date('Y-m-d-H:i:s', strtotime($order->created_at)),
+            'payer_email' => $order->customer->email,
+            'description' => 'Transaksi pada ID Order : ' . $order->no_order,
+            'amount' => $order->total_harga,
+            'invoice_duration' => 3600,
+            'success_redirect_url' => 'http://127.0.0.1:8000/payment_success',
+        ];
+
+        // $createInvoice = \Xendit\Invoice::create($params);
+        $apiInstance = new InvoiceApi();
+        $result = $apiInstance->createInvoice($params);
+
+        // SAVE to Database
+
+        $payment = new Payment();
+        $payment->order_id = $order->id;
+        $payment->status = 'pending';
+        $payment->checkout_link = $result['invoice_url'];
+        $payment->external_id = $params['external_id'];
+        $payment->payment_xendit_id = $result['id'];
+        $payment->save();
         // JavaScript untuk menampilkan pesan konfirmasi
-        echo '<script type="text/javascript">
-            alert("Pesanan Anda telah berhasil diproses!");
-            window.location = "'.route('dashboard_frontend.index').'";
-            </script>';
+        return redirect()->route('checkout.pembayaran_page', [$order->customer_id, $payment->id]);
+    }
+
+    public function pembayaran_page($customer_id, $payment_id)
+    {
+        $customer = Customer::findOrFail($customer_id);
+        $payment = Payment::findOrFail($payment_id);
+        return view('frontend.payment.pembayaran', [
+            'payment' => $payment,
+            'customer' => $customer,
+        ]);
     }
 }

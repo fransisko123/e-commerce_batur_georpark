@@ -52,6 +52,14 @@
         </a>
       </li>
     @endif
+    @if(auth()->user()->role == 'admin')
+      <li class="menu-item {{ (request()->is('payment')) ? 'active' : '' }}">
+        <a href="{{ route('payment.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-store"></i>
+          <div data-i18n="Analytics">Payment</div>
+        </a>
+      </li>
+    @endif
     @if(auth()->user()->role == 'pemilik_toko')
     @php
         $toko = App\Models\Toko::where('user_id', auth()->user()->id)->first();

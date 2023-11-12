@@ -36,11 +36,17 @@
               <td><b>{{ $order->no_order }}</b></td>
           </tr>
           <tr>
-              <th>Status</th>
+              <th>Status Order</th>
               <td>
                 <b>{{ $order->status }}</b>
             </td>
           </tr>
+          <tr>
+            <th>Status Pembayaran</th>
+            <td>
+                <b>{{ ucfirst($order->payment->status) }}</b>
+          </td>
+        </tr>
           <tr>
               <th>Nama Pembeli</th>
               <td><b>{{ $order->customer->nama_depan }} {{ $order->customer->nama_belakang }}</b></td>

@@ -14,45 +14,40 @@ class PaymentController extends Controller
         Configuration::setXenditKey(env("XENDIT_API_KEY"));
     }
 
-    public function create(Request $request)
+    public function index()
     {
-        $params = [
-            'external_id' => (string) Str::uuid(),
-            'payer_email' => $request->payer_email,
-            'description' => $request->description,
-            'amount' => $request->amount,
-        ];
-
-        // $createInvoice = \Xendit\Invoice::create($params);
-        $apiInstance = new InvoiceApi();
-        $result = $apiInstance->createInvoice($params);
-
-        // SAVE to Database
-
-        $payment = new Payment();
-        $payment->status = 'pending';
-        $payment->checkout_link = $result['invoice_url'];
-        $payment->external_id = $params['external_id'];
-        $payment->save();
-
-        return response()->json(['data' => $result]);
+        $payments = Payment::all();
+        return view('admin.payment.index',
+            [
+                'payments' => $payments,
+            ]
+        );
     }
 
-    public function webhook(Request $request)
+    public function destroy($id)
+    {
+        $payment = Payment::findOrFail($id);
+        $payment->delete();
+        return redirect()->route('payment.index')->with('status', 'Berhasil Menghapus Payment.');
+    }
+
+    // Ini Untuk Admin supaya settled
+
+    public function settled_payment(Request $request, $xendit_invoice_id, $external_id)
     {
         $apiInstance = new InvoiceApi();
-        $invoice_id = $request->id;
+        $invoice_id = $xendit_invoice_id;
         $result = $apiInstance->getInvoiceById($invoice_id);
 
-        $payment = Payment::where('external_id', $request->external_id)->firstOrFail();
+        $payment = Payment::where('external_id', $external_id)->firstOrFail();
 
         if ($payment->status == 'settled') {
-            return response()->json(['data' =>'Payment has been already processed']);
+            return redirect()->route('payment.index')->with('status', 'Payment sudah settled.');
         }
 
         $payment->status = strtolower($result['status']);
         $payment->save();
 
-        return response()->json(['data' => "Success"]);
+        return redirect()->route('payment.index')->with('status', 'Berhasil mengubah status payment.');
     }
 }

@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TokoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProdukOnOrderController;
 use App\Http\Controllers\AlamatCustomerController;
 use App\Http\Controllers\KategoriProdukController;
 use App\Http\Controllers\frontend\CartFrontendController;
@@ -17,7 +19,6 @@ use App\Http\Controllers\frontend\CheckoutFrontendController;
 use App\Http\Controllers\frontend\CustomerFrontendController;
 use App\Http\Controllers\frontend\KategoriFrontendController;
 use App\Http\Controllers\frontend\DashboardFrontendController;
-use App\Http\Controllers\ProdukOnOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,11 @@ use App\Http\Controllers\ProdukOnOrderController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// success payment page
+Route::get('/payment_success', function () {
+    return view('frontend.payment.success');
+});
 
 Route::middleware(['customer.guest'])->group(function () {
     Route::get('/customer_login', [CustomerAuthController::class, 'showLoginForm'])->name('customer.login');
@@ -58,6 +64,9 @@ Route::middleware(['customer.auth'])->group(function () {
     Route::get('/my_account', [CustomerFrontendController::class, 'myAccount'])->name('customer.myAccount');
     Route::get('/my_account/{customer_id}/{no_order}', [CustomerFrontendController::class, 'detail_order'])->name('customer.detail_order');
     Route::put('/my_account/order/{id}/dibatalkan', [CustomerFrontendController::class, 'dibatalkan'])->name('customer.detail_order.dibatalkan');
+
+    // payment page
+    Route::get('pembayaran/{customer_id}/{payment_id}', [CheckoutFrontendController::class, 'pembayaran_page'])->name('checkout.pembayaran_page');
 });
 
 
@@ -112,6 +121,10 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::put('order/{id}/dikirim', [OrderController::class, 'dikirim'])->name('order.dikirim');
     Route::put('order/{id}/selesai', [OrderController::class, 'selesai'])->name('order.selesai');
     Route::delete('order/{id}/delete', [OrderController::class, 'destroy'])->name('order.destroy');
+
+    Route::get('payment', [PaymentController::class, 'index'])->name('payment.index');
+    Route::post('payment_settled/{xendit_invoice_id}/{external_id}', [PaymentController::class, 'settled_payment'])->name('payment.settled_payment');
+    Route::delete('payment/{id}/delete', [PaymentController::class, 'destroy'])->name('payment.destroy');
 });
 
 require __DIR__.'/auth.php';

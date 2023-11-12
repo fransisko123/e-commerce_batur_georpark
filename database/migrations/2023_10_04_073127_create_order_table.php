@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('no_order')->unique();
             $table->unsignedBigInteger('customer_id');
             $table->text('alamat');
-            $table->text('total_harga');
+            $table->float('total_harga');
             $table->text('catatan')->nullable();
             $table->text('status');
             $table->timestamps();
