@@ -33,21 +33,34 @@ class PaymentController extends Controller
 
     // Ini Untuk Admin supaya settled
 
-    public function settled_payment(Request $request, $xendit_invoice_id, $external_id)
+    public function webhook(Request $request)
     {
-        $apiInstance = new InvoiceApi();
-        $invoice_id = $xendit_invoice_id;
-        $result = $apiInstance->getInvoiceById($invoice_id);
+        Configuration::setXenditKey(env("XENDIT_API_KEY"));
 
-        $payment = Payment::where('external_id', $external_id)->firstOrFail();
+        // $XENDIT_WEBHOOK_TOKEN = env("XENDIT_WEBHOOK_TOKEN");
 
-        if ($payment->status == 'settled') {
-            return redirect()->route('payment.index')->with('status', 'Payment sudah settled.');
-        }
+        // $reqHeaders = getallheaders();
+        // $xIncomingCallbackTokenHeader = isset($reqHeaders['x-callback-token']) ? $reqHeaders['x-callback-token'] : "";
 
-        $payment->status = strtolower($result['status']);
+        // if ($xIncomingCallbackTokenHeader === $XENDIT_WEBHOOK_TOKEN) {
+            $apiInstance = new InvoiceApi();
+            $invoiceId = $request->id;
+            $invoice = $apiInstance->getInvoiceById($invoiceId);
+
+            $payment = Payment::where('payment_xendit_id', $invoiceId)->first();
+
+            // Cek apakah pembayaran sudah diproses
+            if ($payment->status == 'settled') {
+                return response()->json(['message' => 'Payment has been already processed']);
+            }
+
+        $payment->status = strtolower($invoice['status']);
         $payment->save();
 
-        return redirect()->route('payment.index')->with('status', 'Berhasil mengubah status payment.');
+            // Tambahkan log aktivitas
+            // \Log::error('Webhook received for payment ID: ' . $payment->id);
+
+            return response()->json(['message' => 'Success'], 200);
+        // }
     }
 }

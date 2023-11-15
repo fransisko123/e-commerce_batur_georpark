@@ -19,5 +19,5 @@ use App\Http\Controllers\PaymentController;
 //     return $request->user();
 // });
 
-Route::post('/payment', [PaymentController::class, 'create'])->name('payment.create');
-Route::get('/payment/webhook/xendit', [PaymentController::class, 'webhook'])->name('payment.webhook');
+// Route::post('/payment', [PaymentController::class, 'create'])->name('payment.create');
+Route::post('/payment/webhook/xendit', [PaymentController::class, 'webhook'])->name('payment.webhook');

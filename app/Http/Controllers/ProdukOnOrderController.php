@@ -18,7 +18,9 @@ class ProdukOnOrderController extends Controller
 
         $produkInOrder = ProdukInOrder::whereHas('produk', function ($query) use ($toko) {
             $query->where('toko_id', $toko->id);
-        });
+        })->whereHas('order', function ($query) {
+            $query->where('status', 'Selesai');
+        });;
 
         if ($start_date && $end_date) {
             $produkInOrder->whereBetween('created_at', [$start_date, date('Y-m-d', strtotime($end_date. ' + 1 day'))]);

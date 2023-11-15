@@ -58,13 +58,13 @@
                 <td>{{ Illuminate\Support\Carbon::parse($item->created_at)->locale('id_ID')->isoFormat('D MMMM YYYY') }}</td>
                 <td>{{ $item->status }}</td>
                 <td>
-                  @if ($item->status == "pending")
+                  {{-- @if ($item->status == "pending")
                     <a href="#" class="btn btn-secondary m-1" onclick="event.preventDefault(); document.getElementById('form-payment-settled-{{$item->id}}').submit();">Settlement</a>
                     <form id="form-payment-settled-{{$item->id}}" action="{{ route('payment.settled_payment', [$item->payment_xendit_id, $item->external_id]) }}" method="POST" style="display: none;">
                         @csrf
                         @method('POST')
                     </form>
-                  @endif
+                  @endif --}}
                   <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)">
                     Hapus
                   </button>

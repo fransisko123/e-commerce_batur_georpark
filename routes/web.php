@@ -123,7 +123,6 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::delete('order/{id}/delete', [OrderController::class, 'destroy'])->name('order.destroy');
 
     Route::get('payment', [PaymentController::class, 'index'])->name('payment.index');
-    Route::post('payment_settled/{xendit_invoice_id}/{external_id}', [PaymentController::class, 'settled_payment'])->name('payment.settled_payment');
     Route::delete('payment/{id}/delete', [PaymentController::class, 'destroy'])->name('payment.destroy');
 });
 

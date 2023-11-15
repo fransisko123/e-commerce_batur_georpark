@@ -91,7 +91,7 @@ class CheckoutFrontendController extends Controller
             'description' => 'Transaksi pada ID Order : ' . $order->no_order,
             'amount' => $order->total_harga,
             'invoice_duration' => 3600,
-            'success_redirect_url' => 'http://127.0.0.1:8000/payment_success',
+            'success_redirect_url' => 'https://98a3-182-253-132-184.ngrok-free.app/payment_success',
         ];
 
         // $createInvoice = \Xendit\Invoice::create($params);

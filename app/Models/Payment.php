@@ -10,6 +10,8 @@ class Payment extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['order_id', 'checkout_link', 'external_id', 'status', 'payment_xendit_id'];
+
     public function order()
     {
         return $this->belongsTo(Order::class);
