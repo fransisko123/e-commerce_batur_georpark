@@ -2,6 +2,100 @@
 
 @section('title', 'Detail Produk - {{ $produk->nama }}')
 
+@section('additional_css')
+<style>
+    .rate {
+        float: left;
+        height: 46px;
+        padding: 0 10px;
+        }
+        .rate:not(:checked) > input {
+        position:absolute;
+        display: none;
+        }
+        .rate:not(:checked) > label {
+        float:right;
+        width:1em;
+        overflow:hidden;
+        white-space:nowrap;
+        cursor:pointer;
+        font-size:30px;
+        color:#ccc;
+        }
+        .rated:not(:checked) > label {
+        float:right;
+        width:1em;
+        overflow:hidden;
+        white-space:nowrap;
+        cursor:pointer;
+        font-size:30px;
+        color:#ccc;
+        }
+        .rate:not(:checked) > label:before {
+        content: '★ ';
+        }
+        .rate > input:checked ~ label {
+        color: #ffc700;
+        }
+        .rate:not(:checked) > label:hover,
+        .rate:not(:checked) > label:hover ~ label {
+        color: #deb217;
+        }
+        .rate > input:checked + label:hover,
+        .rate > input:checked + label:hover ~ label,
+        .rate > input:checked ~ label:hover,
+        .rate > input:checked ~ label:hover ~ label,
+        .rate > label:hover ~ input:checked ~ label {
+        color: #c59b08;
+        }
+        .star-rating-complete{
+           color: #c59b08;
+        }
+        .rating-container .form-control:hover, .rating-container .form-control:focus{
+        background: #fff;
+        border: 1px solid #ced4da;
+        }
+        .rating-container textarea:focus, .rating-container input:focus {
+        color: #000;
+        }
+        .rated {
+        float: left;
+        height: 46px;
+        padding: 0 10px;
+        }
+        .rated:not(:checked) > input {
+        position:absolute;
+        display: none;
+        }
+        .rated:not(:checked) > label {
+        float:right;
+        width:1em;
+        overflow:hidden;
+        white-space:nowrap;
+        cursor:pointer;
+        font-size:30px;
+        color:#ffc700;
+        }
+        .rated:not(:checked) > label:before {
+        content: '★ ';
+        }
+        .rated > input:checked ~ label {
+        color: #ffc700;
+        }
+        .rated:not(:checked) > label:hover,
+        .rated:not(:checked) > label:hover ~ label {
+        color: #deb217;
+        }
+        .rated > input:checked + label:hover,
+        .rated > input:checked + label:hover ~ label,
+        .rated > input:checked ~ label:hover,
+        .rated > input:checked ~ label:hover ~ label,
+        .rated > label:hover ~ input:checked ~ label {
+        color: #c59b08;
+        }
+</style>
+@endsection
+
 @section('content')
     <!--breadcrumbs area start-->
     <div class="breadcrumbs_area">
@@ -101,7 +195,7 @@
                                     </div>
                                 </form>
                             @else
-                                <h3>Stok Habis</h3>
+                                <h3>Stok Habis  </h3>
                             @endif
                           <div class="product_meta">
                               <span>Kategori: <a href="{{ route('kategori.shop', $produk->kategori_produk->slug) }}">{{ $produk->kategori_produk->nama }}</a></span>
@@ -136,9 +230,9 @@
                               <li >
                                   <a class="active" data-bs-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Description</a>
                               </li>
-                              <li>
+                              {{-- <li>
                                    <a data-bs-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Specification</a>
-                              </li>
+                              </li> --}}
                               <li>
                                  <a data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews (1)</a>
                               </li>
@@ -151,35 +245,10 @@
                                   <p>Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget.</p>
                               </div>
                           </div>
-                          <div class="tab-pane fade" id="sheet" role="tabpanel" >
-                              <div class="product_d_table">
-                                 <form action="#">
-                                      <table>
-                                          <tbody>
-                                              <tr>
-                                                  <td class="first_child">Compositions</td>
-                                                  <td>Polyester</td>
-                                              </tr>
-                                              <tr>
-                                                  <td class="first_child">Styles</td>
-                                                  <td>Girly</td>
-                                              </tr>
-                                              <tr>
-                                                  <td class="first_child">Properties</td>
-                                                  <td>Short Dress</td>
-                                              </tr>
-                                          </tbody>
-                                      </table>
-                                  </form>
-                              </div>
-                              <div class="product_info_content">
-                                  <p>Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!</p>
-                              </div>
-                          </div>
 
                           <div class="tab-pane fade" id="reviews" role="tabpanel" >
                               <div class="reviews_wrapper">
-                                  <h2>1 review for Donec eu furniture</h2>
+                                  <h2>1 review for {{ $produk->nama }}</h2>
                                   <div class="reviews_comment_box">
                                       <div class="comment_thmb">
                                           <img src="assets/img/blog/comment2.jpg" alt="">
@@ -203,37 +272,46 @@
                                   </div>
                                   <div class="comment_title">
                                       <h2>Add a review </h2>
-                                      <p>Your email address will not be published.  Required fields are marked </p>
+                                      {{-- <p>Your email address will not be published.  Required fields are marked </p> --}}
                                   </div>
                                   <div class="product_ratting mb-10">
                                      <h3>Your rating</h3>
-                                      <ul>
-                                          <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                          <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                          <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                          <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                          <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                      </ul>
                                   </div>
                                   <div class="product_review_form">
-                                      <form action="#">
-                                          <div class="row">
-                                              <div class="col-12">
-                                                  <label for="review_comment">Your review </label>
-                                                  <textarea name="comment" id="review_comment" ></textarea>
+                                    <form class="py-2 px-4" action="{{route('review.create')}}" style="box-shadow: 0 0 10px 0 #ddd;" method="POST" autocomplete="off">
+                                        @csrf
+                                        <p class="font-weight-bold ">Review</p>
+                                        <div class="form-group row">
+                                           <div class="col">
+                                              <div class="rate">
+                                                 <input type="radio" id="star5" class="rate" name="rating" value="5"/>
+                                                 <label for="star5" title="text">5 stars</label>
+                                                 <input type="radio" checked id="star4" class="rate" name="rating" value="4"/>
+                                                 <label for="star4" title="text">4 stars</label>
+                                                 <input type="radio" id="star3" class="rate" name="rating" value="3"/>
+                                                 <label for="star3" title="text">3 stars</label>
+                                                 <input type="radio" id="star2" class="rate" name="rating" value="2">
+                                                 <label for="star2" title="text">2 stars</label>
+                                                 <input type="radio" id="star1" class="rate" name="rating" value="1"/>
+                                                 <label for="star1" title="text">1 star</label>
                                               </div>
-                                              <div class="col-lg-6 col-md-6">
-                                                  <label for="author">Name</label>
-                                                  <input id="author"  type="text">
-
-                                              </div>
-                                              <div class="col-lg-6 col-md-6">
-                                                  <label for="email">Email </label>
-                                                  <input id="email"  type="text">
-                                              </div>
-                                          </div>
-                                          <button type="submit">Submit</button>
-                                       </form>
+                                           </div>
+                                        </div>
+                                        <div class="form-group row mt-4">
+                                            <div class="col">
+                                               <input type="text" class="form-control" name="nama" placeholder="Nama"></input>
+                                            </div>
+                                         </div>
+                                        <div class="form-group row mt-4">
+                                           <div class="col">
+                                              <textarea class="form-control" name="comment" rows="6 " placeholder="Komentar" maxlength="200" name="comment"></textarea>
+                                           </div>
+                                        </div>
+                                        <div class="mt-3 mb-3 text-right">
+                                           <button class="btn btn-sm py-2 px-3 btn-info">Submit
+                                           </button>
+                                        </div>
+                                     </form>
                                   </div>
                               </div>
                           </div>
@@ -627,5 +705,31 @@
 @endsection
 
 @section('additional_js')
+<script>
+    // Script untuk menangani klik pada bintang
+    document.addEventListener('DOMContentLoaded', function () {
+        const starRating = document.querySelector('.input_star_rating');
+        const stars = starRating.querySelectorAll('a');
+        const starsInput = document.getElementById('stars-input');
 
+        stars.forEach(function (star) {
+            star.addEventListener('click', function () {
+                const rating = this.getAttribute('data-rating');
+                highlightStars(rating);
+                starsInput.value = rating;
+            });
+        });
+
+        function highlightStars(rating) {
+            stars.forEach(function (star) {
+                const starRating = star.getAttribute('data-rating');
+                if (starRating <= rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+    });
+</script>
 @endsection

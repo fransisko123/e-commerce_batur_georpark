@@ -15,6 +15,7 @@ use App\Http\Controllers\frontend\CartFrontendController;
 use App\Http\Controllers\frontend\CustomerAuthController;
 use App\Http\Controllers\frontend\TokoFrontendController;
 use App\Http\Controllers\frontend\ProdukFrontendController;
+use App\Http\Controllers\frontend\ReviewFrontendController;
 use App\Http\Controllers\frontend\CheckoutFrontendController;
 use App\Http\Controllers\frontend\CustomerFrontendController;
 use App\Http\Controllers\frontend\KategoriFrontendController;
@@ -67,6 +68,9 @@ Route::middleware(['customer.auth'])->group(function () {
 
     // payment page
     Route::get('pembayaran/{customer_id}/{payment_id}', [CheckoutFrontendController::class, 'pembayaran_page'])->name('checkout.pembayaran_page');
+
+    // Add Review
+    Route::post('review/create', [ReviewFrontendController::class, 'create'])->name('review.create');
 });
 
 

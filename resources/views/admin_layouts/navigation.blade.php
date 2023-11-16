@@ -64,7 +64,7 @@
     @php
         $toko = App\Models\Toko::where('user_id', auth()->user()->id)->first();
     @endphp
-      <li class="menu-item {{ (request()->is('produk_on_order')) ? 'active' : '' }}">
+      <li class="menu-item {{ (request()->is('produk_on_order/' . $toko->id)) ? 'active' : '' }}">
         <a href="{{ route('produk_on_order.index', $toko->id) }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-store"></i>
           <div data-i18n="Analytics">Laporan Penjualan</div>
