@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\frontend;
 
+use App\Models\Produk;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,7 +22,17 @@ class ReviewFrontendController extends Controller
      */
     public function create(Request $request)
     {
-        dd($request->rating);
+        $produk = Produk::findOrFail($request->produk_id);
+
+        $review = new Review();
+        $review->customer_id = $request->customer_id;
+        $review->produk_id = $produk->id;
+        $review->name = $request->name;
+        $review->comment = $request->comment;
+        $review->stars = $request->rating;
+        $review->save();
+
+        return redirect()->route('produk.detail', $produk->slug )->with('success', 'Berhasil menambah review.');
     }
 
     /**

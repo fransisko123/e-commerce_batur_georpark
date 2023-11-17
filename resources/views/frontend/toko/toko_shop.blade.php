@@ -158,7 +158,7 @@
                                 </div>
                                 <div class="action_links">
                                     <ul>
-                                        <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="false"></i></a></li>
+                                        {{-- <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="false"></i></a></li> --}}
                                         <li class="add_to_cart">
                                             @if ($item->stok < 1)
                                                 <h4>Stok Habis</h4>

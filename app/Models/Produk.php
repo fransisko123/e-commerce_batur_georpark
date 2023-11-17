@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Toko;
+use App\Models\Review;
 use App\Models\KategoriProduk;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,5 +27,10 @@ class Produk extends Model
     public function produk_in_order()
     {
         return $this->hasMany(ProdukInOrder::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

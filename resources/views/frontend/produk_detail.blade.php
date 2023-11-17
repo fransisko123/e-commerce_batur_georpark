@@ -139,6 +139,11 @@
               <div class="col-lg-6 col-md-6">
                   <div class="product_d_right">
                      {{-- <form action="#"> --}}
+                        @if(session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                           <h1>{{ $produk->nama }}</h1>
                           {{-- <div class="product_nav">
                               <ul>
@@ -234,7 +239,7 @@
                                    <a data-bs-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Specification</a>
                               </li> --}}
                               <li>
-                                 <a data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews (1)</a>
+                                 <a data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews ({{ $reviews->count() }})</a>
                               </li>
                           </ul>
                       </div>
@@ -248,7 +253,9 @@
 
                           <div class="tab-pane fade" id="reviews" role="tabpanel" >
                               <div class="reviews_wrapper">
-                                  <h2>1 review for {{ $produk->nama }}</h2>
+                                  <h2>{{ $reviews->count() }} review for {{ $produk->nama }}</h2>
+
+                                @foreach ($reviews as $item)
                                   <div class="reviews_comment_box">
                                       <div class="comment_thmb">
                                           <img src="assets/img/blog/comment2.jpg" alt="">
@@ -256,20 +263,19 @@
                                       <div class="comment_text">
                                           <div class="reviews_meta">
                                               <div class="star_rating">
-                                                  <ul>
-                                                      <li><a href="#"><i class="ion-ios-star"></i></a></li>
-                                                      <li><a href="#"><i class="ion-ios-star"></i></a></li>
-                                                      <li><a href="#"><i class="ion-ios-star"></i></a></li>
-                                                      <li><a href="#"><i class="ion-ios-star"></i></a></li>
-                                                      <li><a href="#"><i class="ion-ios-star"></i></a></li>
-                                                  </ul>
+                                                <ul>
+                                                    @for ($i = 1; $i <= $item->stars; $i++)
+                                                        <li><a href="#"><i class="ion-ios-star"></i></a></li>
+                                                    @endfor
+                                                </ul>
                                               </div>
-                                              <p><strong>admin </strong>- September 12, 2018</p>
-                                              <span>roadthemes</span>
+                                              <p>{{ $item->customer->nama_depan }} {{ $item->customer->nama_belakang }} - {{ Illuminate\Support\Carbon::parse($item->created_at)->locale('id_ID')->isoFormat('D MMMM YYYY') }}</p>
+                                              <span>{{ $item->comment }}</span>
                                           </div>
                                       </div>
+                                    </div>
+                                @endforeach
 
-                                  </div>
                                   <div class="comment_title">
                                       <h2>Add a review </h2>
                                       {{-- <p>Your email address will not be published.  Required fields are marked </p> --}}
@@ -278,6 +284,12 @@
                                      <h3>Your rating</h3>
                                   </div>
                                   <div class="product_review_form">
+                                    @php
+                                        $user = null;
+                                        if (auth()->guard('customer')->user()) {
+                                            $user = auth()->guard('customer')->user();
+                                        }
+                                    @endphp
                                     <form class="py-2 px-4" action="{{route('review.create')}}" style="box-shadow: 0 0 10px 0 #ddd;" method="POST" autocomplete="off">
                                         @csrf
                                         <p class="font-weight-bold ">Review</p>
@@ -298,13 +310,15 @@
                                            </div>
                                         </div>
                                         <div class="form-group row mt-4">
-                                            <div class="col">
-                                               <input type="text" class="form-control" name="nama" placeholder="Nama"></input>
-                                            </div>
+                                            @if ($user != null)
+                                                <input type="hidden" name="customer_id" value="{{ $user->id }}">
+                                                <input type="hidden" name="name" value="{{ $user->nama_depan . ' ' . $user->nama_belakang }}">
+                                            @endif
+                                            <input type="hidden" name="produk_id" value="{{ $produk->id }}">
                                          </div>
                                         <div class="form-group row mt-4">
                                            <div class="col">
-                                              <textarea class="form-control" name="comment" rows="6 " placeholder="Komentar" maxlength="200" name="comment"></textarea>
+                                              <textarea class="form-control" name="comment" rows="6 " placeholder="Komentar" maxlength="200" name="comment" required></textarea>
                                            </div>
                                         </div>
                                         <div class="mt-3 mb-3 text-right">
@@ -346,7 +360,7 @@
                               <div class="product_name">
                                   <h3><a href="product-details.html">Aliquam Watches</a></h3>
                               </div>
-                              <div class="product_rating">
+                              {{-- <div class="product_rating">
                                   <ul>
                                       <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
                                       <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
@@ -354,14 +368,14 @@
                                       <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
                                       <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
                                   </ul>
-                              </div>
+                              </div> --}}
                                <div class="price_box">
                                   <span class="current_price">$65.00</span>
                                   <span class="old_price">$70.00</span>
                               </div>
                               <div class="action_links">
                                 <ul>
-                                    <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="false"></i></a></li>
+                                    {{-- <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="false"></i></a></li> --}}
                                     <li class="add_to_cart"><a href="cart.html" title="add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</a></li>
                                 </ul>
                             </div>
