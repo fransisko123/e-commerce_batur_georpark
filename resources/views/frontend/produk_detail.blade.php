@@ -113,7 +113,12 @@
       </div>
   </div>
   <!--breadcrumbs area end-->
-
+  @php
+        $user = null;
+        if (auth()->guard('customer')->user()) {
+            $user = auth()->guard('customer')->user();
+        }
+    @endphp
    <!--product details start-->
   <div class="product_details mt-50 mb-50">
       <div class="container">
@@ -257,9 +262,6 @@
 
                                 @foreach ($reviews as $item)
                                   <div class="reviews_comment_box">
-                                      <div class="comment_thmb">
-                                          <img src="assets/img/blog/comment2.jpg" alt="">
-                                      </div>
                                       <div class="comment_text">
                                           <div class="reviews_meta">
                                               <div class="star_rating">
@@ -271,6 +273,18 @@
                                               </div>
                                               <p>{{ $item->customer->nama_depan }} {{ $item->customer->nama_belakang }} - {{ Illuminate\Support\Carbon::parse($item->created_at)->locale('id_ID')->isoFormat('D MMMM YYYY') }}</p>
                                               <span>{{ $item->comment }}</span>
+                                              <div class="comment_thmb mt-4">
+                                                @if ($item->customer_id == $user->id)
+                                                    <form action="{{ route('review.destroy', $item->id) }}" method="POST">
+                                                        <input type="hidden" name="produk_id" value="{{ $produk->id }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="remove-item-btn-on-cart btn btn-danger" type="submit">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            </div>
                                           </div>
                                       </div>
                                     </div>
@@ -284,12 +298,6 @@
                                      <h3>Your rating</h3>
                                   </div>
                                   <div class="product_review_form">
-                                    @php
-                                        $user = null;
-                                        if (auth()->guard('customer')->user()) {
-                                            $user = auth()->guard('customer')->user();
-                                        }
-                                    @endphp
                                     <form class="py-2 px-4" action="{{route('review.create')}}" style="box-shadow: 0 0 10px 0 #ddd;" method="POST" autocomplete="off">
                                         @csrf
                                         <p class="font-weight-bold ">Review</p>
@@ -346,179 +354,54 @@
                       <h2>Related Products</h2>
                   </div>
                   <div class="product_carousel product_column4 owl-carousel">
+                    @foreach ($related_produk as $item)
                       <div class="single_product">
                           <div class="product_thumb">
-                              <a href="product-details.html"><img src="assets/img/product/product15.jpg" alt=""></a>
-                              <div class="label_product">
-                                  <span class="label_sale">sale</span>
-                              </div>
-                              <div class="quick_button">
-                                  <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box"  title="quick view"> <i class="zmdi zmdi-eye"></i></a>
-                              </div>
+                            <a href="{{ route('produk.detail', $item->slug) }}">
+                                @if ($item->stok < 1)
+                                    <img src="{{ asset('storage/image_produk/' . $item->image) }}" style="filter: grayscale(100%);">
+                                @else
+                                    <img src="{{ asset('storage/image_produk/' . $item->image) }}">
+                                @endif
+                            </a>
+                            @if ($item->harga_diskon != NULL)
+                                <div class="label_product">
+                                    <span class="label_sale">sale</span>
+                                </div>
+                            @endif
                           </div>
                           <div class="product_content">
-                              <div class="product_name">
-                                  <h3><a href="product-details.html">Aliquam Watches</a></h3>
-                              </div>
-                              {{-- <div class="product_rating">
-                                  <ul>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                  </ul>
-                              </div> --}}
-                               <div class="price_box">
-                                  <span class="current_price">$65.00</span>
-                                  <span class="old_price">$70.00</span>
-                              </div>
-                              <div class="action_links">
+                            <div class="product_name">
+                                <h3><a href="{{ route('produk.detail', $item->slug) }}">{{ $item->nama }}</a></h3>
+                            </div>
+                            <div class="price_box">
+                                @if ($item->harga_diskon != NULL)
+                                    <span class="current_price">Rp {{ number_format($item->harga_diskon, 2) }}</span>
+                                    <span class="old_price">Rp {{ number_format($item->harga, 2) }}</span>
+                                @else
+                                    <span class="current_price">Rp {{ number_format($item->harga, 2) }}</span>
+                                @endif
+                            </div>
+                            <div class="action_links">
                                 <ul>
                                     {{-- <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="false"></i></a></li> --}}
-                                    <li class="add_to_cart"><a href="cart.html" title="add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</a></li>
+                                    <li class="add_to_cart">
+                                        @if ($item->stok < 1)
+                                            <h4>Stok Habis</h4>
+                                        @else
+                                            <a title="add to cart" class="add-to-cart-link"
+                                               data-product-id="{{ $item->id }}"
+                                               data-product-quantity="1"
+                                            >
+                                                <i class="zmdi zmdi-shopping-cart-plus"></i> add to cart
+                                            </a>
+                                        @endif
+                                    </li>
                                 </ul>
                             </div>
-                          </div>
+                        </div>
                       </div>
-                      <div class="single_product">
-                          <div class="product_thumb">
-                              <a href="product-details.html"><img src="assets/img/product/product16.jpg" alt=""></a>
-                              <div class="quick_button">
-                                  <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box"  title="quick view"> <i class="zmdi zmdi-eye"></i></a>
-                              </div>
-                          </div>
-                          <div class="product_content">
-                              <div class="product_name">
-                                  <h3><a href="product-details.html">Condimentum Watches</a></h3>
-                              </div>
-                              <div class="product_rating">
-                                  <ul>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                  </ul>
-                              </div>
-                               <div class="price_box">
-                                  <span class="current_price">$65.00</span>
-                                  <span class="old_price">$70.00</span>
-                              </div>
-                              <div class="action_links">
-                                  <ul>
-                                     <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                                      <li class="add_to_cart"><a href="cart.html" title="add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</a></li>
-                                      <li class="compare"><a href="#" title="compare"><i class="zmdi zmdi-swap"></i></a></li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="single_product">
-                          <div class="product_thumb">
-                              <a href="product-details.html"><img src="assets/img/product/product17.jpg" alt=""></a>
-                              <div class="label_product">
-                                  <span class="label_sale">sale</span>
-                              </div>
-                              <div class="quick_button">
-                                  <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box"  title="quick view"> <i class="zmdi zmdi-eye"></i></a>
-                              </div>
-                          </div>
-                          <div class="product_content">
-                              <div class="product_name">
-                                  <h3><a href="product-details.html">Headphone ipsum</a></h3>
-                              </div>
-                              <div class="product_rating">
-                                  <ul>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                  </ul>
-                              </div>
-                               <div class="price_box">
-                                  <span class="current_price">$65.00</span>
-                                  <span class="old_price">$70.00</span>
-                              </div>
-                              <div class="action_links">
-                                  <ul>
-                                     <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                                      <li class="add_to_cart"><a href="cart.html" title="add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</a></li>
-                                      <li class="compare"><a href="#" title="compare"><i class="zmdi zmdi-swap"></i></a></li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="single_product">
-                          <div class="product_thumb">
-                              <a href="product-details.html"><img src="assets/img/product/product18.jpg" alt=""></a>
-                              <div class="quick_button">
-                                  <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box"  title="quick view"> <i class="zmdi zmdi-eye"></i></a>
-                              </div>
-                          </div>
-                          <div class="product_content">
-                              <div class="product_name">
-                                  <h3><a href="product-details.html">Epicuri per</a></h3>
-                              </div>
-                              <div class="product_rating">
-                                  <ul>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                  </ul>
-                              </div>
-                               <div class="price_box">
-                                  <span class="current_price">$65.00</span>
-                                  <span class="old_price">$70.00</span>
-                              </div>
-                              <div class="action_links">
-                                  <ul>
-                                     <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                                      <li class="add_to_cart"><a href="cart.html" title="add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</a></li>
-                                      <li class="compare"><a href="#" title="compare"><i class="zmdi zmdi-swap"></i></a></li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="single_product">
-                          <div class="product_thumb">
-                              <a href="product-details.html"><img src="assets/img/product/product19.jpg" alt=""></a>
-                              <div class="label_product">
-                                  <span class="label_sale">sale</span>
-                              </div>
-                              <div class="quick_button">
-                                  <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box"  title="quick view"> <i class="zmdi zmdi-eye"></i></a>
-                              </div>
-                          </div>
-                          <div class="product_content">
-                              <div class="product_name">
-                                  <h3><a href="product-details.html">Itaque earum</a></h3>
-                              </div>
-                              <div class="product_rating">
-                                  <ul>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                      <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
-                                  </ul>
-                              </div>
-                               <div class="price_box">
-                                  <span class="current_price">$65.00</span>
-                                  <span class="old_price">$70.00</span>
-                              </div>
-                              <div class="action_links">
-                                  <ul>
-                                     <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                                      <li class="add_to_cart"><a href="cart.html" title="add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i> add to cart</a></li>
-                                      <li class="compare"><a href="#" title="compare"><i class="zmdi zmdi-swap"></i></a></li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
+                    @endforeach
                   </div>
               </div>
           </div>
@@ -527,7 +410,7 @@
   <!--product area end-->
 
   <!--product area start-->
-  <section class="product_area upsell_products mb-50">
+  {{-- <section class="product_area upsell_products mb-50">
       <div class="container">
           <div class="row">
               <div class="col-12">
@@ -714,7 +597,7 @@
           </div>
 
       </div>
-  </section>
+  </section> --}}
   <!--product area end-->
 @endsection
 
@@ -744,6 +627,52 @@
                 }
             });
         }
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.add-to-cart-link').click(function (e) {
+            e.preventDefault(); // Prevent the default link behavior
+
+            var productId = $(this).data('product-id');
+            var quantity = $(this).data('product-quantity');
+
+            // Check if the customer is authenticated
+            @if(auth()->guard('customer')->check())
+                // If authenticated, proceed with the AJAX request
+                $.ajax({
+                    type: 'POST',
+                    url: `{{ route('cart.addToCart') }}`,
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        productId: productId,
+                        quantity: quantity
+                    },
+                    success: function (data) {
+                        // Replace the default alert with SweetAlert2
+                        Swal.fire({
+                            title: 'Success',
+                            text: data.message,
+                            icon: 'success',
+                        }).then(() => {
+                            location.reload();
+                        });
+                    },
+                    error: function (error) {
+                        // Handle errors, e.g., show an error message with SweetAlert2
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Error adding product to cart: ' + error.statusText,
+                            icon: 'error',
+                        });
+                    }
+                });
+            @else
+                // If not authenticated, redirect to the customer login page
+                window.location.href = `{{ route('customer.login') }}`;
+            @endif
+        });
     });
 </script>
 @endsection

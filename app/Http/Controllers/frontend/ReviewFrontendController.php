@@ -70,8 +70,13 @@ class ReviewFrontendController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Review $review)
+    public function destroy(Request $request, $id)
     {
-        //
+        $produk = Produk::findOrFail($request->produk_id);
+
+        $review = Review::findOrFail($id);
+        $review->delete();
+
+        return redirect()->route('produk.detail', $produk->slug )->with('success', 'Berhasil menghapus review.');
     }
 }

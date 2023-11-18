@@ -71,6 +71,7 @@ Route::middleware(['customer.auth'])->group(function () {
 
     // Add Review
     Route::post('review/create', [ReviewFrontendController::class, 'create'])->name('review.create');
+    Route::delete('review/{review}/remove', [ReviewFrontendController::class, 'destroy'])->name('review.destroy');
 });
 
 

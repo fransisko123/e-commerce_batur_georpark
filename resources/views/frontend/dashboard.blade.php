@@ -9,20 +9,20 @@
       <div class="row no-gutters">
           <div class="col-12">
               <div class="slider_area slider_three owl-carousel">
-                  <div class="single_slider d-flex align-items-center" data-bgimg="{{ asset('frontend_assets/assets/img/slider/slider5.jpg') }}">
+                  <div class="single_slider d-flex align-items-center" data-bgimg="{{ asset('frontend_assets/assets/img/slider/museum_batur_banner.jpg') }}">
                       <div class="slider_content slider_content_three content_position_center">
-                          <h1>Batur <span>geopark</span></h1>
+                          <h1>Batur <span>geopark shop</span></h1>
                           <span>Selamat Datang</span>
                           {{-- <h2><span>$</span> 79 <span>00</span></h2> --}}
-                          <a href="shop.html">Belanja Sekarang</a>
+                          {{-- <a href="shop.html">Belanja Sekarang</a> --}}
                       </div>
                   </div>
-                  <div class="single_slider d-flex align-items-center" data-bgimg="{{ asset('frontend_assets/assets/img/slider/slider1.jpg') }}">
+                  <div class="single_slider d-flex align-items-center" data-bgimg="{{ asset('frontend_assets/assets/img/slider/museum_batur_banner2.png') }}">
                       <div class="slider_content slider_content_three content_position_left">
-                            <h1>Batur <span>geopark</span></h1>
+                            <h1>Batur <span>geopark shop</span></h1>
                             <span>Selamat Datang</span>
                             {{-- <h2><span>$</span> 79 <span>00</span></h2> --}}
-                            <a href="shop.html">Belanja Sekarang</a>
+                            {{-- <a href="shop.html">Belanja Sekarang</a> --}}
                       </div>
                   </div>
               </div>

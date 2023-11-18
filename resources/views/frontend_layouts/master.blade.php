@@ -524,7 +524,7 @@
     {{-- END CONTENT --}}
 
     <!--footer area start-->
-    <footer class="footer_widgets footer_three">
+    <footer class="footer_widgets footer_three" style="background-color: #F3F3F3; color: black;">
         <div class="container">
             <div class="footer_top">
                 <div class="row">
@@ -533,12 +533,12 @@
                             <a href="index-2.html"><img src="assets/img/logo/logo-2.png" alt=""></a>
                             <div class="footer_contact">
                                 <ul>
-                                    <li><i class="zmdi zmdi-home"></i><span>Addresss:</span> 2 Fauconberg Rd,Chiswick, London</li>
-                                    <li><i class="zmdi zmdi-phone-setting"></i><span>Phone:</span><a href="tel:(+1) 866-540-3229">(+1) 866-540-3229</a> </li>
-                                    <li><i class="zmdi zmdi-email"></i><span>Email:</span>  info@plazathemes.com</li>
+                                    <li><i class="zmdi zmdi-phone-setting"></i><span>Phone:</span><a href="tel:(0366) 51088">(0366) 51088</a> </li>
+                                    <li><i class="zmdi zmdi-home"></i><span>Alamat:</span> Penelokan Main Rd, South Batur, Kintamani, Bangli Regency, Bali 80652</li>
+                                    {{-- <li><i class="zmdi zmdi-email"></i><span>Email:</span>  info@plazathemes.com</li> --}}
                                 </ul>
                             </div>
-                             <div class="social_icone">
+                             {{-- <div class="social_icone">
                                 <ul>
                                     <li class="share"><a href="#" title="rss"><i class="fa fa-share-alt"></i></a>
                                         <div class="social_title">
@@ -565,7 +565,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="col-lg-5 col-md-7">
