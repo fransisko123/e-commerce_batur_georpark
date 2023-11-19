@@ -14,6 +14,7 @@ use App\Models\ProdukInOrder;
 use Xendit\Invoice\InvoiceApi;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Kavist\RajaOngkir\RajaOngkir;
 
 class CheckoutFrontendController extends Controller
 {
@@ -28,20 +29,53 @@ class CheckoutFrontendController extends Controller
         }
 
         $hargaTotal = 0;
+        $totalBerat = 0;
         foreach ($cartItems as $item) {
             $hargaFinal = $item->produk->harga_diskon ? $item->produk->harga_diskon : $item->produk->harga;
             $hargaTotal += $hargaFinal * $item->quantity;
+
+            $totalBerat += $item->produk->berat;
         }
 
         return view('frontend.checkout', [
             'user' => $user,
             'cartItems' => $cartItems,
-            'hargaTotal' => $hargaTotal
+            'hargaTotal' => $hargaTotal,
+            'totalBerat' => $totalBerat
         ]);
+    }
+
+    public function checkOngkir(Request $request)
+    {
+        $rajaOngkir = new RajaOngkir(env('RAJAONGKIR_API_KEY'));
+        $resultOngkir = $rajaOngkir->ongkir([
+            'origin'        => $request->input('origin'),     // ID kota/kabupaten asal
+            'destination'   => $request->input('destination'),      // ID kota/kabupaten tujuan
+            'weight'        => $request->input('weight'),    // berat barang dalam gram
+            'courier'       => $request->input('courier')    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
+        ]);
+        $resultArray = (array) $resultOngkir;
+        $result = $resultArray["\x00*\x00result"];
+        return response()->json(['result' => $result]);
     }
 
     public function checkout_pay(Request $request)
     {
+        // MENDAPATKAN SERVICE COST
+            $ongkirService = $request->ongkir_service;
+            // Membagi string berdasarkan delimiter "-"
+            $ongkirServiceArray = explode('-', $ongkirService);
+            // Mengambil nilai terakhir dari array
+            $serviceCostRaw = end($ongkirServiceArray);
+            $serviceCost = intval($serviceCostRaw);
+
+        // MENDAPATKAN SERVICE CODE
+            $ongkirService = $request->ongkir_service;
+            // Membagi string berdasarkan delimiter "-"
+            $ongkirServiceArray = explode('-', $ongkirService);
+            // Mengambil dua nilai pertama dari array dan menggabungkannya
+            $selectedService = implode('-', array_slice($ongkirServiceArray, 0, 2));
+
         $latestOrder = Order::latest()->first();
         $order = new Order();
         if ($latestOrder) {
@@ -59,7 +93,8 @@ class CheckoutFrontendController extends Controller
         $order->no_order = $newOrderNumber;
         $order->customer_id = $request->user;
         $order->alamat = $request->alamat;
-        $order->total_harga = (float)$request->total_harga;
+        $order->shipping_code = $selectedService;
+        $order->total_harga = (float)$request->total_harga + $serviceCost;
         $order->catatan = $request->catatan;
         $order->status = 'Pemesanan';
         $order->save();
@@ -91,7 +126,7 @@ class CheckoutFrontendController extends Controller
             'description' => 'Transaksi pada ID Order : ' . $order->no_order,
             'amount' => $order->total_harga,
             'invoice_duration' => 3600,
-            'success_redirect_url' => 'https://98a3-182-253-132-184.ngrok-free.app/payment_success',
+            'success_redirect_url' => 'https://fa12-182-253-132-184.ngrok-free.app/payment_success',
         ];
 
         // $createInvoice = \Xendit\Invoice::create($params);

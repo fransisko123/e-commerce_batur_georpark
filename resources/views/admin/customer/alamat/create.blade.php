@@ -31,8 +31,22 @@
         <form action="{{ route('alamat_customer.store', $data_customer->id) }}" method="post">
           @csrf
           <div class="mb-3">
-            <label for="alamat" class="form-label">Alamat</label>
-            <textarea class="form-control" name="alamat" id="alamat" rows="3">{{ old('alamat') }}</textarea>
+            <label for="provinsi" class="form-label">Provinsi</label>
+            <select class="form-select" id="provinsi" name="provinsi" required>
+              @foreach($daftarProvinsi as $provinsi)
+                  <option value="{{ $provinsi['province_id'] }}">{{ $provinsi['province'] }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="kota" class="form-label">Kota</label>
+            <select class="form-select" id="kota" name="kota" required>
+
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="alamat" class="form-label">Alamat spesifik</label>
+            <textarea class="form-control" name="alamat_spesifik" id="alamat" rows="3">{{ old('alamat') }}</textarea>
           </div>
           <button type="submit" class="btn btn-primary mt-4">Simpan</button>
         </form>
@@ -42,4 +56,27 @@
 
 @section('additional_js')
   <script src="{{ asset('admin_assets/assets/js/form-layouts.js') }}"></script>
+  <script>
+    $(document).ready(function () {
+        // Tangkap perubahan pada select input provinsi
+        $('#provinsi').change(function () {
+            var provinsiId = $(this).val(); // Ambil nilai province_id yang dipilih
+
+            // Kirim permintaan Ajax untuk mendapatkan kota berdasarkan provinsi
+            $.ajax({
+                url: '/getCities/' + provinsiId, // Ganti URL dengan endpoint yang sesuai di Laravel
+                type: 'GET',
+                success: function (data) {
+                    // Hapus opsi kota yang sudah ada
+                    $('#kota').empty();
+
+                    // Tambahkan opsi kota yang baru berdasarkan data yang diterima
+                    $.each(data, function (key, value) {
+                        $('#kota').append('<option value="' + value.city_id + '">' + value.city_name + '</option>');
+                    });
+                }
+            });
+        });
+    });
+  </script>
 @endsection

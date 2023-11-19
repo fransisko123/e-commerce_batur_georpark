@@ -59,6 +59,10 @@
             <input type="number" class="form-control" name="stok" id="stok" value="{{ old('stok') }}" placeholder="Masukan Stok Produk" required>
           </div>
           <div class="mb-3">
+            <label for="berat" class="form-label">Berat Produk (Gram)</label>
+            <input type="number" class="form-control" name="berat" id="berat" value="{{ old('berat') }}" placeholder="Masukan berat dalam gram" required>
+          </div>
+          <div class="mb-3">
             <label for="image" class="form-label">Image</label>
             <input class="form-control" type="file" name="image" id="image" required>
           </div>

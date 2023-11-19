@@ -39,6 +39,7 @@
               <th>Harga Produk</th>
               <th>Harga Produk Diskon</th>
               <th>Stok</th>
+              <th>Berat (Gram)</th>
               <th>Image</th>
               <th>Actions</th>
             </tr>
@@ -52,6 +53,7 @@
                 <td>Rp.{{ number_format($item->harga, 2, ',', '.') }}</td>
                 <td>Rp.{{ number_format($item->harga_diskon, 2, ',', '.') }}</td>
                 <td>{{ $item->stok }}</td>
+                <td>{{ $item->berat }} Gram</td>
                 <td><img src="{{ asset('storage/image_produk/' . $item->image) }}" width="100"></td>
                 <td>
                   <a href="{{ route('produk.edit', [$toko->id, $item->id]) }}" class="btn btn-sm btn-icon item-edit"><i class="bx bxs-edit" onMouseOver="this.style.color='blue'" onMouseOut="this.style.color='grey'"></i></a>

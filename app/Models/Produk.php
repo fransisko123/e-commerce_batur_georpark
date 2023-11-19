@@ -12,7 +12,7 @@ class Produk extends Model
 {
     use HasFactory;
     protected $table = "tb_produk";
-    protected $fillable = ['toko_id', 'kategori_produk_id', 'nama', 'deskripsi', 'harga', 'harga_diskon', 'stok', 'image'];
+    protected $fillable = ['toko_id', 'kategori_produk_id', 'nama', 'deskripsi', 'harga', 'harga_diskon', 'stok', 'berat', 'image'];
 
     public function toko()
     {

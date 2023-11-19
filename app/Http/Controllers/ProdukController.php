@@ -49,6 +49,7 @@ class ProdukController extends Controller
             'harga' => 'required|numeric',
             'harga_diskon' => 'nullable|numeric',
             'stok' => 'required|numeric',
+            'berat' => 'required|numeric',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -65,6 +66,7 @@ class ProdukController extends Controller
         $produk->harga = $request->harga;
         $produk->harga_diskon = $request->harga_diskon;
         $produk->stok = $request->stok;
+        $produk->berat = $request->berat;
 
         if($request->file('image')){
             $file= $request->file('image');
@@ -111,6 +113,7 @@ class ProdukController extends Controller
             'harga' => 'required|numeric',
             'harga_diskon' => 'nullable|numeric',
             'stok' => 'required|numeric',
+            'berat' => 'required|numeric',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -127,6 +130,7 @@ class ProdukController extends Controller
         $produk->harga = $request->harga;
         $produk->harga_diskon = $request->harga_diskon;
         $produk->stok = $request->stok;
+        $produk->berat = $request->berat;
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');

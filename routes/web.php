@@ -61,6 +61,7 @@ Route::middleware(['customer.auth'])->group(function () {
     Route::post('/cart/update', [CartFrontendController::class, 'updateCart'])->name('cart.updateCart');
     Route::delete('/cart/remove/{cartItem}', [CartFrontendController::class, 'removeFromCart'])->name('cart.removeFromCart');
     Route::get('checkout', [CheckoutFrontendController::class, 'cartToCheckout'])->name('checkout.cartToCheckout');
+    Route::post('checkOngkir', [CheckoutFrontendController::class, 'checkOngkir'])->name('checkout.checkOngkir');
     Route::post('checkout_pay', [CheckoutFrontendController::class, 'checkout_pay'])->name('checkout.checkout_pay');
     Route::get('/my_account', [CustomerFrontendController::class, 'myAccount'])->name('customer.myAccount');
     Route::get('/my_account/{customer_id}/{no_order}', [CustomerFrontendController::class, 'detail_order'])->name('customer.detail_order');
@@ -116,7 +117,9 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::resource('customer', CustomerController::class);
     Route::get('{customer}/alamat', [AlamatCustomerController::class, 'index'])->name('alamat_customer.index');
     Route::get('{customer}/tambah_alamat', [AlamatCustomerController::class, 'create'])->name('alamat_customer.create');
+    Route::get('/getCities/{provinceId}', [AlamatCustomerController::class, 'getCities'])->name('alamat_customer.getCities');
     Route::post('{customer}/tambah_alamat_proses', [AlamatCustomerController::class, 'store'])->name('alamat_customer.store');
+    Route::delete('destroy/alamat/{alamat}', [AlamatCustomerController::class, 'destroy'])->name('alamat_customer.destroy');
 
     Route::get('order', [OrderController::class, 'index'])->name('order.index');
     // Route::get('order/create', [OrderController::class, 'create'])->name('order.create');

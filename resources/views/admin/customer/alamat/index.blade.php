@@ -29,7 +29,10 @@
           <div class="card h-100">
             {{-- <img class="card-img-top" src="{{ asset('storage/image_toko/' . $item->image) }}" alt="Card image cap"> --}}
             <div class="card-body">
-              <p class="card-text">{{ $item->alamat }}</p>
+              <p class="card-text">{{ $item->province }}</p>
+              <p class="card-text">{{ $item->city_name }} ({{ $item->type }})</p>
+              <p class="card-text">{{ $item->postal_code }}</p>
+              <p class="card-text">{{ $item->alamat_spesifik }}</p>
               <a href="#" class="btn btn-outline-primary">Edit</a>
               {{-- <button class="btn btn-outline-danger" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)"> --}}
               <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)">
@@ -50,12 +53,12 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Hapus Toko</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Hapus alamat</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
               </button>
           </div>
           <div class="modal-body">
-            <p>Apakah anda yakin ingin menghapus toko.</p>
+            <p>Apakah anda yakin ingin menghapus alamat.</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -72,7 +75,7 @@
   function showConfirmationModal(button) {
     var id = $(button).data('id');
     $('#delete-confirmation-modal').modal('show');
-    $('#delete-form').attr('action', '/toko/' + id);
+    $('#delete-form').attr('action', '/destroy/alamat/' + id);
   }
 
   function deleteData() {

@@ -207,7 +207,7 @@
                                 <ul>
 
                                     <li class="active"><a  href="{{ route('dashboard_frontend.index') }}"><i class="zmdi zmdi-home"></i> home </i></a></li>
-                                    <li class="mega_items"><a href="shop.html"><i class="zmdi zmdi-shopping-basket"></i> shop <i class="zmdi zmdi-caret-down"></i></a>
+                                    <li class="mega_items"><a href="#"><i class="zmdi zmdi-shopping-basket"></i> shop <i class="zmdi zmdi-caret-down"></i></a>
                                         <div class="mega_menu">
                                             <ul class="mega_menu_inner">
                                                 <li style="margin-right: 90px;"><a href="#">Toko</a>
@@ -338,7 +338,7 @@
                                 @endif
                             </ul>
                         </div>
-                        <div class="search-container">
+                        {{-- <div class="search-container">
                            <form action="#">
                                <div class="hover_category">
                                     <select class="select_option" name="select" id="categori2">
@@ -365,7 +365,7 @@
                                     <button type="submit"><i class="zmdi zmdi-search"></i></button>
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
                         @if(auth()->guard('customer')->check())
                             @php
                                 $customer = auth()->guard('customer')->user();

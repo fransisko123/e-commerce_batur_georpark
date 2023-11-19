@@ -59,6 +59,10 @@
             <label for="stok" class="form-label">Stok Produk</label>
             <input type="number" class="form-control" name="stok" id="stok" placeholder="Masukan Stok Produk" value="{{ old('stok', $produk->stok) }}" required>
           </div>
+          <div class="mb-3">
+            <label for="berat" class="form-label">Berat Produk (Gram)</label>
+            <input type="number" class="form-control" name="berat" id="berat" value="{{ old('berat', $produk->berat) }}" placeholder="Masukan berat dalam gram" required>
+          </div>
           <img src="{{ asset('storage/image_produk/' . $produk->image) }}" width="180" class="rounded mb-3">
           <div class="mb-3">
             <label for="image" class="form-label">Image</label>

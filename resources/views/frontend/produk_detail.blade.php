@@ -211,7 +211,9 @@
                                 <h3>Stok Habis  </h3>
                             @endif
                           <div class="product_meta">
-                              <span>Kategori: <a href="{{ route('kategori.shop', $produk->kategori_produk->slug) }}" class="kategori">{{ $produk->kategori_produk->nama }}</a></span>
+                            <span>Berat: {{ $produk->berat }} Gram</span>
+                            <br>
+                            <span>Kategori: <a href="{{ route('kategori.shop', $produk->kategori_produk->slug) }}" class="kategori">{{ $produk->kategori_produk->nama }}</a></span>
                           </div>
 
                       {{-- </form> --}}

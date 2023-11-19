@@ -111,19 +111,37 @@
                               </div>
                           </div>
                           <div class="tab-pane" id="address">
-                             <p>The following addresses will be used on the checkout page by default.</p>
-                              <h4 class="billing-address">Billing address</h4>
-                              <a href="#" class="view">Edit</a>
-                              <p><strong>Bobby Jackson</strong></p>
-                              <address>
-                                  House #15<br>
-                                  Road #1<br>
-                                  Block #C <br>
-                                  Banasree <br>
-                                  Dhaka <br>
-                                  1212
-                              </address>
-                              <p>Bangladesh</p>
+                             {{-- <p>The following addresses will be used on the checkout page by default.</p> --}}
+                             <div class="row mb-3 justify-content-between">
+                                <div class="col-md-6">
+                                    <h4 class="billing-address">Billing address</h4>
+                                </div>
+                                <div class="col-md-6 text-md-end">
+                                    <a href="#" class="btn btn-success" style="color: white;">Tambah Alamat</a>
+                                </div>
+                              </div>
+                              @foreach ($alamats as $item)
+                                <div class="col">
+                                    <div class="card h-100 mb-3">
+                                    {{-- <img class="card-img-top" src="{{ asset('storage/image_toko/' . $item->image) }}" alt="Card image cap"> --}}
+                                    <div class="card-body">
+                                        <p class="card-text">{{ $item->province }}</p>
+                                        <p class="card-text">{{ $item->city_name }} ({{ $item->type }})</p>
+                                        <p class="card-text">{{ $item->postal_code }}</p>
+                                        <p class="card-text">{{ $item->alamat_spesifik }}</p>
+                                        <a href="#" class="btn btn-primary" style="color: white;">Edit</a>
+                                        {{-- <button class="btn btn-outline-danger" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)"> --}}
+                                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)">
+                                        Hapus
+                                        </button>
+                                        <form id="delete-form" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                        </form>
+                                    </div>
+                                    </div>
+                                </div>
+                              @endforeach
                           </div>
                           <div class="tab-pane fade" id="account-details">
                               <h3>Account details </h3>
