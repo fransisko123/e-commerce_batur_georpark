@@ -93,6 +93,9 @@
         .rated > label:hover ~ input:checked ~ label {
         color: #c59b08;
         }
+        .kategori:hover{
+            color: red;
+        }
 </style>
 @endsection
 
@@ -125,20 +128,20 @@
           <div class="row">
               <div class="col-lg-6 col-md-6">
                  <div class="product-details-tab">
-                      <div id="img-1" class="zoomWrapper single-zoom">
+                      <div id="img-1" class="zoomWrapper single-zoom" style="text-align: center; border: 0px;">
                           <a href="#">
                               <img id="zoom1" src="{{ asset('storage/image_produk/' . $produk->image) }}" data-zoom-image="{{ asset('storage/image_produk/' . $produk->image) }}" alt="big-1">
                           </a>
                       </div>
-                      <div class="single-zoom-thumb">
-                          {{-- <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
+                      {{-- <div class="single-zoom-thumb">
+                          <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
                               <li>
                                   <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{ asset('storage/image_produk/' . $produk->image) }}" data-zoom-image="{{ asset('storage/image_produk/' . $produk->image) }}">
                                       <img src="{{ asset('storage/image_produk/' . $produk->image) }}" alt="zo-th-1"/>
                                   </a>
                               </li>
-                          </ul> --}}
-                      </div>
+                          </ul>
+                      </div> --}}
                   </div>
               </div>
               <div class="col-lg-6 col-md-6">
@@ -208,7 +211,7 @@
                                 <h3>Stok Habis  </h3>
                             @endif
                           <div class="product_meta">
-                              <span>Kategori: <a href="{{ route('kategori.shop', $produk->kategori_produk->slug) }}">{{ $produk->kategori_produk->nama }}</a></span>
+                              <span>Kategori: <a href="{{ route('kategori.shop', $produk->kategori_produk->slug) }}" class="kategori">{{ $produk->kategori_produk->nama }}</a></span>
                           </div>
 
                       {{-- </form> --}}

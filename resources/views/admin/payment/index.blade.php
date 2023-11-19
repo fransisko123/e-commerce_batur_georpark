@@ -53,7 +53,9 @@
           <tbody>
             @foreach ($payments as $item)
               <tr>
-                <td>{{ $item->order->no_order }}</td>
+                <td>
+                  <a href="{{ route('order.detail', $item->order->id) }}">{{ $item->order->no_order }}</a>
+                </td>
                 <td>{{ $item->order->customer->nama_depan }} {{ $item->order->customer->nama_belakang }}</td>
                 <td>{{ Illuminate\Support\Carbon::parse($item->created_at)->locale('id_ID')->isoFormat('D MMMM YYYY') }}</td>
                 <td>{{ $item->status }}</td>

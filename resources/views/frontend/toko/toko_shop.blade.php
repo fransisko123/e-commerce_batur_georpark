@@ -97,7 +97,7 @@
 
                       {{-- <button data-role="grid_list" type="button"  class="btn-list" data-bs-toggle="tooltip" title="List"></button> --}}
                   </div>
-                  <div class=" niceselect_option">
+                  {{-- <div class=" niceselect_option">
 
                       <form class="select_option" action="#">
                           <select name="orderby" id="short">
@@ -112,7 +112,7 @@
                       </form>
 
 
-                  </div>
+                  </div> --}}
                   <div class="page_amount">
                     <p>Showing {{ $produks->firstItem() }}–{{ $produks->lastItem() }} of {{ $produks->total() }} results</p>
                   </div>
