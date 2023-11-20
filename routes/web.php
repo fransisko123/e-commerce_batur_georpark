@@ -38,6 +38,10 @@ Route::get('/payment_success', function () {
     return view('frontend.payment.success');
 });
 
+Route::get('/', function () {
+    return view('frontend.tentang_kami');
+});
+
 Route::middleware(['customer.guest'])->group(function () {
     Route::get('/customer_login', [CustomerAuthController::class, 'showLoginForm'])->name('customer.login');
     Route::post('/customer_login', [CustomerAuthController::class, 'login'])->name('customer.post_login');
@@ -49,7 +53,7 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::post('/customer_logout', [CustomerAuthController::class, 'logout'])->name('customer.logout');
 });
 
-Route::get('/', [DashboardFrontendController::class, 'index'])->name('dashboard_frontend.index');
+Route::get('/shop', [DashboardFrontendController::class, 'index'])->name('dashboard_frontend.index');
 Route::get('/{kategori_slug}/kategori_list_produk', [KategoriFrontendController::class, 'shop'])->name('kategori.shop');
 Route::get('/{toko_slug}/toko_list_produk', [TokoFrontendController::class, 'shop'])->name('toko.shop');
 
@@ -115,7 +119,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('produk/{toko}/store', [ProdukController::class, 'store'])->name('produk.store')->middleware('check.toko.ownership');
     Route::get('produk/{toko}/edit/{produk}', [ProdukController::class, 'edit'])->name('produk.edit')->middleware('check.toko.ownership');
     Route::put('produk/{toko}/update/{produk}', [ProdukController::class, 'update'])->name('produk.update')->middleware('check.toko.ownership');
-    Route::delete('produk/{toko}/delete/{produk}', [ProdukController::class, 'destroy'])->name('produk.destroy')->middleware('check.toko.ownership');
+    Route::delete('/produk/{id}/delete', [ProdukController::class, 'destroy'])->name('produk.destroy');
 
     // Laporan produk pada toko
     Route::get('produk_on_order/{toko}', [ProdukOnOrderController::class, 'index'])->name('produk_on_order.index')->middleware('check.toko.ownership');

@@ -49,7 +49,7 @@
               <tr>
                 <td>{{ $item->nama }}</td>
                 <td>{{ $item->kategori_produk->nama }}</td>
-                <td>{{ $item->deskripsi }}</td>
+                <td>{{ Illuminate\Support\Str::limit($item->deskripsi, 150) }}</td>
                 <td>Rp.{{ number_format($item->harga, 2, ',', '.') }}</td>
                 <td>Rp.{{ number_format($item->harga_diskon, 2, ',', '.') }}</td>
                 <td>{{ $item->stok }}</td>
@@ -99,6 +99,7 @@
 <script>
   function showConfirmationModal(button) {
     var id = $(button).data('id');
+    console.log(id)
     $('#delete-confirmation-modal').modal('show');
     $('#delete-form').attr('action', '/produk/' + id + "/delete");
   }

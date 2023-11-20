@@ -206,8 +206,8 @@
                             <nav>
                                 <ul>
 
-                                    <li class="active"><a  href="{{ route('dashboard_frontend.index') }}"><i class="zmdi zmdi-home"></i> home </i></a></li>
-                                    <li class="mega_items"><a href="#"><i class="zmdi zmdi-shopping-basket"></i> shop <i class="zmdi zmdi-caret-down"></i></a>
+                                    <li><a  href="{{ route('dashboard_frontend.index') }}"><i class="zmdi zmdi-shopping-basket"></i> Shop </i></a></li>
+                                    <li class="mega_items" style="{{ (request()->is('/')) ? 'display: none;' : 'display: inline-block;' }}"><a href="#"><i class="zmdi zmdi-search"></i>Cari<i class="zmdi zmdi-caret-down"></i></a>
                                         <div class="mega_menu">
                                             <ul class="mega_menu_inner">
                                                 <li style="margin-right: 90px;"><a href="#">Toko</a>
@@ -217,14 +217,14 @@
                                                     @endphp
                                                     <ul>
                                                         @foreach ($toko  as $item)
-                                                            <li><a href="{{ route('toko.shop', $item->slug) }}">{{ $item->nama }}</a></li>
+                                                            <li class="mb-2"><a href="{{ route('toko.shop', $item->slug) }}">- {{ $item->nama }}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 </li>
                                                 <li style="margin-left: 90px;"><a href="#">Kategori</a>
                                                     <ul>
                                                         @foreach ($kategori as $item)
-                                                            <li><a href="{{ route('kategori.shop', $item->slug) }}">{{ $item->nama }}</a></li>
+                                                            <li class="mb-2"><a href="{{ route('kategori.shop', $item->slug) }}">- {{ $item->nama }}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 </li>
@@ -232,7 +232,7 @@
                                         </div>
                                     </li>
 
-                                    <li><a href="about.html"><i class="zmdi zmdi-comments"></i> about Us</a></li>
+                                    <li><a href="/"><i class="zmdi zmdi-comments"></i>Tentang Batur Geopark</a></li>
                                     <li>
                                         @if(auth()->guard('customer')->check())
                                             @php
