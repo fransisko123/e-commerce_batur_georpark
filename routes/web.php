@@ -20,6 +20,7 @@ use App\Http\Controllers\frontend\CheckoutFrontendController;
 use App\Http\Controllers\frontend\CustomerFrontendController;
 use App\Http\Controllers\frontend\KategoriFrontendController;
 use App\Http\Controllers\frontend\DashboardFrontendController;
+use App\Http\Controllers\frontend\AlamatCustomerFrontendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,7 +66,12 @@ Route::middleware(['customer.auth'])->group(function () {
     Route::post('checkout_pay', [CheckoutFrontendController::class, 'checkout_pay'])->name('checkout.checkout_pay');
     Route::get('/my_account', [CustomerFrontendController::class, 'myAccount'])->name('customer.myAccount');
     Route::get('/my_account/{customer_id}/{no_order}', [CustomerFrontendController::class, 'detail_order'])->name('customer.detail_order');
+    Route::get('/tambah_alamat/{customer_id}', [AlamatCustomerFrontendController::class, 'create'])->name('alamat_frontend.create');
+    Route::get('/getCitiesFrontend/{provinceId}', [AlamatCustomerFrontendController::class, 'getCitiesFrontend'])->name('alamat_frontend.getCitiesFrontend');
+    Route::post('tambah_alamat_proses_frontend/{customer}', [AlamatCustomerFrontendController::class, 'store'])->name('alamat_frontend.store');
+    Route::delete('destroy/alamat_frontend/{alamat}', [AlamatCustomerFrontendController::class, 'destroy'])->name('alamat_frontend.destroy');
     Route::put('/my_account/order/{id}/dibatalkan', [CustomerFrontendController::class, 'dibatalkan'])->name('customer.detail_order.dibatalkan');
+    Route::put('/my_account/{customer_id}/edit', [CustomerFrontendController::class, 'editProfileProses'])->name('customerFrontend.editProfileProses');
 
     // payment page
     Route::get('pembayaran/{customer_id}/{payment_id}', [CheckoutFrontendController::class, 'pembayaran_page'])->name('checkout.pembayaran_page');

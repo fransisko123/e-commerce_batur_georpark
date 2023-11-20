@@ -35,7 +35,7 @@ class KategoriProdukController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required|unique:tb_kategori_produk,nama',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -82,7 +82,7 @@ class KategoriProdukController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required|unique:tb_kategori_produk,nama,' . $id,
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         if ($validator->fails()) {

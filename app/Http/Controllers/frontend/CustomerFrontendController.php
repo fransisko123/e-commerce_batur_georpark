@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Models\Order;
+use App\Models\Customer;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\AlamatCustomer;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerFrontendController extends Controller
@@ -18,7 +19,8 @@ class CustomerFrontendController extends Controller
         return view('frontend.myaccount.index',
             [
                 'order' => $order,
-                'alamats' => $alamats
+                'alamats' => $alamats,
+                'customer' => $customer
             ]
         );
     }
@@ -45,5 +47,17 @@ class CustomerFrontendController extends Controller
         $order->status = "Dibatalkan";
         $order->save();
         return redirect()->route('customer.detail_order', [$order->customer_id, $order->id])->with('status', 'Order telah selesai.');
+    }
+
+    public function editProfileProses(Request $request, $customer)
+    {
+        $data_customer = Customer::findOrFail($customer);
+        $data_customer->nama_depan = $request->nama_depan;
+        $data_customer->nama_belakang = $request->nama_belakang;
+        // $data_customer->email = $request->email;
+        $data_customer->no_telp = $request->no_telp;
+        $data_customer->tanggal_lahir = $request->tanggal_lahir;
+        $data_customer->save();
+        return redirect()->route('customer.myAccount')->with('success', 'Berhasil mengupdate data .');
     }
 }

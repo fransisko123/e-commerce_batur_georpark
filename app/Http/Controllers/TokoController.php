@@ -48,7 +48,7 @@ class TokoController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required|unique:tb_toko',
             'deskripsi' => 'nullable',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -103,7 +103,7 @@ class TokoController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required|unique:tb_toko,nama,' . $id,
             'deskripsi' => 'nullable',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         if ($validator->fails()) {

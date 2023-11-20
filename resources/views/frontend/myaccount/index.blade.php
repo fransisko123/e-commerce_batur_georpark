@@ -27,6 +27,11 @@
   <!-- my account start  -->
   <section class="main_content_area">
       <div class="container">
+        @if(session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="d-flex justify-content-end mb-4">
           <form action="{{ route('customer.logout') }}" method="POST">
             @csrf
@@ -41,9 +46,9 @@
                           <ul role="tablist" class="nav flex-column dashboard-list">
                               <li><a href="#dashboard" data-bs-toggle="tab" class="nav-link active">Dashboard</a></li>
                               <li> <a href="#orders" data-bs-toggle="tab" class="nav-link">Orders</a></li>
-                              <li><a href="#downloads" data-bs-toggle="tab" class="nav-link">Downloads</a></li>
-                              <li><a href="#address" data-bs-toggle="tab" class="nav-link">Addresses</a></li>
-                              <li><a href="#account-details" data-bs-toggle="tab" class="nav-link">Account details</a></li>
+                              {{-- <li><a href="#downloads" data-bs-toggle="tab" class="nav-link">Downloads</a></li> --}}
+                              <li><a href="#address" data-bs-toggle="tab" class="nav-link">Alamat</a></li>
+                              <li><a href="#account-details" data-bs-toggle="tab" class="nav-link">Detail Akun</a></li>
                           </ul>
                       </div>
                   </div>
@@ -81,7 +86,7 @@
                                   </table>
                               </div>
                           </div>
-                          <div class="tab-pane fade" id="downloads">
+                          {{-- <div class="tab-pane fade" id="downloads">
                               <h3>Downloads</h3>
                               <div class="table-responsive">
                                   <table class="table">
@@ -109,7 +114,7 @@
                                       </tbody>
                                   </table>
                               </div>
-                          </div>
+                          </div> --}}
                           <div class="tab-pane" id="address">
                              {{-- <p>The following addresses will be used on the checkout page by default.</p> --}}
                              <div class="row mb-3 justify-content-between">
@@ -117,7 +122,7 @@
                                     <h4 class="billing-address">Billing address</h4>
                                 </div>
                                 <div class="col-md-6 text-md-end">
-                                    <a href="#" class="btn btn-success" style="color: white;">Tambah Alamat</a>
+                                    <a href="{{ route('alamat_frontend.create', $customer->id) }}" class="btn btn-success" style="color: white;">Tambah Alamat</a>
                                 </div>
                               </div>
                               @foreach ($alamats as $item)
@@ -129,7 +134,7 @@
                                         <p class="card-text">{{ $item->city_name }} ({{ $item->type }})</p>
                                         <p class="card-text">{{ $item->postal_code }}</p>
                                         <p class="card-text">{{ $item->alamat_spesifik }}</p>
-                                        <a href="#" class="btn btn-primary" style="color: white;">Edit</a>
+                                        {{-- <a href="#" class="btn btn-primary" style="color: white;">Edit</a> --}}
                                         {{-- <button class="btn btn-outline-danger" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)"> --}}
                                         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)">
                                         Hapus
@@ -143,26 +148,47 @@
                                 </div>
                               @endforeach
                           </div>
+
+                          {{-- MODAL HAPUS --}}
+                            <div class="modal fade" id="hapusModal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Hapus alamat</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <p>Apakah anda yakin ingin menghapus alamat.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-danger" onclick="deleteData()">Hapus</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
                           <div class="tab-pane fade" id="account-details">
                               <h3>Account details </h3>
                               <div class="login">
                                   <div class="login_form_container">
                                       <div class="account_login_form">
-                                          <form action="#">
+                                          <form action="{{ route('customerFrontend.editProfileProses', $customer->id) }}" method="post">
+                                            @csrf
+                                            @method('PUT')
                                               {{-- <p>Already have an account? <a href="#">Log in instead!</a></p> --}}
-                                              <label>Nama Depan</label>
-                                              <input type="text" name="first-name">
-                                              <label>Nama Belakang</label>
-                                              <input type="text" name="last-name">
-                                              <label>Email</label>
-                                              <input type="text" name="email-name">
-                                              {{-- <label>Password</label>
-                                              <input type="password" name="user-password"> --}}
-                                              <label>Birthdate</label>
-                                              <input type="text" placeholder="MM/DD/YYYY" value="" name="birthday">
-                                              <div class="save_button primary_btn default_button">
-                                                  <button type="submit">Save</button>
-                                              </div>
+                                                <label>Nama Depan</label>
+                                                <input type="text" name="nama_depan" value="{{ $customer->nama_depan }}">
+                                                <label>Nama Belakang</label>
+                                                <input type="text" name="nama_belakang" value="{{ $customer->nama_belakang }}">
+                                                {{-- <label>Email</label>
+                                                <input type="email" name="email" value="{{ $customer->email }}"> --}}
+                                                <label>No Telp</label>
+                                                <input type="text" name="no_telp" value="{{ $customer->no_telp }}">
+                                                <label>Birthdate</label>
+                                                <input type="date" value="{{ $customer->tanggal_lahir }}" name="tanggal_lahir">
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
                                           </form>
                                       </div>
                                   </div>
@@ -178,5 +204,15 @@
 @endsection
 
 @section('additional_js')
+<script>
+    function showConfirmationModal(button) {
+      var id = $(button).data('id');
+      $('#delete-confirmation-modal').modal('show');
+      $('#delete-form').attr('action', '/destroy/alamat_frontend/' + id);
+    }
 
+    function deleteData() {
+      $('#delete-form').submit();
+    }
+  </script>
 @endsection

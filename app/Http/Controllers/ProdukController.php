@@ -50,7 +50,7 @@ class ProdukController extends Controller
             'harga_diskon' => 'nullable|numeric',
             'stok' => 'required|numeric',
             'berat' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -114,7 +114,7 @@ class ProdukController extends Controller
             'harga_diskon' => 'nullable|numeric',
             'stok' => 'required|numeric',
             'berat' => 'required|numeric',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         if ($validator->fails()) {

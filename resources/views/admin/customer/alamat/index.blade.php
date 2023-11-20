@@ -33,7 +33,7 @@
               <p class="card-text">{{ $item->city_name }} ({{ $item->type }})</p>
               <p class="card-text">{{ $item->postal_code }}</p>
               <p class="card-text">{{ $item->alamat_spesifik }}</p>
-              <a href="#" class="btn btn-outline-primary">Edit</a>
+              {{-- <a href="#" class="btn btn-outline-primary">Edit</a> --}}
               {{-- <button class="btn btn-outline-danger" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)"> --}}
               <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)">
                 Hapus
