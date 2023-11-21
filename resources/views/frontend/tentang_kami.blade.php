@@ -35,15 +35,14 @@
   <div class="container">
       <div class="row">
           <div class="col-md-6">
-              <h2>Tentang Kami</h2>
-              <p>
-                  Batur Geopark adalah destinasi yang menakjubkan yang menggabungkan keindahan alam dan nilai geologis tinggi.
-                  Dengan pemandangan Gunung Batur yang megah, kami mengundang Anda untuk menjelajahi keajaiban alam dan kebudayaan di sekitarnya.
-                  Kunjungi museum kami dan temukan keindahan serta keunikannya.
+              <h2>Museum Batur Geopark</h2>
+              <hr>
+              <p style="font-size: 16px;">
+                Museum yang berada di selatan Gunung Batur ini menyajikan informasi geopark nasional dan geopark global. Ruangan peragaan museum berdasarkan konsep geopark atau taman bumi, terdiri dari keanekaragaman geologi, hayati, dan budaya. Keanekaragaman geologi umumnya diisi oleh batuan produk letusan Gunung Batur.
               </p>
           </div>
           <div class="col-md-6">
-              <img src="{{ asset('frontend_assets/assets/img/about/batur_geopark.jpg') }}" alt="Batur Geopark" class="img-fluid">
+              <img src="{{ asset('frontend_assets/assets/img/slider/museum_batur_banner.jpg') }}" alt="Batur Geopark" class="img-fluid">
           </div>
       </div>
   </div>
@@ -54,14 +53,15 @@
   <div class="container">
       <div class="row">
           <div class="col-md-6">
-              <img src="{{ asset('frontend_assets/assets/img/about/geopark_values.jpg') }}" alt="Nilai Geopark" class="img-fluid">
+              <img src="{{ asset('frontend_assets/assets/img/about/nilai_batur.jpg') }}" alt="Nilai Geopark" class="img-fluid">
           </div>
           <div class="col-md-6">
               <h2>Nilai Geopark</h2>
-              <p>
+              <hr>
+              <p style="font-size: 16px;">
                   Batur Geopark berkomitmen untuk melestarikan keanekaragaman hayati dan geologi. Kami aktif terlibat dalam program konservasi untuk menjaga ekosistem unik di sekitar Gunung Batur. Selain itu, kami mempromosikan pendidikan lingkungan dan kesadaran masyarakat untuk ikut berperan dalam pelestarian alam.
               </p>
-              <p>
+              <p style="font-size: 16px;">
                   Dengan memadukan keindahan alam, budaya, dan keberlanjutan, Batur Geopark memberikan pengalaman yang mendalam dan mendidik bagi semua pengunjung. Bergabunglah dengan kami untuk merayakan keajaiban geologi dan menelusuri jejak sejarah yang terpahat di lereng Gunung Batur.
               </p>
           </div>
@@ -77,23 +77,23 @@
       <div class="row">
           <div class="col-md-4">
               <div class="museum_item">
-                  <img src="{{ asset('frontend_assets/assets/img/museum/collection1.jpg') }}" alt="Koleksi Museum 1" class="img-fluid">
-                  <h3>Keramik Arkeologis</h3>
-                  <p>Koleksi keramik kuno yang menggambarkan kehidupan masyarakat pada zaman prasejarah.</p>
+                  <img src="{{ asset('frontend_assets/assets/img/about/kebumian.png') }}" alt="Koleksi Museum 1" class="img-fluid">
+                  <h3>Kebumian</h3>
+                  <p>Setiap artefak menceritakan kisah panjang perkembangan bumi, dari masa pra-sejarah hingga zaman modern. Sentuhan interaktif memungkinkan pengunjung untuk menyelami proses geologis yang membentuk bumi, sementara panduan ahli memberikan wawasan mendalam tentang misteri dan keajaiban alam yang tersembunyi di bawah permukaan..</p>
               </div>
           </div>
           <div class="col-md-4">
               <div class="museum_item">
-                  <img src="{{ asset('frontend_assets/assets/img/museum/collection2.jpg') }}" alt="Koleksi Museum 2" class="img-fluid">
-                  <h3>Batuan Vulkanik</h3>
-                  <p>Sejumlah batuan vulkanik langka yang membentuk puncak Gunung Batur.</p>
+                  <img src="{{ asset('frontend_assets/assets/img/about/hayati.png') }}" alt="Koleksi Museum 2" class="img-fluid">
+                  <h3>Hayati</h3>
+                  <p>Sebuah perjalanan luar biasa ke dalam keanekaragaman kehidupan yang menghiasi Batur Geopark. Setiap langkah di dalam museum ini membuka pintu ke alam liar yang unik, di mana flora dan fauna berkumpul dalam harmoni yang menakjubkan..</p>
               </div>
           </div>
           <div class="col-md-4">
               <div class="museum_item">
-                  <img src="{{ asset('frontend_assets/assets/img/museum/collection3.jpg') }}" alt="Koleksi Museum 3" class="img-fluid">
-                  <h3>Seni Lukis Lokal</h3>
-                  <p>Karya seniman lokal yang terinspirasi oleh keindahan alam sekitar.</p>
+                  <img src="{{ asset('frontend_assets/assets/img/about/kebudayaan.png') }}" alt="Koleksi Museum 3" class="img-fluid">
+                  <h3>Kebudayaan</h3>
+                  <p>Sebuah tempat yang mengungkapkan kekayaan budaya dan warisan yang membanggakan dari Pulau Bali. Museum ini adalah pintu gerbang menuju ke dalam sejarah yang kaya dan keberagaman budaya yang menjadi bagian integral dari Batur Geopark..</p>
               </div>
           </div>
       </div>
@@ -107,17 +107,14 @@
       <h2>Pengalaman Wisata di Batur Geopark</h2>
       <div class="row">
           <div class="col-md-6">
-              <img src="{{ asset('frontend_assets/assets/img/experience/tour_experience.jpg') }}" alt="Pengalaman Wisata" class="img-fluid">
+              <img src="{{ asset('frontend_assets/assets/img/about/wisatawan.png') }}" alt="Pengalaman Wisata" class="img-fluid">
           </div>
           <div class="col-md-6">
               <p>
-                  Bergabunglah dalam petualangan tak terlupakan di Batur Geopark. Kami menawarkan berbagai pengalaman wisata yang dapat memikat selera petualangan Anda.
+                Di dalam perjalanan ini, Anda akan dibawa melintasi lorong waktu yang membuka tabir misteri masa lalu. Tim arkeolog yang berpengetahuan luas akan memandu langkah Anda untuk menemukan petunjuk-petunjuk yang mengungkapkan kisah panjang kehidupan masyarakat yang pernah menghuni daerah sekitar Gunung Batur. Setiap puing sejarah, artefak, dan struktur batu yang tersembunyi di antara rerimbunan alam menggambarkan perjalanan waktu yang menggetarkan.
               </p>
               <p>
-                  Nikmati trekking mendebarkan ke puncak Gunung Batur yang menawarkan pemandangan spektakuler matahari terbit. Rasakan kehangatan alam melalui sumber air panas alami yang terletak di sekitar kawasan geopark.
-              </p>
-              <p>
-                  Bagi para pecinta arkeologi, jangan lewatkan kunjungan ke situs-situs bersejarah yang tersembunyi di tengah keindahan alam Gunung Batur. Tim arkeolog kami akan memandu Anda untuk menjelajahi jejak-jejak sejarah yang menarik.
+                Tidak hanya sebatas penggalian arkeologis, kunjungan ini juga menjadi kesempatan untuk menyelami keindahan alam sekitar Gunung Batur yang menambahkan nuansa magis pada perjalanan sejarah ini. Sebuah pengalaman yang menggabungkan kecintaan pada arkeologi dengan keajaiban alam yang spektakuler, memberikan kenangan tak terlupakan bagi setiap pengunjung yang merindukan petualangan sejarah yang sesungguhnya. Selamat menelusuri warisan sejarah yang tersembunyi di kaki Gunung Batur!
               </p>
           </div>
       </div>
