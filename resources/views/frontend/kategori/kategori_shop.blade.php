@@ -69,7 +69,7 @@
               <div class="breadcrumb_content">
                   <ul>
                       <li><a href="{{ route('dashboard_frontend.index') }}">home</a></li>
-                      <li>Produk {{ $kategori->nama }}</li>
+                      <li>Kategori  {{ $kategori->nama }}</li>
                   </ul>
               </div>
           </div>
@@ -86,7 +86,7 @@
               <!--shop wrapper start-->
               <!--shop toolbar start-->
               <div class="shop_title">
-                  <h1>Produk {{ $kategori->nama }}</h1>
+                  <h1>Kategori {{ $kategori->nama }}</h1>
               </div>
               <div class="shop_toolbar_wrapper">
                   <div class="shop_toolbar_btn">

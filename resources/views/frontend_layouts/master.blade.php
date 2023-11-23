@@ -233,7 +233,7 @@
                                     </li>
 
                                     <li><a href="/"><i class="zmdi zmdi-comments"></i>Tentang Batur Geopark</a></li>
-                                    <li>
+                                    <li style="{{ (request()->is('/')) ? 'display: none;' : 'display: inline-block;' }}">
                                         @if(auth()->guard('customer')->check())
                                             @php
                                                 $customer = auth()->guard('customer')->user();
@@ -332,7 +332,6 @@
                                             <li><a href="{{ route('customer.myAccount') }}">My Account </a></li>
                                             <li><a href="{{ route('cart.shopping_cart') }}">Shopping Cart</a></li>
                                             <li><a href="{{ route('checkout.cartToCheckout') }}">Checkout </a></li>
-                                            <li><a href="wishlist.html">Wishlist</a></li>
                                         </ul>
                                     </li>
                                 @endif
