@@ -29,6 +29,14 @@
       </a>
     </li>
     @if(auth()->user()->role == 'admin')
+      <li class="menu-item {{ (request()->is('pemilik_toko')) ? 'active' : '' }}">
+        <a href="{{ route('pemilik_toko.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-store"></i>
+          <div data-i18n="Analytics">Pemilik Toko</div>
+        </a>
+      </li>
+    @endif
+    @if(auth()->user()->role == 'admin')
       <li class="menu-item {{ (request()->is('kategori_produk')) ? 'active' : '' }}">
         <a href="{{ route('kategori_produk.index') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-store"></i>

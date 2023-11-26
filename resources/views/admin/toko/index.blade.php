@@ -30,6 +30,9 @@
               <p class="card-text">{{ $item->deskripsi }}</p>
               <a href="{{ route('produk.index', $item->id) }}" class="btn btn-outline-info">Produk</a>
               <a href="{{ route('toko.edit', $item->id) }}" class="btn btn-outline-primary">Edit</a>
+              @if(auth()->user()->role == 'admin')
+                <a href="{{ route('toko.laporan_penjualan', $item->id) }}" class="btn btn-outline-secondary">Laporan Penjualan</a>
+              @endif
               {{-- <button class="btn btn-outline-danger" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)"> --}}
               @if (auth()->user()->role == 'admin')
                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#hapusModal" data-id="{{ $item->id }}" onclick="showConfirmationModal(this)">

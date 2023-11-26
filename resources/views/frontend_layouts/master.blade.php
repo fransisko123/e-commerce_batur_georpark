@@ -53,7 +53,7 @@
                                             <li><a href="{{ route('customer.myAccount') }}">My Account </a></li>
                                             <li><a href="{{ route('cart.shopping_cart') }}">Shopping Cart</a></li>
                                             <li><a href="{{ route('checkout.cartToCheckout') }}">Checkout </a></li>
-                                            <li><a href="wishlist.html">Wishlist</a></li>
+                                            {{-- <li><a href="wishlist.html">Wishlist</a></li> --}}
                                         </ul>
                                     </li>
                                 </ul>

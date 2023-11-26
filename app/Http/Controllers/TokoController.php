@@ -6,6 +6,7 @@ use App\Models\Toko;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\ProdukInOrder;
 use Illuminate\Support\Facades\Validator;
 
 class TokoController extends Controller
@@ -130,6 +131,31 @@ class TokoController extends Controller
 
         $toko->save();
         return redirect()->route('toko.index')->with('status', 'Berhasil Memperbarui Toko.');
+    }
+
+    public function laporan_penjualan(Request $request, $id_toko)
+    {
+        $toko = Toko::findOrFail($id_toko);
+
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
+        $produkInOrder = ProdukInOrder::whereHas('produk', function ($query) use ($toko) {
+            $query->where('toko_id', $toko->id);
+        })->whereHas('order', function ($query) {
+            $query->where('status', 'Selesai');
+        });;
+
+        if ($start_date && $end_date) {
+            $produkInOrder->whereBetween('created_at', [$start_date, date('Y-m-d', strtotime($end_date. ' + 1 day'))]);
+        }
+
+        $produkInOrder = $produkInOrder->get();
+
+        return view('admin.toko.laporan_penjualan', [
+            'produkInOrder' => $produkInOrder,
+            'toko' => $toko
+        ]);
     }
 
 

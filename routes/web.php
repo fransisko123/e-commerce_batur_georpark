@@ -8,6 +8,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PemilikTokoController;
 use App\Http\Controllers\ProdukOnOrderController;
 use App\Http\Controllers\AlamatCustomerController;
 use App\Http\Controllers\KategoriProdukController;
@@ -109,9 +110,12 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('toko/{toko}', [TokoController::class, 'show'])->name('toko.show');
     Route::get('toko/{toko}/edit', [TokoController::class, 'edit'])->name('toko.edit')->middleware('check.toko.ownership');
     Route::put('toko/{toko}', [TokoController::class, 'update'])->name('toko.update')->middleware('check.toko.ownership');
+    Route::get('toko/{toko}/laporan_penjualan', [TokoController::class, 'laporan_penjualan'])->name('toko.laporan_penjualan')->middleware('admin');
     Route::delete('toko/{toko}', [TokoController::class, 'destroy'])->name('toko.destroy')->middleware('admin');
 
     Route::resource('kategori_produk', KategoriProdukController::class);
+
+    Route::resource('pemilik_toko', PemilikTokoController::class);
 
     // Produk
     Route::get('{toko}/produk/list_produk', [ProdukController::class, 'index'])->name('produk.index')->middleware('check.toko.ownership');
