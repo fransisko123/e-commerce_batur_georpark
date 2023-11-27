@@ -88,16 +88,6 @@
           <div class="coupon_area">
               <div class="row">
                   <div class="col-lg-6 col-md-6">
-                      <div class="coupon_code left">
-                          <h3>Coupon</h3>
-                          <div class="coupon_inner">
-                              <p>Enter your coupon code if you have one.</p>
-                              <input placeholder="Coupon code" type="text">
-                              <button type="submit">Apply coupon</button>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6">
                       <div class="coupon_code right">
                           <h3>Cart Totals</h3>
                           <div class="coupon_inner">
@@ -105,16 +95,6 @@
                                  <p>Subtotal</p>
                                  <p class="cart_amount">Rp {{ number_format($hargaTotal, 2) }}</p>
                              </div>
-                             {{-- <div class="cart_subtotal ">
-                                 <p>Shipping</p>
-                                 <p class="cart_amount"><span>Flat Rate:</span> £255.00</p>
-                             </div>
-                             <a href="#">Calculate shipping</a> --}}
-
-                             {{-- <div class="cart_subtotal">
-                                 <p>Total</p>
-                                 <p class="cart_amount">£215.00</p>
-                             </div> --}}
                              @if ($cartItems->count() != 0)
                                 <div class="checkout_btn">
                                     <a href="{{ route('checkout.cartToCheckout') }}">Proceed to Checkout</a>
