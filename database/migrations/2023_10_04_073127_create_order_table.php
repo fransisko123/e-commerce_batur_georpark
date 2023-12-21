@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->text('alamat');
             $table->string('shipping_code');
+            $table->float('biaya_shipping');
             $table->float('total_harga');
             $table->text('catatan')->nullable();
             $table->text('status');

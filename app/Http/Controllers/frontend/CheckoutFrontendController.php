@@ -94,6 +94,7 @@ class CheckoutFrontendController extends Controller
         $order->customer_id = $request->user;
         $order->alamat = $request->alamat;
         $order->shipping_code = $selectedService;
+        $order->biaya_shipping = (float)$serviceCost;
         $order->total_harga = (float)$request->total_harga + $serviceCost;
         $order->catatan = $request->catatan;
         $order->status = 'Pemesanan';
@@ -126,7 +127,7 @@ class CheckoutFrontendController extends Controller
             'description' => 'Transaksi pada ID Order : ' . $order->no_order,
             'amount' => $order->total_harga,
             'invoice_duration' => 3600,
-            'success_redirect_url' => 'https://10f7-182-253-132-184.ngrok-free.app/payment_success',
+            'success_redirect_url' => 'https://ff49-202-46-153-253.ngrok-free.app/payment_success',
         ];
 
         // $createInvoice = \Xendit\Invoice::create($params);

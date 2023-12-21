@@ -75,7 +75,10 @@
             <tr>
               <td><img src="{{ asset('storage/image_produk/' . $item->produk->image) }}" width="100"></td>
               <td>{{ $item->produk->nama }}</td>
-              <td>Rp {{ number_format($item->produk->harga_diskon, 2) ? number_format($item->produk->harga_diskon, 2) : number_format($item->produk->harga, 2) }}</td>
+              @php
+                  $hargaToShow = $item->produk->harga_diskon != 0 ? number_format($item->produk->harga_diskon, 2) : number_format($item->produk->harga, 2);
+              @endphp
+              <td>Rp {{ $hargaToShow }}</td>
               <td>{{ $item->quantity }}</td>
             </tr>
             @php
@@ -91,11 +94,15 @@
         <table class="table">
           <tr>
               <th>Jumlah Barang</th>
-              <td><b>{{ $totalQuantity}} Item</b></td>
+              <td>{{ $totalQuantity}} Item</td>
           </tr>
           <tr>
-              <th>Total Harga</th>
-              <td><b>Rp {{ number_format($order->total_harga, 2) }}</b></td>
+            <th>Shipping</th>
+            <td>{{ strtoupper($order->shipping_code) }} - (Rp {{ number_format($order->biaya_shipping, 2) }})</td>
+          </tr>
+          <tr>
+            <th>Total Harga</th>
+            <td><b>Rp {{ number_format($order->total_harga, 2) }}</b></td>
           </tr>
         </table>
       </div>

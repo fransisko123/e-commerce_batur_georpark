@@ -83,12 +83,17 @@
           <tr>
             <th>Image</th>
             <th>Nama Produk</th>
+            <th>Harga Produk</th>
             <th>Jumlah</th>
           </tr>
           @foreach ($produk_in_order as $item)
             <tr>
               <td><img src="{{ asset('storage/image_produk/' . $item->produk->image) }}" width="100"></td>
               <td>{{ $item->produk->nama }}</td>
+              @php
+                $hargaToShow = $item->produk->harga_diskon != 0 ? number_format($item->produk->harga_diskon, 2) : number_format($item->produk->harga, 2);
+              @endphp
+              <td>Rp {{ $hargaToShow }}</td>
               <td>{{ $item->quantity }}</td>
             </tr>
             @php
@@ -103,6 +108,10 @@
           <tr>
               <th>Jumlah Barang</th>
               <td><b>{{ $totalQuantity}} Item</b></td>
+          </tr>
+          <tr>
+            <th>Shipping</th>
+            <td>{{ strtoupper($order->shipping_code) }} - (Rp {{ number_format($order->biaya_shipping, 2) }})</td>
           </tr>
           <tr>
               <th>Total Harga</th>
