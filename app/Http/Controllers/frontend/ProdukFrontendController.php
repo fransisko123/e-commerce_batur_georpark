@@ -12,6 +12,7 @@ class ProdukFrontendController extends Controller
     public function detail($produk_slug)
     {
         $produk = Produk::where('slug', $produk_slug)->first();
+        $produk->increment('click_count');
         $reviews = Review::where('produk_id', $produk->id)->get();
         $related_produk = Produk::where('kategori_produk_id', $produk->kategori_produk_id)->where('stok', '>', 0)->where('id', '!=', $produk->id)->get();
         return view('frontend.produk_detail',

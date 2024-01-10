@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PemilikTokoController;
 use App\Http\Controllers\ProdukOnOrderController;
 use App\Http\Controllers\AlamatCustomerController;
+use App\Http\Controllers\AnalisisProdukController;
 use App\Http\Controllers\KategoriProdukController;
 use App\Http\Controllers\frontend\CartFrontendController;
 use App\Http\Controllers\frontend\CustomerAuthController;
@@ -101,7 +102,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Dashboard Admin
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // TOKO
     Route::get('toko', [TokoController::class, 'index'])->name('toko.index');
@@ -146,6 +147,8 @@ Route::middleware('auth', 'verified')->group(function () {
 
     Route::get('payment', [PaymentController::class, 'index'])->name('payment.index');
     Route::delete('payment/{id}/delete', [PaymentController::class, 'destroy'])->name('payment.destroy');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 });
 
 require __DIR__.'/auth.php';

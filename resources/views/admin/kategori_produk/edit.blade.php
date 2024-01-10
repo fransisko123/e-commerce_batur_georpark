@@ -40,6 +40,12 @@
             <label for="image" class="form-label">Image</label>
             <input class="form-control" type="file" name="image" id="image">
           </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="1" id="kategori_rekomendasi" name="kategori_rekomendasi" {{ $kategori_produk->kategori_rekomendasi == 1 ? 'checked' : '' }}>
+            <label class="form-check-label" for="kategori_rekomendasi">
+              Kategori Rekomendasi
+            </label>
+          </div>
           <button type="submit" class="btn btn-primary mt-4">Simpan Perubahan</button>
         </form>
       </div>

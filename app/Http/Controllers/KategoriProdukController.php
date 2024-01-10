@@ -99,6 +99,12 @@ class KategoriProdukController extends Controller
             $kategori_produk->image = $filename;
         }
 
+        if ($request->kategori_rekomendasi == NULL) {
+            $kategori_produk->kategori_rekomendasi = 0;
+        } else {
+            $kategori_produk->kategori_rekomendasi = 1;
+        }
+
         $kategori_produk->save();
         return redirect()->route('kategori_produk.index')->with('status', 'Berhasil Mengupdate Kategori Produk.');
     }
